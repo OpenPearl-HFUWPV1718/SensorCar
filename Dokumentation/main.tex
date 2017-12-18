@@ -4,13 +4,12 @@
 	bibtotoc,
 	cleardoubleempty, 
 	idxtotoc,
-	ngerman,
 	openright
 	final,
 	listof=nochaptergap,
 	]{scrbook}
 
-%\usepackage[T1]{fontenc}
+\usepackage[T1]{fontenc}
 \usepackage{times}
 \usepackage[utf8]{inputenc}
 \fontfamily{ptm}\selectfont
@@ -41,11 +40,11 @@
 \mainmatter
 
 \include{content/einleitung}
-\include{content/uebersicht_zeitplan}
-
-% Literaturverzeichnis
-\singlespacing
-\bibliographystyle{bibliography}
-\bibliography{bibtex}
+\include{content/funktionsbeschreibung}
+\include{content/planung}
+\include{content/philosophenproblem}
+\include{content/mechanik}
+\include{content/komponenten}
+\include{content/gesamtsystem}
 
 \end{document}      
