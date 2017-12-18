@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module name="TestSocket"  file="TestSocket.prl">
+<system>
+ <username name="httpSocket"  line="4">
+ <sysname name="TcpIpServer">
+       <parameters>
+             <FIXED>1235</FIXED> 
+       </parameters>
+ </sysname>
+ </username>
+
+ <username name="stdout"  line="5">
+ <sysname name="StdOut">
+ </sysname>
+ </username>
+
+ <username name="stdin"  line="6">
+ <sysname name="StdIn">
+ </sysname>
+ </username>
+
+
+</system>
+<problem>
+ <spc type="dation" name="httpSocket" line="10">
+ <attributes>SYSTEM,INOUT</attributes>
+ <data>ALL</data>
+ </spc>
+ <spc type="dation" name="stdout" line="13">
+ <attributes>SYSTEM,OUT</attributes>
+ <data>ALPHIC</data>
+ </spc>
+ <spc type="dation" name="stdin" line="15">
+ <attributes>SYSTEM,IN</attributes>
+ <data>ALPHIC</data>
+ </spc>
+
+</problem>
+</module>
