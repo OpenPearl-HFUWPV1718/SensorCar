@@ -1,1 +1,40 @@
 \chapter{Philosophenproblem}
+
+Um mit der Sprache OpenPEARL und ihren Konstrukten insbesondere zur Nebenläufigkeit vertraut zu werden, wurde als einführendes Beispiel das Philosophenproblem gelöst.
+
+\section{Das Philosophenproblem}
+	Das Philosophenproblem ist ein bekanntes Fallbeispiel für Nebenläufigkeit und Verklemmung. Fünf Philosophen sitzen um einen runden Tisch, jeder der Philosophen hat einen Teller mit Spaghetti vor sich. Um diese zu essen, benötigt jeder Philosoph zwei Gabeln, es sind jedoch nur fünf Gabeln, jeweils eine zwischen zwei Philosophen, vorhanden. Es können also nicht alle Philosophen gleichzeitig essen.\\
+	Die Philosophen werden als Prozesse oder Threads betrachtet, die gleichzeitig auf mehrere Ressourcen, die Gabeln, zugreifen möchten.
+	
+\section{Umsetzung}
+	Die Gabeln werden als Semaphoren realisiert. Diese bieten nur einer bestimmten Anzahl Threads bzw. im Kontext von OpenPEARL \emph{Tasks} die Möglichkeit der gleichzeitigen Belegung. Beim Philosophenproblem kann jede Gabel, also jede Semaphore, nur einmal belegt werden.\\
+	Zum Essen benötigt ein Philosoph zwei Gabeln, also auch zwei Semaphoren. Erfolgt der Zugriff auf die Semaphoren nicht-atomar, das heißt voneinander getrennt und nacheinander, so kann es zur Verklemmung kommen: Jeder Philosoph hält eine Gabel und wartet auf die Freigabe der zweiten --- die Philosophen verhungern.\\
+	OpenPEARL bietet zur einfachen Lösung des Problems die Möglichkeit, mehrere Semaphoren in einer atomaren Aktion gleichzeitig aufzunehmen. Dies ist nur dann erfolgreich, wenn alle Semaphoren belegbar sind, und verhindert eine Verklemmung.
+
+\newpage
+
+\section{Codebeispiel}
+	Im Folgenden sind die relevanten Codeausschnitte einer Lösung des Philosophenproblems in OpenPEARL aufgeführt.
+	
+\subsection{Definition der Semaphoren}
+	\begin{lstlisting}
+! Semaphoren ("Gabeln"), die maximal ein mal (gleichzeitig) belegt werden koennen
+DCL (g1, g2, g3, g4, g5) SEMA PRESET(1,1,1,1,1);
+	\end{lstlisting}
+	
+\subsection{Aktivität eines Philosophen als Task}
+	\begin{lstlisting}
+philosopher1: TASK;
+	REPEAT;
+		! Gleichzeitige Anfrage fuer die Belegung der Semaphoren
+		REQUEST g1, g2;
+		PUT 'Philosopher 1 starts eating...' TO termout BY A, SKIP;
+		AFTER timeone RESUME;
+		PUT 'Philosopher 1 stops eating...' TO termout BY A, SKIP;
+		! Gleichzeitige Freigabe der Semaphoren
+		RELEASE g1, g2;
+	END;
+END;
+	\end{lstlisting}
+	
+	Komplette Lösungen können im Ordner \emph{Code/Philosophenproblem} des \href{https://github.com/OpenPearl-HFUWPV1718/SensorCar}{Repositories} eingesehen werden.
