@@ -25,7 +25,45 @@ Der zugrundeliegende Belegungsplan ist im Anhang \ref{Belegungsplan} zu finden.
 
 
 \section{Schrittmotor}
-Die Schrittmotoren werden jeweils über einen Motortreiber und vier GPIO-Pins des Raspberry Pi angesteuert. Energie erhält der Motor durch ein an den Treiber angeschlossenes Netzteil mit 12V Gleichstrom. Durch Alternieren der Bits an den vier GPIO-Pins wird der Schrittmotor um jeweils einen Schritt bewegt. 
+Die Schrittmotoren werden jeweils über einen Motortreiber und vier GPIO-Pins des Raspberry Pi angesteuert. Energie erhält der Motor durch ein an den Treiber angeschlossenes Netzteil mit 12V Gleichstrom. Durch paarweise Alternieren der Bits an den vier GPIO-Pins wird der Schrittmotor um jeweils einen Schritt bewegt. 
+
+Das nachstehende Codebeispiel zeigt die Ansteuerung eines Schrittmotors.\\
+
+\begin{lstlisting}
+SYSTEM;
+	stepmotor_out: RPiDigitalOut(19, 4);
+
+PROBLEM;
+	SPC stepmotor_out DATION OUT SYSTEM BASIC BIT(4) GLOBAL;
+	DCL motor DATION OUT BASIC BIT(4) CREATED (stepmotor_out);
+
+main: TASK MAIN;
+	DCL time DUR INIT (0.01 SEC);
+	DCL steps FIXED INIT (100)
+	DCL (a, b, c, d) BIT(4) INIT('1010'B1, '1001'B1, '0101'B1, '0110'B1);
+	OPEN motor;
+	REPEAT
+		SEND a TO lmotor;
+		AFTER time RESUME;
+		
+		SEND b TO lmotor;
+		AFTER time RESUME;
+		
+		SEND c TO lmotor;
+		AFTER time RESUME;
+		
+		SEND d TO lmotor;
+		AFTER time RESUME;
+	END;
+	CLOSE motor;
+END;
+\end{lstlisting}
+
+Dabei ist zu beachten, dass die Belegung mehrerer Pins des Raspberry Pi abwärts erfolgt, d.h. \texttt{RPiDigitalOut(19, 4)} belegt die Pins \texttt{16, 17, 18, 19}. Die Geschwindigkeit des Schrittmotors kann durch die Wartezeit \texttt{time}, die Richtung durch die Reihenfolge der Signale \texttt{a, b, c, d} geändert werden.
+
+Das Speichern von \texttt{BIT(4)} Variablen in einem Array funktioniert in OpenPEARL aktuell noch nicht; aufgrund der wenigen Zustände wurde auf einen Workaround verzichtet.
+
+
 
 \section{Lichtrechen}
 Der Lichtrechen ist essenzieller Bestandteil des Autos und ist dafür zuständig die Position des Autos relativ zum vorgegebenen Pfad zu ermitteln. Der Lichtrechen QTR-8A der Marke Pololu besteht aus 8 Reflektionssensoren, die mit infrarot LED’s die Reflexivität des Untergrundes auf einer Linie von ca. 7cm ermitteln. In unseren Anwendungsfall soll der Sensor ein schwatzes Klebeband auf einem hellen Untergrund erkennen und diese Information zur Steuerung des Autos weiterleiten. 
