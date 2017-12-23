@@ -39,20 +39,20 @@ PROBLEM;
 
 main: TASK MAIN;
 	DCL time DUR INIT (0.01 SEC);
-	DCL steps FIXED INIT (100)
+	DCL steps FIXED INIT (100);
 	DCL (a, b, c, d) BIT(4) INIT('1010'B1, '1001'B1, '0101'B1, '0110'B1);
 	OPEN motor;
 	REPEAT
-		SEND a TO lmotor;
+		SEND a TO motor;
 		AFTER time RESUME;
 		
-		SEND b TO lmotor;
+		SEND b TO motor;
 		AFTER time RESUME;
 		
-		SEND c TO lmotor;
+		SEND c TO motor;
 		AFTER time RESUME;
 		
-		SEND d TO lmotor;
+		SEND d TO motor;
 		AFTER time RESUME;
 	END;
 	CLOSE motor;
@@ -87,10 +87,10 @@ Um den Farbsensor in Pearl benutzen zu können musste dafür noch ein Treiben in
 Bei der Auswertung der Rohdaten vom Sensor konvertieren wir die Daten in Standard RGB Werte mit einer Spanne von 0 bis 255.
 
 \section{TCP/IP Socket}
-Über das Socket werden die Daten des SensorCars auf einer Webseite angezeigt. Hierbei bekommt das Socket einen html request vom Browser, an den er dann den html-code schickt. Es wird Geschwindigkeit, Anzahl der Schritte, werte vom Lichtrechen und die des Farbsensors angezeigt. Es können außerdem Informationen zu unserem Projekt uns einen Verweis auf die Dokumentation aufgerufen werden. 
+Über das Socket werden die Daten des SensorCars auf einer Webseite angezeigt. Hierbei bekommt das Socket einen html request vom Browser, an den er dann den HTML-Code schickt. Es werden die Geschwindigkeit, die Anzahl der Schritte und die Werte des Lichtrechens und des Farbsensors angezeigt. Es können außerdem Informationen zum Projekt und die Dokumentation aufgerufen werden. 
 
-Die Webseite kann im gleichen Netz über ipadresse/index.html aufgerufen werden. Damit die Daten immer aktuell sind, wird die Seite alle 2 Sekunden aktualisiert.
+Die Webseite kann im gleichen Netz über <ipadresse>/index.html aufgerufen werden. Damit die Daten immer aktuell sind, wird die Seite alle zwei Sekunden aktualisiert.
 
-OpenPEARL hat von sich aus keine Möglichkeit ein Socket aufzusetzen. Es musste zuerst Implementiert werden. Hierzu wurde eine C++ Datei mit dazugehöriger XML Datei geschrieben und dem System hinzugefügt. Die Dateien wurden im Makefile und in "PearlIncludes.h" registriert. 
+OpenPEARL hat von sich aus keine Möglichkeit ein Socket aufzusetzen. Es musste daher zuerst implementiert werden. Hierzu wurde eine C++ Datei mit dazugehöriger XML Datei geschrieben und dem System hinzugefügt. Die Dateien wurden im Makefile und im "PearlIncludes.h" registriert. 
 
 Man kann nun im Systemteil von OpenPEARL "TcpIpServer(portnummer)" angeben. Die Kommunikation läuft über "DATION INOUT". Somit ist eine beidseitige Kommunikation möglich. 
