@@ -1,7 +1,48 @@
 \chapter{Komponenten}
 \section{Raspberry Pi 3}
-mit Anschlussplan...
+Als Grundlage für das SensorCar wird ein Raspberry Pi 3 genutzt, auf dem OpenPEARL installiert ist. Die Installation erfolgt nach der Anleitung im OpenPEARL Repository. Die Sensoren und Aktoren des SensorCars werden wie folgt am Raspberry Pi angeschlossen:
+
+\begin{center}
+\begin{tabular}{|l|l|l|}
+	\hline
+	\textbf{Gerät} & \textbf{BCM} & \textbf{Versorgung}\\
+	\hline
+	Lichtrechen & 6 -- 13 & 3,5 / 5V\\
+	\hline
+	Motortreiber& 16 -- 19, 20 -- 23 & extern\\
+	\hline
+	Farbsensor & 2, 3 (I$^2$C) & 3,3 / 5V\\
+	\hline
+	Gyroskop & 2, 3 (I$^2$C) & 5V\\
+	\hline
+	Kompass & 2, 3 (I$^2$C) & 5V\\
+	\hline
+	LEDs & 24 -- & 5V\\
+	\hline
+\end{tabular}\\
+\end{center}
+Der zugrundeliegende Belegungsplan ist im Anhang \ref{Belegungsplan} zu finden.
+
 
 \section{Schrittmotor}
 Die Schrittmotoren werden jeweils über einen Motortreiber und vier GPIO-Pins des Raspberry Pi angesteuert. Energie erhält der Motor durch ein an den Treiber angeschlossenes Netzteil mit 12V Gleichstrom. Durch Alternieren der Bits an den vier GPIO-Pins wird der Schrittmotor um jeweils einen Schritt bewegt. 
 
+\section{Lichtrechen}
+Der Lichtrechen ist essenzieller Bestandteil des Autos und ist dafür zuständig die Position des Autos relativ zum vorgegebenen Pfad zu ermitteln. Der Lichtrechen QTR-8A der Marke Pololu besteht aus 8 Reflektionssensoren, die mit infrarot LED’s die Reflexivität des Untergrundes auf einer Linie von ca. 7cm ermitteln. In unseren Anwendungsfall soll der Sensor ein schwatzes Klebeband auf einem hellen Untergrund erkennen und diese Information zur Steuerung des Autos weiterleiten. 
+
+Die Verbindung zum System geschieht über acht separate Datenpins, die jeweils konstant ein einzelnes Bit aussendet das die Ausgabe eines einzelnen Sensors binär repräsentiert. Des Weiteren gibt es noch einen Abschluss für die Stromzufuhr für 5 und 3.3V, einen Pin für die Erdung und einen Pin mit dem die Infrarot-LED’s an oder abgeschaltet werden können. In unserem Aufbau nutzen wir die 5V Stromversorgung und lassen die LED-Steuerungspin unangeschlossen, in welchem Fall die Sensoren dauerhaft eigeschaltet bleiben. 
+
+Im Anschlussplan ist vorgesehen, dass der Lichtrechen über die Datenpins 6 -13 am Raspberry Pi ausgelesen wird.
+
+Bei der Auswertung der Datenpins werden den Pins von rechts nach links Gewichtungen von 4 bis -4 gegeben und jeder Pin der wenig Reflexion misst wird seiner Wertung nach aufsummiert. Diese Summe Wird dann durch die Anzahl des Summanden geteilt und ergibt somit einen Durchschnittswert für die Position des Leitstreifens. Dieses Verfahren schwächt auch fehlerhafte Werte einzelner Sensoren ab.
+
+\section{Farbsensor}
+Der Farbsensor TCS 34725 Der Marke Adafruit besitzt einen Sensor, der sowohl einen RGB Farbwert als auch die gesamt Helligkeit ermitteln lässt. Um die Farben Best möglichst zu erkennen besitzt der Sensor eine sehr helle LED mit weißem Licht. In unserem Projekt soll der Farbsensor Farbige Signal-Punkte auf der Strecke erkennen die denen das Auto beispielsweise das Ende der Stecke erkennen soll. 
+
+Verbunden wir der Sensor im Gegensatz zum Lichtrechen erfolgt die Datenverbindung zum Farbsensor über einen I2C-Bus. Des Weiteren Besitzt der Sensor ebenfalls einen Stromverbindung für 5 und 3.3V, eine Erdung und Einen Pin zur Steuerung der LED.
+
+Die Datenpins 2 und 3 am Raspberry Pi sind standartmäßig für diesen Bus vorkonfiguriert. Die Unterstützung von I2C auf dem Raspberry Pi muss aber erst konfiguriert werden. Dazu muss der Befehl “raspi-config“ ausgeführt werden und dort unter “Advanced Options“ Die Unterstützung in Kernel eingeschaltet werden. Zusätzlich musste in der Datei “/boot/config.txt“ noch die Zeile “ dtparam=i2c1=on“ angefügt werden.
+
+Um den Farbsensor in Pearl benutzen zu können musste dafür noch ein Treiben in C++ geschrieben werden. Dieser umfasst die Dateien “TCS34725.cc“, “TCS34725.h“ und “TCS34725.xml“ dieser Treiber wird in eine Headerfile von open Pearl integriert werden und stellt alle Methoden für die Nutzung des Sensors als DATION in OpenPEARL zur Verfügung.
+
+Bei der Auswertung der Rohdaten vom Sensor konvertieren wir die Daten in Standard RGB Werte mit einer Spanne von 0 bis 255.
