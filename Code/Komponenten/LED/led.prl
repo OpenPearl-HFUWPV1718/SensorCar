@@ -1,0 +1,40 @@
+/*
+Demonstration application 'Hello World'
+*/
+
+MODULE(mhello);
+
+SYSTEM;
+   stdout: StdOut;
+   piout1: RPiDigitalOut(17, 1);
+
+PROBLEM;
+    SPC stdout DATION OUT SYSTEM ALPHIC GLOBAL;
+    DCL termout DATION OUT ALPHIC DIM(*,80) FORWARD STREAM CREATED(stdout);
+    SPC piout1 DATION OUT SYSTEM BASIC BIT(1) GLOBAL;
+    DCL piout DATION OUT BASIC BIT(1) CREATED (piout1);
+
+! the task hello is started automatically due to the attribute 'MAIN'
+hello: TASK MAIN;
+   DCL (on,off) BIT(1) INIT('1'B1, '0'B1); 
+   OPEN termout;
+   OPEN piout;
+
+   PUT 'LED Test' TO termout BY A, SKIP;
+   
+   TO 10 REPEAT
+       SEND  on TO piout;
+       PUT 'LED on' TO termout BY A, SKIP;
+       AFTER 5 SEC RESUME;
+       PUT 'LED off' TO termout BY A, SKIP;
+       SEND off TO piout;
+       AFTER 2 SEC RESUME;
+   END;
+   
+   PUT 'Done.' TO termout BY A, SKIP;
+   CLOSE piout;
+   CLOSE termout;
+END;
+
+MODEND;
+

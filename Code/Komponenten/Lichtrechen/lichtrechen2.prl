@@ -1,0 +1,99 @@
+MODULE (LICHTRECHEN);
+    SYSTEM;
+        stdout:StdOut;
+		lichtrechen: RPiDigitalIn(13,8,'u');
+	PROBLEM;
+		SPC stdout DATION OUT SYSTEM ALPHIC;
+		DCL so DATION OUT ALPHIC DIM(*,80) FORWARD STREAM CREATED(stdout);
+		
+		SPC lichtrechen DATION IN SYSTEM BASIC BIT(8) GLOBAL;
+		DCL lr DATION IN BASIC BIT(8) CREATED(lichtrechen);
+	main: TASK MAIN;
+		DCL bits BIT(8);
+		DCL timeinterval DUR;
+		DCL out FLOAT;
+		DCL count FIXED;
+		OPEN so;
+		OPEN lr;
+		timeinterval := 1 SEC;
+		PUT 'START:' TO so BY A, SKIP;
+		TO 250 REPEAT
+			out := 0;
+			count := 0;
+			TAKE bits FROM lr;
+			PUT bits, bits TO so BY B4(2), X, B1(8), SKIP;
+			IF bits(1) = 1
+			THEN
+				out := out + 4;
+				count := count +1;
+			ELSE
+				out := out + 4;
+				count := count +1;
+			FIN ;
+			IF bits(2)
+			THEN
+				out := out + 3;
+				count := count +1;
+			ELSE
+				out := out + 3;
+				count := count +1;
+			FIN ;
+			IF bits(3)
+			THEN
+				out := out + 2;
+				count := count +1;
+			ELSE
+				out := out + 2;
+				count := count +1;
+			FIN ;
+			IF bits(4)	
+			THEN
+				out := out + 1;
+				count := count +1;
+			ELSE
+				out := out + 1;
+				count := count +1;				
+			FIN ;
+			IF bits(5)
+			THEN
+				out := out - 1;
+				count := count +1;
+			ELSE
+				out := out - 1;
+				count := count +1;
+			FIN ;
+			IF bits(6)
+			THEN
+				out := out - 2;
+				count := count +1;
+			ELSE
+				out := out - 2;
+				count := count +1;
+			FIN ;
+			IF bits(7)
+			THEN
+				out := out - 3;
+				count := count +1;
+			ELSE
+				out := out - 3;
+				count := count +1;
+			FIN ;
+			IF bits(8)
+			THEN
+				out := out - 4;
+				count := count +1;
+			ELSE
+				out := out - 4;
+				count := count +1;
+			FIN ;
+			out := out / count;
+			PUT 'Output: ', out TO so BY A, F(6), SKIP;
+			AFTER timeinterval RESUME;
+		END;
+		PUT 'END!' TO so BY A, SKIP;
+		CLOSE lr;
+		CLOSE so;
+	END;
+MODEND;
+	
+		

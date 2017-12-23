@@ -1,0 +1,29 @@
+MODULE (LICHTRECHEN);
+    SYSTEM;
+        stdout:StdOut;
+		lichtrechen: RPiDigitalIn(13,8,'u');
+	PROBLEM;
+		SPC stdout DATION OUT SYSTEM ALPHIC;
+		DCL so DATION OUT ALPHIC DIM(*,80) FORWARD STREAM CREATED(stdout);
+		
+		SPC lichtrechen DATION IN SYSTEM BASIC BIT(8) GLOBAL;
+		DCL lr DATION IN BASIC BIT(8) CREATED(lichtrechen);
+	main: TASK MAIN;
+		DCL bits BIT(8);
+		DCL timeinterval DUR;
+		OPEN so;
+		OPEN lr;
+		timeinterval = 1 SEC;
+		PUT 'START:' TO so BY A, SKIP;
+		TO 250 REPEAT
+			TAKE bits FROM lr;
+			PUT bits,bits TO so BY B4(2),X,B1(8) , SKIP;
+			AFTER timeinterval RESUME;
+		END;
+		PUT 'END!' TO so BY A, SKIP;
+		CLOSE lr;
+		CLOSE so;
+	END;
+MODEND;
+	
+		

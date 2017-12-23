@@ -1,0 +1,98 @@
+
+MODULE(stepmotor);
+
+SYSTEM;
+   leftstepmotor_out: RPiDigitalOut(19, 4);
+   rightstepmotor_out: RPiDigitalOut(23, 4);
+
+PROBLEM;
+    SPC leftstepmotor_out DATION OUT SYSTEM BASIC BIT(4) GLOBAL;
+    DCL lmotor DATION OUT BASIC BIT(4) CREATED (leftstepmotor_out);
+    SPC rightstepmotor_out DATION OUT SYSTEM BASIC BIT(4) GLOBAL;
+    DCL rmotor DATION OUT BASIC BIT(4) CREATED (rightstepmotor_out);
+
+main: TASK MAIN;
+  DCL time DUR INIT (0.01 SEC);
+  OPEN lmotor;
+  OPEN rmotor;
+  REPEAT;
+    CALL step(0, 50, 0, time);
+    CALL step(0, 50, 1, time);
+  END;
+  CLOSE rmotor;
+  CLOSE lmotor;
+END;
+
+step: PROC(motorindex FIXED, steps FIXED, dir FIXED, time DUR);
+  DCL (a, b, c, d) BIT(4) INIT('1010'B1, '1001'B1, '0101'B1, '0110'B1);
+  IF motorindex == 0 THEN
+    IF dir == 0 THEN
+       TO steps REPEAT
+         SEND a TO lmotor;
+         AFTER time RESUME;
+
+         SEND b TO lmotor;
+         AFTER time RESUME;
+
+         SEND c TO lmotor;
+         AFTER time RESUME;
+
+         SEND d TO lmotor;
+         AFTER time RESUME;
+       END;
+    FIN;
+
+    IF dir == 1 THEN
+       TO steps REPEAT
+         SEND d TO lmotor;
+         AFTER time RESUME;
+
+         SEND c TO lmotor;
+         AFTER time RESUME;
+
+         SEND b TO lmotor;
+         AFTER time RESUME;
+
+         SEND a TO lmotor;
+         AFTER time RESUME;
+       END;
+    FIN;
+  FIN;
+  IF motorindex == 1 THEN
+    IF dir == 0 THEN
+       TO steps REPEAT
+         SEND a TO rmotor;
+         AFTER time RESUME;
+
+         SEND b TO rmotor;
+         AFTER time RESUME;
+
+         SEND c TO rmotor;
+         AFTER time RESUME;
+
+         SEND d TO rmotor;
+         AFTER time RESUME;
+       END;
+    FIN;
+
+    IF dir == 1 THEN
+       TO steps REPEAT
+         SEND d TO rmotor;
+         AFTER time RESUME;
+
+         SEND c TO rmotor;
+         AFTER time RESUME;
+
+         SEND b TO rmotor;
+         AFTER time RESUME;
+
+         SEND a TO rmotor;
+         AFTER time RESUME;
+       END;
+    FIN;
+  FIN;
+
+END;
+
+MODEND;
+

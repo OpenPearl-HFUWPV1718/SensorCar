@@ -1,0 +1,35 @@
+MODULE (FARBSENSOR);
+    SYSTEM;
+        stdout:StdOut;
+                i2cbus: I2CBus('/dev/i2c-1');
+		farbsensor: TCS34725('29'B4) --- i2cbus;
+	PROBLEM;
+		SPC stdout DATION OUT SYSTEM ALPHIC;
+		DCL so DATION OUT ALPHIC DIM(*,80) FORWARD STREAM CREATED(stdout);
+		
+		SPC farbsensor DATION IN SYSTEM BASIC ALL GLOBAL;
+		DCL fs DATION IN BASIC ALL CREATED(farbsensor);
+	main: TASK MAIN;
+		DCL colors(5) FIXED(31);
+		DCL timeinterval DUR;
+		OPEN so;
+		OPEN fs;
+		timeinterval = 1 SEC;
+		PUT 'START:' TO so BY A, SKIP;
+		TO 250 REPEAT
+			!TAKE colors FROM fs;
+	__cpp__("_fs.dationRead(data_colors, sizeof(data_colors));");
+			PUT 'rot' ,colors(1), 'gruen', colors(2),
+                              'blau', colors(3), 'summe',colors(4),
+                            'lum',colors(5) TO so 
+                          BY A(6),F(6), SKIP;
+                        PUT TO so BY SKIP;
+			AFTER timeinterval RESUME;
+		END;
+		PUT 'END!' TO so BY A, SKIP;
+		CLOSE fs;
+		CLOSE so;
+	END;
+MODEND;
+	
+		
