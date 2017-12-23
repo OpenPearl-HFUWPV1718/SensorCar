@@ -62,7 +62,7 @@ END;
 Dabei ist zu beachten, dass die Belegung mehrerer Pins des Raspberry Pi abwärts erfolgt, d.h. \texttt{RPiDigitalOut(19, 4)} belegt die Pins \texttt{16, 17, 18, 19}. Die Geschwindigkeit des Schrittmotors kann durch die Wartezeit \texttt{time}, die Richtung durch die Reihenfolge der Signale \texttt{a, b, c, d} geändert werden.
 
 Das Speichern von \texttt{BIT(4)} Variablen in einem Array funktioniert in OpenPEARL aktuell noch nicht; aufgrund der wenigen Zustände wurde auf einen Workaround verzichtet.
-
+Das komplette Schrittmotormodul kann im Ordner \emph{Code/Komponenten/Schrittmotor} des \href{https://github.com/OpenPearl-HFUWPV1718/SensorCar}{Repositories} eingesehen werden.\\
 
 
 \section{Lichtrechen}
@@ -85,7 +85,7 @@ Um den Farbsensor in Pearl benutzen zu können musste dafür noch ein Treiben in
 
 Bei der Auswertung der Rohdaten vom Sensor konvertieren wir die Daten in Standard RGB Werte mit einer Spanne von 0 bis 255.
 
-\section{TcpIp Socket}
+\section{TCP/IP Socket}
 Über das Socket werden die Daten des SensorCars auf einer Webseite angezeigt. Hierbei bekommt das Socket einen html request vom Browser, an den er dann den html-code schickt. Es wird Geschwindigkeit, Anzahl der Schritte, werte vom Lichtrechen und die des Farbsensors angezeigt. Es können außerdem Informationen zu unserem Projekt uns einen Verweis auf die Dokumentation aufgerufen werden. 
 
 Die Webseite kann im gleichen Netz über ipadresse/index.html aufgerufen werden. Damit die Daten immer aktuell sind, wird die Seite alle 2 Sekunden aktualisiert.
