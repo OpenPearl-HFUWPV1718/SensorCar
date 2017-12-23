@@ -5,3 +5,11 @@ mit Anschlussplan...
 \section{Schrittmotor}
 Die Schrittmotoren werden jeweils über einen Motortreiber und vier GPIO-Pins des Raspberry Pi angesteuert. Energie erhält der Motor durch ein an den Treiber angeschlossenes Netzteil mit 12V Gleichstrom. Durch Alternieren der Bits an den vier GPIO-Pins wird der Schrittmotor um jeweils einen Schritt bewegt. 
 
+\section{Lichtrechen}
+Der Lichtrechen ist essenzieller Bestandteil des Autos und ist dafür zuständig die Position des Autos relativ zum vorgegebenen Pfad zu ermitteln. Der Lichtrechen QTR-8A der Marke Pololu besteht aus 8 Reflektionssensoren, die mit infrarot LED’s die Reflexivität des Untergrundes auf einer Linie von ca. 7cm ermitteln. In unseren Anwendungsfall soll der Sensor ein schwatzes Klebeband auf einem hellen Untergrund erkennen und diese Information zur Steuerung des Autos weiterleiten. 
+
+Die Verbindung zum System geschieht über acht separate Datenpins, die jeweils konstant ein einzelnes Bit aussendet das die Ausgabe eines einzelnen Sensors binär repräsentiert. Des Weiteren gibt es noch einen Abschluss für die Stromzufuhr für 5 und 3.3V, einen Pin für die Erdung und einen Pin mit dem die Infrarot-LED’s an oder abgeschaltet werden können. In unserem Aufbau nutzen wir die 5V Stromversorgung und lassen die LED-Steuerungspin unangeschlossen, in welchem Fall die Sensoren dauerhaft eigeschaltet bleiben. 
+
+Im Anschlussplan ist vorgesehen, dass der Lichtrechen über die Datenpins 6 -13 am Raspberry Pi ausgelesen wird.
+
+Bei der Auswertung der Datenpins werden den Pins von rechts nach links Gewichtungen von 4 bis -4 gegeben und jeder Pin der wenig Reflexion misst wird seiner Wertung nach aufsummiert. Diese Summe Wird dann durch die Anzahl des Summanden geteilt und ergibt somit einen Durchschnittswert für die Position des Leitstreifens. Dieses Verfahren schwächt auch fehlerhafte Werte einzelner Sensoren ab.
