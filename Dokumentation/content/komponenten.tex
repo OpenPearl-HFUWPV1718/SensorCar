@@ -1,6 +1,28 @@
 \chapter{Komponenten}
 \section{Raspberry Pi 3}
-mit Anschlussplan...
+Als Grundlage für das SensorCar wird ein Raspberry Pi 3 genutzt, auf dem OpenPEARL installiert ist. Die Installation erfolgt nach der Anleitung im OpenPEARL Repository. Die Sensoren und Aktoren des SensorCars werden wie folgt am Raspberry Pi angeschlossen:
+
+\begin{center}
+\begin{tabular}{|l|l|l|}
+	\hline
+	\textbf{Gerät} & \textbf{BCM} & \textbf{Versorgung}\\
+	\hline
+	Lichtrechen & 6 -- 13 & 3,5 / 5V\\
+	\hline
+	Motortreiber& 16 -- 19, 20 -- 23 & extern\\
+	\hline
+	Farbsensor & 2, 3 (I$^2$C) & 3,3 / 5V\\
+	\hline
+	Gyroskop & 2, 3 (I$^2$C) & 5V\\
+	\hline
+	Kompass & 2, 3 (I$^2$C) & 5V\\
+	\hline
+	LEDs & 24 -- & 5V\\
+	\hline
+\end{tabular}\\
+\end{center}
+Der zugrundeliegende Belegungsplan ist im Anhang \ref{Belegungsplan} zu finden.
+
 
 \section{Schrittmotor}
 Die Schrittmotoren werden jeweils über einen Motortreiber und vier GPIO-Pins des Raspberry Pi angesteuert. Energie erhält der Motor durch ein an den Treiber angeschlossenes Netzteil mit 12V Gleichstrom. Durch Alternieren der Bits an den vier GPIO-Pins wird der Schrittmotor um jeweils einen Schritt bewegt. 
