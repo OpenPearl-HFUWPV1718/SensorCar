@@ -46,3 +46,10 @@ Die Datenpins 2 und 3 am Raspberry Pi sind standartmäßig für diesen Bus vorko
 Um den Farbsensor in Pearl benutzen zu können musste dafür noch ein Treiben in C++ geschrieben werden. Dieser umfasst die Dateien “TCS34725.cc“, “TCS34725.h“ und “TCS34725.xml“ dieser Treiber wird in eine Headerfile von open Pearl integriert werden und stellt alle Methoden für die Nutzung des Sensors als DATION in OpenPEARL zur Verfügung.
 
 Bei der Auswertung der Rohdaten vom Sensor konvertieren wir die Daten in Standard RGB Werte mit einer Spanne von 0 bis 255.
+
+\section{TcpIp Socket}
+Über das Socket werden die Daten des SensorCars auf einer Webseite angezeigt. Hierbei bekommt das Socket einen html request vom Browser, an den er dann den html-code schickt. Es wird Geschwindigkeit, Anzahl der Schritte, werte vom Lichtrechen und die des Farbsensors angezeigt. Es können außerdem Informationen zu unserem Projekt uns einen Verweis auf die Dokumentation aufgerufen werden. 
+
+Die Webseite kann im gleichen Netz über ipadresse/index.html aufgerufen werden. Damit die Daten immer aktuell sind, wird die Seite alle 2 Sekunden aktualisiert.
+
+OpenPEARL hat von sich aus keine Möglichkeit ein Socket aufzusetzen. Es musste zuerst Implementiert werden. Hierzu wurde eine C++ Datei mit dazugehöriger XML Datei geschrieben und dem System hinzugefügt. Die Dateien wurden im Makefile und in "PearlIncludes.h" registriert. 
