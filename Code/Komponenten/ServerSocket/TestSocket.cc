@@ -13,53 +13,53 @@ const char* filename = (char*) "TestSocket.prl";
 static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_0_31(0);
 static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_1_31(1);
 static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_NEG_1_31(-1);
-static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_1235_31(1235);
+static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_80_31(80);
 static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_10_31(10);
 static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_5_31(5);
 static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_20_31(20);
-static /*const*/ pearlrt::Character<8>         CONSTANT_CHARACTER_16dff816_15e7_477d_a9d9_8b3ec300544a("FFFFFFFF");
-static /*const*/ pearlrt::Character<19>         CONSTANT_CHARACTER_c5b929d9_e3fc_42c7_96f3_6ddcbddcaa3f("TcpIpServer started");
-static /*const*/ pearlrt::Character<16>         CONSTANT_CHARACTER_e1694beb_ef26_4987_bb8b_077e9c776e72("wait for request");
-static /*const*/ pearlrt::Character<1>         CONSTANT_CHARACTER_748bd926_a1b9_427e_ab01_6388b131c2c0(">");
-static /*const*/ pearlrt::Character<1>         CONSTANT_CHARACTER_e1b86676_e11b_4930_b6a8_f62d672c08ea("<");
-static /*const*/ pearlrt::Character<15>         CONSTANT_CHARACTER_badbb8f2_f2e9_425f_b5fb_bc4b1dfc4029("HTTP/1.1 200 ok");
-static /*const*/ pearlrt::Character<17>         CONSTANT_CHARACTER_b3a50357_3105_4aa5_8368_117217b6a496("Connection: close");
-static /*const*/ pearlrt::Character<23>         CONSTANT_CHARACTER_92ae7f9f_f779_4d98_a7d1_82c428f62646("Context-Type: text/html");
-static /*const*/ pearlrt::Character<24>         CONSTANT_CHARACTER_e2277128_2ce9_453c_bff2_429dc3d8c913("GET /index.html HTTP/1.1");
-static /*const*/ pearlrt::Character<23>         CONSTANT_CHARACTER_30bb4c17_219e_4356_8af6_b634528a2eab("GET /info.html HTTP/1.1");
-static /*const*/ pearlrt::Character<23>         CONSTANT_CHARACTER_e6fd2374_d05c_4d20_9ca2_7409aa24c123("GET /doku.html HTTP/1.1");
-static /*const*/ pearlrt::Character<32>         CONSTANT_CHARACTER_f5768f3f_d358_45e9_9afc_9a0e32f6b430("request completed: socket closed");
-static /*const*/ pearlrt::Character<19>         CONSTANT_CHARACTER_4ea217a1_a94e_49f3_8992_a71ec00fb370("<HTML><HEAD><style>");
-static /*const*/ pearlrt::Character<47>         CONSTANT_CHARACTER_cc640d92_5a0b_4eba_8718_5e166f130dd2("</style><TITLE>OpenPEARL Projekt</TITLE></HEAD>");
-static /*const*/ pearlrt::Character<67>         CONSTANT_CHARACTER_fe359685_ab50_41c2_8d94_6ee3343011ba("<BODY><div id = value_div><div class = head_div><h1>Auto</h1></div>");
-static /*const*/ pearlrt::Character<45>         CONSTANT_CHARACTER_b36f4ace_cbea_4af6_a20f_487015f12eb3("<div id = value_list_div><ul id = value_list>");
-static /*const*/ pearlrt::Character<21>         CONSTANT_CHARACTER_00d77d14_0da5_407a_aa39_16c0e73f2c2a("<li>Geschwindigkeit: ");
-static /*const*/ pearlrt::Character<5>         CONSTANT_CHARACTER_998aa5f9_7620_4175_85b2_db5c22df42c2("</li>");
-static /*const*/ pearlrt::Character<19>         CONSTANT_CHARACTER_ddbfc2f2_2b14_4a31_a7d6_3f58930957f6("<li>Anz. Schritte: ");
-static /*const*/ pearlrt::Character<17>         CONSTANT_CHARACTER_9447fdf2_de84_46db_b3a1_4f0267f765be("<li>Lichtrechen: ");
-static /*const*/ pearlrt::Character<16>         CONSTANT_CHARACTER_2587e440_6ada_42c5_b282_a082e87ced60("<li>Farbsensor: ");
-static /*const*/ pearlrt::Character<17>         CONSTANT_CHARACTER_91cfe3af_b399_44cd_82f4_800bc92a53ed("</ul></div></div>");
-static /*const*/ pearlrt::Character<51>         CONSTANT_CHARACTER_da1ff15d_1a88_4a1f_938b_aebc8f39730f("<div id = navigation ><div class = head_div ></div>");
-static /*const*/ pearlrt::Character<118>         CONSTANT_CHARACTER_74cec3a3_adc9_4ded_979a_2ef4b7aef4ff("<div class = nav_div ><p><a href = info.html>Info</a></p><p><a href = doku.html>Doku</a></p></div></div></BODY></HTML>");
-static /*const*/ pearlrt::Character<67>         CONSTANT_CHARACTER_4d424c5a_3e8b_4f35_aadd_8b5071b6992c("<BODY><div id = value_div><div class = head_div><h1>Info</h1></div>");
-static /*const*/ pearlrt::Character<55>         CONSTANT_CHARACTER_2a08102e_13a6_430a_be4d_617ba88509e9("<div id = value_list_div> Hier koennte ihre info stehen");
-static /*const*/ pearlrt::Character<12>         CONSTANT_CHARACTER_db3d634f_0e5c_416c_807c_16a23d821057("</div></div>");
-static /*const*/ pearlrt::Character<120>         CONSTANT_CHARACTER_bdd17e79_cde2_46cc_a79c_98ebad79da40("<div class = nav_div ><p><a href = index.html>Start</a></p><p><a href = doku.html>Doku</a></p></div></div></BODY></HTML>");
-static /*const*/ pearlrt::Character<67>         CONSTANT_CHARACTER_cca9e565_c470_4a76_bf50_1a05dd4be6f7("<BODY><div id = value_div><div class = head_div><h1>Doku</h1></div>");
-static /*const*/ pearlrt::Character<54>         CONSTANT_CHARACTER_52d4d0f2_490b_4d21_bf47_900358f9332b("<div id = value_list_div>Hier koennte ihre Doku stehen");
-static /*const*/ pearlrt::Character<120>         CONSTANT_CHARACTER_3d02bfdb_8fda_4c39_8a73_25e94822218a("<div class = nav_div ><p><a href = index.html>Start</a></p><p><a href = info.html>Info</a></p></div></div></BODY></HTML>");
-static /*const*/ pearlrt::Character<250>         CONSTANT_CHARACTER_ee12557f_8b5b_4e75_9ad7_6f4866cb0693("<BODY><div id = value_div><div class = head_div><h1>Error 404</h1></div><div id = value_list_div style = text-align:center; ><ul id = value_list><li>Site not found</li></ul></div></div><div id = navigation ><div class = head_div ></div></BODY></HTML>");
-static /*const*/ pearlrt::Character<41>         CONSTANT_CHARACTER_2c356a31_ccf9_4dff_89f6_50bd75c0f572("html{margin: 0; font-family: sans-serif;}");
-static /*const*/ pearlrt::Character<43>         CONSTANT_CHARACTER_07f269d9_6157_4fc9_9bb2_e801c501b2d1("body{margin: 0; background-color: #eaecbd;}");
-static /*const*/ pearlrt::Character<14>         CONSTANT_CHARACTER_9e4a38aa_3be8_4019_8003_3398a8024bf8("h1{margin: 0;}");
-static /*const*/ pearlrt::Character<91>         CONSTANT_CHARACTER_896d1357_b987_4bed_b569_6bd13948ac73("#navigation{position: absolute; overflow: auto; left: 0; top: 0; width: 13%; height: 100%;}");
-static /*const*/ pearlrt::Character<169>         CONSTANT_CHARACTER_db26e669_de7d_445b_9f87_069302e93911(".head_div{position: relative ; left: 0; top: 0; width: 100%; height: 3.78em; line-height: 3.7em; margin: 0; background-color: #008040; color: white; text-align: center;}");
-static /*const*/ pearlrt::Character<77>         CONSTANT_CHARACTER_875c9127_db02_43c6_9ff8_a9057970e0a4("value_div{position: absolute; right: 0; bottom: 0; width: 87%; height: 100%;}");
-static /*const*/ pearlrt::Character<71>         CONSTANT_CHARACTER_550f6c4a_ff01_4378_906d_68103c55ffee(".nav_div{font-size: 1.5em; margin-left: 1em; border-right: solid gray;}");
-static /*const*/ pearlrt::Character<38>         CONSTANT_CHARACTER_3be5c750_b1fb_47cd_b91a_409766ebabf4("a{text-decoration: none; color: gray;}");
-static /*const*/ pearlrt::Character<36>         CONSTANT_CHARACTER_cdd4b5a3_63de_4890_b2dd_c113f50b15b5("a:hover{text-decoration: underline;}");
-static /*const*/ pearlrt::Character<75>         CONSTANT_CHARACTER_332cbe6c_380a_4694_b44f_65354881e0b0("#value_list_div{overflow: auto; width: 60%; height: 80%; margin-left: 15%;}");
-static /*const*/ pearlrt::Character<58>         CONSTANT_CHARACTER_5c03f21e_efaa_41ff_9c18_29fbfde4d50a("#value_list{text-decoration: none; list-style-type: none;}");
+static /*const*/ pearlrt::Character<8>         CONSTANT_CHARACTER_8ec9cb5d_bc0a_4961_a05f_0d4c1ebfd43b("FFFFFFFF");
+static /*const*/ pearlrt::Character<19>         CONSTANT_CHARACTER_aeacef6f_e260_4e90_bebb_27b33db83592("TcpIpServer started");
+static /*const*/ pearlrt::Character<16>         CONSTANT_CHARACTER_ffbc867c_9ce3_429b_9539_172979a5ced4("wait for request");
+static /*const*/ pearlrt::Character<1>         CONSTANT_CHARACTER_1636eb44_4e63_4b3d_8c11_ece6cf1377f8(">");
+static /*const*/ pearlrt::Character<1>         CONSTANT_CHARACTER_85e664ad_6427_465a_9078_c85a42378399("<");
+static /*const*/ pearlrt::Character<15>         CONSTANT_CHARACTER_1df8c65c_b824_435a_9fc6_706b5200c037("HTTP/1.1 200 ok");
+static /*const*/ pearlrt::Character<17>         CONSTANT_CHARACTER_3e32420f_af9f_407d_bd61_84a317d0fb2f("Connection: close");
+static /*const*/ pearlrt::Character<23>         CONSTANT_CHARACTER_f9550692_bed5_422c_b414_e78282f5c0f6("Context-Type: text/html");
+static /*const*/ pearlrt::Character<24>         CONSTANT_CHARACTER_80dc8f2e_dfcd_4498_b634_1cecd91c34f8("GET /index.html HTTP/1.1");
+static /*const*/ pearlrt::Character<23>         CONSTANT_CHARACTER_27f9a1e3_fe93_4ad6_afa0_61495e516563("GET /info.html HTTP/1.1");
+static /*const*/ pearlrt::Character<23>         CONSTANT_CHARACTER_1885f5a3_f3c6_4936_822a_f203781dc830("GET /doku.html HTTP/1.1");
+static /*const*/ pearlrt::Character<32>         CONSTANT_CHARACTER_06cc4481_3090_46b6_9d9a_11ba9091f689("request completed: socket closed");
+static /*const*/ pearlrt::Character<19>         CONSTANT_CHARACTER_1be5b18b_b785_47a7_813d_f3f1301331b6("<HTML><HEAD><style>");
+static /*const*/ pearlrt::Character<47>         CONSTANT_CHARACTER_f2f65b27_5be7_441f_adf0_20cde08badf9("</style><TITLE>OpenPEARL Projekt</TITLE></HEAD>");
+static /*const*/ pearlrt::Character<67>         CONSTANT_CHARACTER_df6ab6e5_c61e_4176_a508_275f8c0afa3f("<BODY><div id = value_div><div class = head_div><h1>Auto</h1></div>");
+static /*const*/ pearlrt::Character<45>         CONSTANT_CHARACTER_674b259a_0284_4e73_8880_5367f6037af2("<div id = value_list_div><ul id = value_list>");
+static /*const*/ pearlrt::Character<21>         CONSTANT_CHARACTER_1f27f438_42cd_4458_86c5_6258788a816e("<li>Geschwindigkeit: ");
+static /*const*/ pearlrt::Character<5>         CONSTANT_CHARACTER_254406f3_75d0_4dd6_9033_c767490a9335("</li>");
+static /*const*/ pearlrt::Character<19>         CONSTANT_CHARACTER_db00fb83_286b_4dae_b5ed_493639830f81("<li>Anz. Schritte: ");
+static /*const*/ pearlrt::Character<17>         CONSTANT_CHARACTER_6b652e34_d80d_457b_a8d7_d2c8df1a9553("<li>Lichtrechen: ");
+static /*const*/ pearlrt::Character<16>         CONSTANT_CHARACTER_8a3ec285_85eb_4b94_8a1b_f69c13e339fc("<li>Farbsensor: ");
+static /*const*/ pearlrt::Character<17>         CONSTANT_CHARACTER_f7fa10bd_af38_4abf_8401_d29bc8026fd3("</ul></div></div>");
+static /*const*/ pearlrt::Character<51>         CONSTANT_CHARACTER_15068bf7_2d11_4c27_91fc_e9bc4cde6e27("<div id = navigation ><div class = head_div ></div>");
+static /*const*/ pearlrt::Character<118>         CONSTANT_CHARACTER_2690b2e8_b5e4_4caf_9610_12d722a70d2c("<div class = nav_div ><p><a href = info.html>Info</a></p><p><a href = doku.html>Doku</a></p></div></div></BODY></HTML>");
+static /*const*/ pearlrt::Character<67>         CONSTANT_CHARACTER_562e1362_8469_4403_a27b_b3ac4a581949("<BODY><div id = value_div><div class = head_div><h1>Info</h1></div>");
+static /*const*/ pearlrt::Character<55>         CONSTANT_CHARACTER_0aac3b23_cbb5_4d25_9090_d3954481624c("<div id = value_list_div> Hier koennte ihre info stehen");
+static /*const*/ pearlrt::Character<12>         CONSTANT_CHARACTER_a2d8eda7_8a15_4c3d_9ae6_0cfc70aa41f0("</div></div>");
+static /*const*/ pearlrt::Character<120>         CONSTANT_CHARACTER_c646d2df_4602_4367_9d1a_1fe5c311e15b("<div class = nav_div ><p><a href = index.html>Start</a></p><p><a href = doku.html>Doku</a></p></div></div></BODY></HTML>");
+static /*const*/ pearlrt::Character<67>         CONSTANT_CHARACTER_01cd4dc3_04ee_4334_a75d_1ee7bfb2959d("<BODY><div id = value_div><div class = head_div><h1>Doku</h1></div>");
+static /*const*/ pearlrt::Character<54>         CONSTANT_CHARACTER_c198a593_6e44_4e18_9feb_0d1ead68ebef("<div id = value_list_div>Hier koennte ihre Doku stehen");
+static /*const*/ pearlrt::Character<120>         CONSTANT_CHARACTER_b040811b_7f51_4353_be76_f6ce1501601e("<div class = nav_div ><p><a href = index.html>Start</a></p><p><a href = info.html>Info</a></p></div></div></BODY></HTML>");
+static /*const*/ pearlrt::Character<250>         CONSTANT_CHARACTER_1b948ba7_24f7_415f_beb0_b280e18356aa("<BODY><div id = value_div><div class = head_div><h1>Error 404</h1></div><div id = value_list_div style = text-align:center; ><ul id = value_list><li>Site not found</li></ul></div></div><div id = navigation ><div class = head_div ></div></BODY></HTML>");
+static /*const*/ pearlrt::Character<41>         CONSTANT_CHARACTER_009abfdb_fc73_41b9_ba55_6d0f9937f3e4("html{margin: 0; font-family: sans-serif;}");
+static /*const*/ pearlrt::Character<43>         CONSTANT_CHARACTER_5d246645_393c_4425_ba6b_1467bc75bd20("body{margin: 0; background-color: #eaecbd;}");
+static /*const*/ pearlrt::Character<14>         CONSTANT_CHARACTER_f10dfda0_39f3_482c_9f8b_b06dccd974d8("h1{margin: 0;}");
+static /*const*/ pearlrt::Character<91>         CONSTANT_CHARACTER_66a6b550_1bdd_4a19_a946_bb37775e7ad9("#navigation{position: absolute; overflow: auto; left: 0; top: 0; width: 13%; height: 100%;}");
+static /*const*/ pearlrt::Character<169>         CONSTANT_CHARACTER_58805b50_b377_4658_985a_88f7b8c76392(".head_div{position: relative ; left: 0; top: 0; width: 100%; height: 3.78em; line-height: 3.7em; margin: 0; background-color: #008040; color: white; text-align: center;}");
+static /*const*/ pearlrt::Character<77>         CONSTANT_CHARACTER_002a51d9_82f7_46e9_8c6b_6f6d468d55cb("value_div{position: absolute; right: 0; bottom: 0; width: 87%; height: 100%;}");
+static /*const*/ pearlrt::Character<71>         CONSTANT_CHARACTER_661be773_314e_43ee_80ef_ee2ade3c29ab(".nav_div{font-size: 1.5em; margin-left: 1em; border-right: solid gray;}");
+static /*const*/ pearlrt::Character<38>         CONSTANT_CHARACTER_9e7e603a_6838_42e5_8092_cc003fc8f803("a{text-decoration: none; color: gray;}");
+static /*const*/ pearlrt::Character<36>         CONSTANT_CHARACTER_7f114cef_d545_4494_8ad8_51d233614811("a:hover{text-decoration: underline;}");
+static /*const*/ pearlrt::Character<75>         CONSTANT_CHARACTER_9aa91d71_98ec_4c6e_b3e0_9a45198b5603("#value_list_div{overflow: auto; width: 60%; height: 80%; margin-left: 15%;}");
+static /*const*/ pearlrt::Character<58>         CONSTANT_CHARACTER_9caaa788_5184_42e9_921e_3b0523b79807("#value_list{text-decoration: none; list-style-type: none;}");
 
 /////////////////////////////////////////////////////////////////////////////
 // TASK SPECIFIERS
@@ -157,7 +157,7 @@ _index(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_4ea217a1_a94e_49f3_8992_a71ec00fb370) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_1be5b18b_b785_47a7_813d_f3f1301331b6) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -176,7 +176,7 @@ _index(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_cc640d92_5a0b_4eba_8718_5e166f130dd2) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_f2f65b27_5be7_441f_adf0_20cde08badf9) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -193,7 +193,7 @@ _index(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_fe359685_ab50_41c2_8d94_6ee3343011ba) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_df6ab6e5_c61e_4176_a508_275f8c0afa3f) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -210,7 +210,7 @@ _index(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_b36f4ace_cbea_4af6_a20f_487015f12eb3) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_674b259a_0284_4e73_8880_5367f6037af2) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -227,9 +227,9 @@ _index(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_00d77d14_0da5_407a_aa39_16c0e73f2c2a) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_1f27f438_42cd_4458_86c5_6258788a816e) ;
         _usHttpSocket.toF(_speed,(pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_20_31));
-        _usHttpSocket.toA(CONSTANT_CHARACTER_998aa5f9_7620_4175_85b2_db5c22df42c2) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_254406f3_75d0_4dd6_9033_c767490a9335) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -246,9 +246,9 @@ _index(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_ddbfc2f2_2b14_4a31_a7d6_3f58930957f6) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_db00fb83_286b_4dae_b5ed_493639830f81) ;
         _usHttpSocket.toF(_steps,(pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_20_31));
-        _usHttpSocket.toA(CONSTANT_CHARACTER_998aa5f9_7620_4175_85b2_db5c22df42c2) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_254406f3_75d0_4dd6_9033_c767490a9335) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -265,9 +265,9 @@ _index(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_9447fdf2_de84_46db_b3a1_4f0267f765be) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_6b652e34_d80d_457b_a8d7_d2c8df1a9553) ;
         _usHttpSocket.toF(_lichtrechen,(pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_20_31));
-        _usHttpSocket.toA(CONSTANT_CHARACTER_998aa5f9_7620_4175_85b2_db5c22df42c2) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_254406f3_75d0_4dd6_9033_c767490a9335) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -284,9 +284,9 @@ _index(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_2587e440_6ada_42c5_b282_a082e87ced60) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_8a3ec285_85eb_4b94_8a1b_f69c13e339fc) ;
         _usHttpSocket.toA(_color) ;
-        _usHttpSocket.toA(CONSTANT_CHARACTER_998aa5f9_7620_4175_85b2_db5c22df42c2) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_254406f3_75d0_4dd6_9033_c767490a9335) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -303,7 +303,7 @@ _index(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_91cfe3af_b399_44cd_82f4_800bc92a53ed) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_f7fa10bd_af38_4abf_8401_d29bc8026fd3) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -320,7 +320,7 @@ _index(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_da1ff15d_1a88_4a1f_938b_aebc8f39730f) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_15068bf7_2d11_4c27_91fc_e9bc4cde6e27) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -337,7 +337,7 @@ _index(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_74cec3a3_adc9_4ded_979a_2ef4b7aef4ff) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_2690b2e8_b5e4_4caf_9610_12d722a70d2c) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -359,7 +359,7 @@ _info(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_4ea217a1_a94e_49f3_8992_a71ec00fb370) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_1be5b18b_b785_47a7_813d_f3f1301331b6) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -378,7 +378,7 @@ _info(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_cc640d92_5a0b_4eba_8718_5e166f130dd2) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_f2f65b27_5be7_441f_adf0_20cde08badf9) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -395,7 +395,7 @@ _info(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_4d424c5a_3e8b_4f35_aadd_8b5071b6992c) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_562e1362_8469_4403_a27b_b3ac4a581949) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -412,7 +412,7 @@ _info(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_2a08102e_13a6_430a_be4d_617ba88509e9) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_0aac3b23_cbb5_4d25_9090_d3954481624c) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -429,7 +429,7 @@ _info(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_db3d634f_0e5c_416c_807c_16a23d821057) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_a2d8eda7_8a15_4c3d_9ae6_0cfc70aa41f0) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -446,7 +446,7 @@ _info(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_da1ff15d_1a88_4a1f_938b_aebc8f39730f) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_15068bf7_2d11_4c27_91fc_e9bc4cde6e27) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -463,7 +463,7 @@ _info(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_bdd17e79_cde2_46cc_a79c_98ebad79da40) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_c646d2df_4602_4367_9d1a_1fe5c311e15b) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -485,7 +485,7 @@ _doku(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_4ea217a1_a94e_49f3_8992_a71ec00fb370) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_1be5b18b_b785_47a7_813d_f3f1301331b6) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -504,7 +504,7 @@ _doku(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_cc640d92_5a0b_4eba_8718_5e166f130dd2) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_f2f65b27_5be7_441f_adf0_20cde08badf9) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -521,7 +521,7 @@ _doku(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_cca9e565_c470_4a76_bf50_1a05dd4be6f7) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_01cd4dc3_04ee_4334_a75d_1ee7bfb2959d) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -538,7 +538,7 @@ _doku(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_52d4d0f2_490b_4d21_bf47_900358f9332b) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_c198a593_6e44_4e18_9feb_0d1ead68ebef) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -555,7 +555,7 @@ _doku(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_db3d634f_0e5c_416c_807c_16a23d821057) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_a2d8eda7_8a15_4c3d_9ae6_0cfc70aa41f0) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -572,7 +572,7 @@ _doku(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_da1ff15d_1a88_4a1f_938b_aebc8f39730f) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_15068bf7_2d11_4c27_91fc_e9bc4cde6e27) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -589,7 +589,7 @@ _doku(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_3d02bfdb_8fda_4c39_8a73_25e94822218a) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_b040811b_7f51_4353_be76_f6ce1501601e) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -611,7 +611,7 @@ _error(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_4ea217a1_a94e_49f3_8992_a71ec00fb370) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_1be5b18b_b785_47a7_813d_f3f1301331b6) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -630,7 +630,7 @@ _error(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_cc640d92_5a0b_4eba_8718_5e166f130dd2) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_f2f65b27_5be7_441f_adf0_20cde08badf9) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -647,7 +647,7 @@ _error(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_ee12557f_8b5b_4e75_9ad7_6f4866cb0693) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_1b948ba7_24f7_415f_beb0_b280e18356aa) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -669,7 +669,7 @@ _style(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_2c356a31_ccf9_4dff_89f6_50bd75c0f572) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_009abfdb_fc73_41b9_ba55_6d0f9937f3e4) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -686,7 +686,7 @@ _style(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_07f269d9_6157_4fc9_9bb2_e801c501b2d1) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_5d246645_393c_4425_ba6b_1467bc75bd20) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -703,7 +703,7 @@ _style(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_9e4a38aa_3be8_4019_8003_3398a8024bf8) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_f10dfda0_39f3_482c_9f8b_b06dccd974d8) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -720,7 +720,7 @@ _style(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_896d1357_b987_4bed_b569_6bd13948ac73) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_66a6b550_1bdd_4a19_a946_bb37775e7ad9) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -737,7 +737,7 @@ _style(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_db26e669_de7d_445b_9f87_069302e93911) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_58805b50_b377_4658_985a_88f7b8c76392) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -754,7 +754,7 @@ _style(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_875c9127_db02_43c6_9ff8_a9057970e0a4) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_002a51d9_82f7_46e9_8c6b_6f6d468d55cb) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -771,7 +771,7 @@ _style(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_550f6c4a_ff01_4378_906d_68103c55ffee) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_661be773_314e_43ee_80ef_ee2ade3c29ab) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -788,7 +788,7 @@ _style(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_3be5c750_b1fb_47cd_b91a_409766ebabf4) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_9e7e603a_6838_42e5_8092_cc003fc8f803) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -805,7 +805,7 @@ _style(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_cdd4b5a3_63de_4890_b2dd_c113f50b15b5) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_7f114cef_d545_4494_8ad8_51d233614811) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -822,7 +822,7 @@ _style(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_332cbe6c_380a_4694_b44f_65354881e0b0) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_9aa91d71_98ec_4c6e_b3e0_9a45198b5603) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -839,7 +839,7 @@ _style(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_5c03f21e_efaa_41ff_9c18_29fbfde4d50a) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_9caaa788_5184_42e9_921e_3b0523b79807) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -872,7 +872,7 @@ DCLTASK(_httpTask, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitStri
         me->setLocation(33, filename);
             _lichtrechen = CONSTANT_FIXED_POS_0_31;
         me->setLocation(34, filename);
-            _color = CONSTANT_CHARACTER_16dff816_15e7_477d_a9d9_8b3ec300544a;
+            _color = CONSTANT_CHARACTER_8ec9cb5d_bc0a_4961_a05f_0d4c1ebfd43b;
         me->setLocation(38, filename);
             _i = CONSTANT_FIXED_POS_0_31;
         me->setLocation(39, filename);
@@ -897,7 +897,7 @@ DCLTASK(_httpTask, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitStri
         // PUT STATEMENT BEGIN
         try {
             _so.beginSequence(me);
-            _so.toA(CONSTANT_CHARACTER_c5b929d9_e3fc_42c7_96f3_6ddcbddcaa3f) ;
+            _so.toA(CONSTANT_CHARACTER_aeacef6f_e260_4e90_bebb_27b33db83592) ;
             _so.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
             _so.endSequence();
         }
@@ -919,7 +919,7 @@ DCLTASK(_httpTask, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitStri
                     // PUT STATEMENT BEGIN
                     try {
                         _so.beginSequence(me);
-                        _so.toA(CONSTANT_CHARACTER_e1694beb_ef26_4987_bb8b_077e9c776e72) ;
+                        _so.toA(CONSTANT_CHARACTER_ffbc867c_9ce3_429b_9539_172979a5ced4) ;
                         _so.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
                         _so.endSequence();
                     }
@@ -962,9 +962,9 @@ DCLTASK(_httpTask, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitStri
                     // PUT STATEMENT BEGIN
                     try {
                         _so.beginSequence(me);
-                        _so.toA(CONSTANT_CHARACTER_748bd926_a1b9_427e_ab01_6388b131c2c0) ;
+                        _so.toA(CONSTANT_CHARACTER_1636eb44_4e63_4b3d_8c11_ece6cf1377f8) ;
                         _so.toA(_request) ;
-                        _so.toA(CONSTANT_CHARACTER_e1b86676_e11b_4930_b6a8_f62d672c08ea) ;
+                        _so.toA(CONSTANT_CHARACTER_85e664ad_6427_465a_9078_c85a42378399) ;
                         _so.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
                         _so.endSequence();
                     }
@@ -981,7 +981,7 @@ DCLTASK(_httpTask, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitStri
                     // PUT STATEMENT BEGIN
                     try {
                         _usHttpSocket.beginSequence(me);
-                        _usHttpSocket.toA(CONSTANT_CHARACTER_badbb8f2_f2e9_425f_b5fb_bc4b1dfc4029) ;
+                        _usHttpSocket.toA(CONSTANT_CHARACTER_1df8c65c_b824_435a_9fc6_706b5200c037) ;
                         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
                         _usHttpSocket.endSequence();
                     }
@@ -998,7 +998,7 @@ DCLTASK(_httpTask, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitStri
                     // PUT STATEMENT BEGIN
                     try {
                         _usHttpSocket.beginSequence(me);
-                        _usHttpSocket.toA(CONSTANT_CHARACTER_b3a50357_3105_4aa5_8368_117217b6a496) ;
+                        _usHttpSocket.toA(CONSTANT_CHARACTER_3e32420f_af9f_407d_bd61_84a317d0fb2f) ;
                         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
                         _usHttpSocket.endSequence();
                     }
@@ -1015,7 +1015,7 @@ DCLTASK(_httpTask, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitStri
                     // PUT STATEMENT BEGIN
                     try {
                         _usHttpSocket.beginSequence(me);
-                        _usHttpSocket.toA(CONSTANT_CHARACTER_92ae7f9f_f779_4d98_a7d1_82c428f62646) ;
+                        _usHttpSocket.toA(CONSTANT_CHARACTER_f9550692_bed5_422c_b414_e78282f5c0f6) ;
                         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
                         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
                         _usHttpSocket.endSequence();
@@ -1030,19 +1030,19 @@ DCLTASK(_httpTask, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitStri
                     // PUT STATEMENT END
 
                     me->setLocation(53, filename);
-                    if ((_request == CONSTANT_CHARACTER_e2277128_2ce9_453c_bff2_429dc3d8c913).getBoolean()) {
+                    if ((_request == CONSTANT_CHARACTER_80dc8f2e_dfcd_4498_b634_1cecd91c34f8).getBoolean()) {
                         me->setLocation(54, filename);
                         _index( me);
                     }
                     else {
                         me->setLocation(55, filename);
-                        if ((_request == CONSTANT_CHARACTER_30bb4c17_219e_4356_8af6_b634528a2eab).getBoolean()) {
+                        if ((_request == CONSTANT_CHARACTER_27f9a1e3_fe93_4ad6_afa0_61495e516563).getBoolean()) {
                             me->setLocation(56, filename);
                             _info( me);
                         }
                         else {
                             me->setLocation(57, filename);
-                            if ((_request == CONSTANT_CHARACTER_e6fd2374_d05c_4d20_9ca2_7409aa24c123).getBoolean()) {
+                            if ((_request == CONSTANT_CHARACTER_1885f5a3_f3c6_4936_822a_f203781dc830).getBoolean()) {
                                 me->setLocation(58, filename);
                                 _doku( me);
                             }
@@ -1059,7 +1059,7 @@ DCLTASK(_httpTask, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitStri
                     // PUT STATEMENT BEGIN
                     try {
                         _so.beginSequence(me);
-                        _so.toA(CONSTANT_CHARACTER_f5768f3f_d358_45e9_9afc_9a0e32f6b430) ;
+                        _so.toA(CONSTANT_CHARACTER_06cc4481_3090_46b6_9d9a_11ba9091f689) ;
                         _so.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
                         _so.endSequence();
                     }
