@@ -24,7 +24,12 @@ main: TASK MAIN;
 END;
 
 step: PROC(motorindex FIXED, steps FIXED, dir FIXED, time DUR);
-  DCL (a, b, c, d) BIT(4) INIT('1010'B1, '1001'B1, '0101'B1, '0110'B1);
+  !DCL (a, b, c, d) BIT(4) INIT('1010'B1, '1001'B1, '5'B4, '0110'B1);
+  DCL (a, b ) BIT(4) INIT('1010'B1, '1001'B1);
+  DCL (c,d) BIT(4);
+  c := '0101'B1;
+  d := '0110'B1;
+
   IF motorindex == 0 THEN
     IF dir == 0 THEN
        TO steps REPEAT

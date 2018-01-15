@@ -1,0 +1,35 @@
+
+MODULE(stepmotor);
+
+SYSTEM;
+   leftstepmotor_out: RPiDigitalOut(19, 4);
+
+PROBLEM;
+    SPC leftstepmotor_out DATION OUT SYSTEM BASIC BIT(4) GLOBAL;
+    DCL lmotor DATION OUT BASIC BIT(4) CREATED (leftstepmotor_out);
+main: TASK MAIN;
+  DCL time DUR INIT (0.01 SEC);
+  OPEN lmotor;
+  CALL step(50, time);
+  CLOSE lmotor;
+END;
+
+step: PROC(steps FIXED,time DUR);
+  DCL (a, b, c, d) BIT(4) INIT('1010'B1, '1001'B1, '0101'B1, '0110'B1);
+       TO steps REPEAT
+         SEND a TO lmotor;
+         AFTER time RESUME;
+
+         SEND b TO lmotor;
+         AFTER time RESUME;
+
+         SEND c TO lmotor;
+         AFTER time RESUME;
+
+         SEND d TO lmotor;
+         AFTER time RESUME;
+       END;
+END;
+
+MODEND;
+

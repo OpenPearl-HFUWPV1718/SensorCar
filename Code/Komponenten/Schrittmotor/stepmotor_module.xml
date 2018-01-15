@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module name="stepmotor"  file="stepmotor_module.prl">
+<system>
+ <username name="leftstepmotor_out"  line="5">
+ <sysname name="RPiDigitalOut">
+       <parameters>
+             <FIXED>19</FIXED> 
+             <FIXED>4</FIXED> 
+       </parameters>
+ </sysname>
+ </username>
+
+ <username name="rightstepmotor_out"  line="6">
+ <sysname name="RPiDigitalOut">
+       <parameters>
+             <FIXED>23</FIXED> 
+             <FIXED>4</FIXED> 
+       </parameters>
+ </sysname>
+ </username>
+
+
+</system>
+<problem>
+ <spc type="dation" name="leftstepmotor_out" line="9">
+ <attributes>BASIC,SYSTEM,OUT</attributes>
+ <data>BIT(4)</data>
+ </spc>
+ <spc type="dation" name="rightstepmotor_out" line="11">
+ <attributes>BASIC,SYSTEM,OUT</attributes>
+ <data>BIT(4)</data>
+ </spc>
+
+</problem>
+</module>
