@@ -38,7 +38,7 @@ MODULE(system);
      DCL lrin FLOAT;
      DCL in FLOAT;
      
-     
+     REPEAT
      REQUEST lr_sema;
      in:= lr_signal;
      RELEASE lr_sema;
@@ -68,13 +68,14 @@ MODULE(system);
      
      ACTIVATE driveleft;
      ACTIVATE driveright;
+     END;
   END;
   
   driveleft: TASK;
-    OPEN lmotor;
     DCL default DUR INIT(0.05 SEC);
     DCL time DUR;
 
+    OPEN lmotor;   
     REQUEST lm_sema;
     time := (1 / lspeed) * default;
     RELEASE lm_sema;
@@ -84,9 +85,10 @@ MODULE(system);
   END;
   
   driveright: TASK;
-    OPEN rmotor;
     DCL default DUR INIT(0.05 SEC);
     DCL time DUR;
+
+    OPEN rmotor;
 
     REQUEST rm_sema;
     time := (1 / rspeed) * default;

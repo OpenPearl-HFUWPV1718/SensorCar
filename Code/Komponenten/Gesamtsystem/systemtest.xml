@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module name="system"  file="systemtest.prl">
+<system>
+ <username name="lichtrechen"  line="4">
+ <sysname name="RPiDigitalIn">
+       <parameters>
+             <FIXED>13</FIXED> 
+             <FIXED>8</FIXED> 
+             <CHAR>'u'</CHAR> 
+       </parameters>
+ </sysname>
+ </username>
+
+ <username name="leftstepmotor_out"  line="6">
+ <sysname name="RPiDigitalOut">
+       <parameters>
+             <FIXED>19</FIXED> 
+             <FIXED>4</FIXED> 
+       </parameters>
+ </sysname>
+ </username>
+
+ <username name="rightstepmotor_out"  line="7">
+ <sysname name="RPiDigitalOut">
+       <parameters>
+             <FIXED>23</FIXED> 
+             <FIXED>4</FIXED> 
+       </parameters>
+ </sysname>
+ </username>
+
+
+</system>
+<problem>
+ <spc type="dation" name="lichtrechen" line="10">
+ <attributes>BASIC,SYSTEM,IN</attributes>
+ <data>BIT(8)</data>
+ </spc>
+ <spc type="dation" name="leftstepmotor_out" line="13">
+ <attributes>BASIC,SYSTEM,OUT</attributes>
+ <data>BIT(4)</data>
+ </spc>
+ <spc type="dation" name="rightstepmotor_out" line="15">
+ <attributes>BASIC,SYSTEM,OUT</attributes>
+ <data>BIT(4)</data>
+ </spc>
+
+</problem>
+</module>
