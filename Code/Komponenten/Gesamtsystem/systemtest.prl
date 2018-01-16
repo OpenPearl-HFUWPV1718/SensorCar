@@ -16,17 +16,20 @@ MODULE(system);
 		DCL rmotor DATION OUT BASIC BIT(4) CREATED (rightstepmotor_out);
     
     DCL (lr_signal) FLOAT;
-    DCL (lm_speed, rm_speed) FIXED;
+    DCL (lm_speed, rm_speed) FLOAT;
     
     DCL (lr_sema, lm_sema, rm_sema) SEMA PRESET(1,1,1);
+    
+    DCL (lspeed, rspeed) FLOAT INIT(1,1);
 
 	main: TASK MAIN;
 		lr_signal := 0;
 		lm_speed := 1;
 		rm_speed := 1;
+		
 		ACTIVATE readlr;
-		ACTIVATE driver;
-		ACTIVATE drivel;
+		ACTIVATE drive;
+		
 		
 	
 	END;
@@ -34,7 +37,7 @@ MODULE(system);
   drive: TASK;
      DCL lrin FLOAT;
      DCL in FLOAT;
-     DCL (lspeed, rspeed) FIXED INIT(1,1);
+     
      
      REQUEST lr_sema;
      in:= lr_signal;
@@ -42,7 +45,7 @@ MODULE(system);
      
      IF in < 0 THEN
       lspeed := 1;
-      rspeed := -1*in;
+      rspeed := -1 * in;
      FIN;
      
      IF in > 0 THEN
@@ -72,7 +75,7 @@ MODULE(system);
     DCL time DUR;
 
     REQUEST lm_sema;
-    time := 1/ lspeed * default;
+    time := (1 / lspeed) * default;
     RELEASE lm_sema;
 
     CALL step(0, 1, 1, time);
@@ -83,7 +86,7 @@ MODULE(system);
     DCL time DUR;
 
     REQUEST rm_sema;
-    time := 1/ rspeed * default;
+    time := (1 / rspeed) * default;
     RELEASE rm_sema;
 
     CALL step(1, 1, 1, time);
