@@ -33,6 +33,7 @@ MODULE(system);
 		
   drive: TASK;
      DCL lrin FLOAT;
+     DCL in FLOAT;
      DCL (lspeed, rspeed) FIXED INIT(1,1);
      
      REQUEST lr_sema;
