@@ -1,6 +1,0 @@
-15:48:20.847578 WARN:  no .pearlrc found
-15:48:20.849403 ERROR: task _drive: Task _driveleft already running
-15:48:20.849760 ERROR: systemtest.prl:69 Task: _drive   terminated due to: activate an active task
-15:48:21.050378 ERROR: No close parameters allowed for RPiDigitalOut device
-15:48:21.050633 ERROR: systemtest.prl:84 Task: _driveleft   terminated due to: illegal parameter, not permitted operation
-15:48:21.050875 ERROR: No close parameters allowed for RPiDigitalOut device

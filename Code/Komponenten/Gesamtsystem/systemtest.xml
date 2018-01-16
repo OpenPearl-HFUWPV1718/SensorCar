@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <module name="system"  file="systemtest.prl">
 <system>
- <username name="lichtrechen"  line="4">
+ <username name="stdout"  line="5">
+ <sysname name="StdOut">
+ </sysname>
+ </username>
+
+ <username name="lichtrechen"  line="6">
  <sysname name="RPiDigitalIn">
        <parameters>
              <FIXED>13</FIXED> 
@@ -11,7 +16,7 @@
  </sysname>
  </username>
 
- <username name="leftstepmotor_out"  line="6">
+ <username name="leftstepmotor_out"  line="8">
  <sysname name="RPiDigitalOut">
        <parameters>
              <FIXED>19</FIXED> 
@@ -20,7 +25,7 @@
  </sysname>
  </username>
 
- <username name="rightstepmotor_out"  line="7">
+ <username name="rightstepmotor_out"  line="9">
  <sysname name="RPiDigitalOut">
        <parameters>
              <FIXED>23</FIXED> 
@@ -32,15 +37,19 @@
 
 </system>
 <problem>
- <spc type="dation" name="lichtrechen" line="10">
+ <spc type="dation" name="stdout" line="12">
+ <attributes>SYSTEM,OUT</attributes>
+ <data>ALPHIC</data>
+ </spc>
+ <spc type="dation" name="lichtrechen" line="15">
  <attributes>BASIC,SYSTEM,IN</attributes>
  <data>BIT(8)</data>
  </spc>
- <spc type="dation" name="leftstepmotor_out" line="13">
+ <spc type="dation" name="leftstepmotor_out" line="18">
  <attributes>BASIC,SYSTEM,OUT</attributes>
  <data>BIT(4)</data>
  </spc>
- <spc type="dation" name="rightstepmotor_out" line="15">
+ <spc type="dation" name="rightstepmotor_out" line="20">
  <attributes>BASIC,SYSTEM,OUT</attributes>
  <data>BIT(4)</data>
  </spc>

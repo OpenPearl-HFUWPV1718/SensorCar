@@ -1,12 +1,17 @@
 
+
 MODULE(system);
 	SYSTEM;
+		stdout: StdOut;
 		lichtrechen: RPiDigitalIn(13,8,'u');
 
 		leftstepmotor_out: RPiDigitalOut(19, 4);
 		rightstepmotor_out: RPiDigitalOut(23, 4);
 
 	PROBLEM;
+		SPC stdout DATION OUT SYSTEM ALPHIC;
+		DCL termout DATION OUT ALPHIC DIM(*, 80) FORWARD STREAM CREATED(stdout);		
+
 		SPC lichtrechen DATION IN SYSTEM BASIC BIT(8) GLOBAL;
 		DCL lr DATION IN BASIC BIT(8) CREATED(lichtrechen);
 		
@@ -18,7 +23,7 @@ MODULE(system);
     DCL (lr_signal) FLOAT;
     DCL (lm_speed, rm_speed) FLOAT;
     
-    DCL (lr_sema, lm_sema, rm_sema) SEMA PRESET(1,1,1);
+    DCL (lr_sema, lm_sema, rm_sema, d1, d2) SEMA PRESET(1,1,1,0,0);
     
     DCL (lspeed, rspeed) FLOAT INIT(1,1);
 
@@ -27,10 +32,15 @@ MODULE(system);
 		lm_speed := 1;
 		rm_speed := 1;
 		
+		OPEN termout;
+		OPEN lmotor;
+		OPEN rmotor;
 		ACTIVATE readlr;
 		ACTIVATE drive;
-		
-		
+		SUSPEND;
+		CLOSE lmotor;
+		CLOSE rmotor;
+		CLOSE termout;
 	
 	END;
 		
@@ -40,7 +50,7 @@ MODULE(system);
      
      REPEAT
      REQUEST lr_sema;
-     in:= lr_signal;
+     in:= -1 * lr_signal;
      RELEASE lr_sema;
      
      IF in < 0 THEN
@@ -68,35 +78,41 @@ MODULE(system);
      
      ACTIVATE driveleft;
      ACTIVATE driveright;
+     REQUEST d1, d2;
      END;
   END;
   
   driveleft: TASK;
     DCL default DUR INIT(0.05 SEC);
     DCL time DUR;
+    DCL speed FLOAT;
 
-    OPEN lmotor;   
     REQUEST lm_sema;
-    time := (1 / lspeed) * default;
+    speed := lm_speed;
     RELEASE lm_sema;
+    time := (1 / speed) * default;
 
+    PUT 'linker Motor: ', speed TO termout BY A, F(6), SKIP;
     CALL step(0, 1, 1, time);
-    CLOSE lmotor;
+    RELEASE d1;
   END;
   
   driveright: TASK;
     DCL default DUR INIT(0.05 SEC);
     DCL time DUR;
-
-    OPEN rmotor;
+    DCL speed FLOAT;
 
     REQUEST rm_sema;
-    time := (1 / rspeed) * default;
+    speed := rm_speed;
     RELEASE rm_sema;
+    time := (1 / speed) * default;
+
+    PUT 'rechter Motor: ', speed TO termout BY A, F(6), SKIP;
 
     CALL step(1, 1, 1, time);
-    CLOSE rmotor;
+    RELEASE d2;
   END;
+
   
   
 	readlr: TASK;
