@@ -10,17 +10,33 @@ PROBLEM;
     DCL lmotor DATION OUT BASIC BIT(4) CREATED (leftstepmotor_out);
     SPC rightstepmotor_out DATION OUT SYSTEM BASIC BIT(4) GLOBAL;
     DCL rmotor DATION OUT BASIC BIT(4) CREATED (rightstepmotor_out);
+    DCL (a, b) SEMA PRESET(1,1);
 
 main: TASK MAIN;
-  DCL time DUR INIT (0.01 SEC);
+  DCL stoptime DUR INIT (100 SEC);
   OPEN lmotor;
   OPEN rmotor;
-  REPEAT;
-    CALL step(0, 50, 0, time);
-    CALL step(0, 50, 1, time);
-  END;
+  ACTIVATE  drivel;
+  ACTIVATE driver;
+  AFTER stoptime RESUME;
+  TERMINATE drivel;
+  TERMINATE driver;
   CLOSE rmotor;
   CLOSE lmotor;
+END;
+
+drivel: TASK;
+	DCL time DUR INIT (0.02 SEC);
+	REPEAT
+		CALL step(0, 1, 1, time);
+	END;
+END;
+
+driver: TASK;
+	DCL time DUR INIT (0.01 SEC);
+	REPEAT
+		CALL step(1,1, 1, time);
+	END;
 END;
 
 step: PROC(motorindex FIXED, steps FIXED, dir FIXED, time DUR);

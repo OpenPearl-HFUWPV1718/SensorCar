@@ -19,7 +19,7 @@
  <username name="leftstepmotor_out"  line="8">
  <sysname name="RPiDigitalOut">
        <parameters>
-             <FIXED>19</FIXED> 
+             <FIXED>23</FIXED> 
              <FIXED>4</FIXED> 
        </parameters>
  </sysname>
@@ -28,7 +28,7 @@
  <username name="rightstepmotor_out"  line="9">
  <sysname name="RPiDigitalOut">
        <parameters>
-             <FIXED>23</FIXED> 
+             <FIXED>19</FIXED> 
              <FIXED>4</FIXED> 
        </parameters>
  </sysname>

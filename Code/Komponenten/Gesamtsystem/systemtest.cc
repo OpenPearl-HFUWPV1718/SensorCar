@@ -15,15 +15,15 @@ static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_1_31(1);
 static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_NEG_1_31(-1);
 static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_13_31(13);
 static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_8_31(8);
-static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_19_31(19);
-static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_4_31(4);
 static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_23_31(23);
+static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_4_31(4);
+static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_19_31(19);
 static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_6_31(6);
 static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_3_31(3);
 static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_2_31(2);
-static /*const*/ pearlrt::Character<1>         CONSTANT_CHARACTER_00334393_5e5f_4a95_8291_0da2f8f2e16d("u");
-static /*const*/ pearlrt::Character<14>         CONSTANT_CHARACTER_805a4392_2389_4884_a5b1_807d627ddbd0("linker Motor: ");
-static /*const*/ pearlrt::Character<15>         CONSTANT_CHARACTER_f436643c_e8bb_4224_bb9c_ae489db8d020("rechter Motor: ");
+static /*const*/ pearlrt::Character<1>         CONSTANT_CHARACTER_b69d98e0_72d3_458e_9402_ea77a37d68d6("u");
+static /*const*/ pearlrt::Character<14>         CONSTANT_CHARACTER_6eb328b5_103e_4b99_86bb_80862f592f76("linker Motor: ");
+static /*const*/ pearlrt::Character<15>         CONSTANT_CHARACTER_c0c64e94_fafa_4822_9205_c32dc58fc54a("rechter Motor: ");
 
 /////////////////////////////////////////////////////////////////////////////
 // TASK SPECIFIERS
@@ -790,7 +790,7 @@ DCLTASK(_drive, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitString<
         }
 }
 DCLTASK(_driveleft, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitString<1>)0)) {
-        pearlrt::Duration  _default(0.05); 
+        pearlrt::Duration  _default(0.025); 
 
         pearlrt::Duration  _time; 
 
@@ -809,7 +809,7 @@ DCLTASK(_driveleft, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitStr
         // PUT STATEMENT BEGIN
         try {
             _termout.beginSequence(me);
-            _termout.toA(CONSTANT_CHARACTER_805a4392_2389_4884_a5b1_807d627ddbd0) ;
+            _termout.toA(CONSTANT_CHARACTER_6eb328b5_103e_4b99_86bb_80862f592f76) ;
             _termout.toF(_speed,(pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_6_31));
             _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
             _termout.endSequence();
@@ -824,13 +824,13 @@ DCLTASK(_driveleft, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitStr
         // PUT STATEMENT END
 
         me->setLocation(96, filename);
-        _step( me, CONSTANT_FIXED_POS_0_31, CONSTANT_FIXED_POS_1_31, CONSTANT_FIXED_POS_1_31, 
+        _step( me, CONSTANT_FIXED_POS_0_31, CONSTANT_FIXED_POS_3_31, CONSTANT_FIXED_POS_1_31, 
         _time);
         me->setLocation(97, filename);
             pearlrt::Semaphore::release( me, 1, d1_semas);
 }
 DCLTASK(_driveright, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitString<1>)0)) {
-        pearlrt::Duration  _default(0.05); 
+        pearlrt::Duration  _default(0.025); 
 
         pearlrt::Duration  _time; 
 
@@ -849,7 +849,7 @@ DCLTASK(_driveright, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitSt
         // PUT STATEMENT BEGIN
         try {
             _termout.beginSequence(me);
-            _termout.toA(CONSTANT_CHARACTER_f436643c_e8bb_4224_bb9c_ae489db8d020) ;
+            _termout.toA(CONSTANT_CHARACTER_c0c64e94_fafa_4822_9205_c32dc58fc54a) ;
             _termout.toF(_speed,(pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_6_31));
             _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
             _termout.endSequence();
@@ -864,7 +864,7 @@ DCLTASK(_driveright, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitSt
         // PUT STATEMENT END
 
         me->setLocation(112, filename);
-        _step( me, CONSTANT_FIXED_POS_1_31, CONSTANT_FIXED_POS_1_31, CONSTANT_FIXED_POS_1_31, 
+        _step( me, CONSTANT_FIXED_POS_1_31, CONSTANT_FIXED_POS_3_31, CONSTANT_FIXED_POS_1_31, 
         _time);
         me->setLocation(113, filename);
             pearlrt::Semaphore::release( me, 1, d2_semas);
