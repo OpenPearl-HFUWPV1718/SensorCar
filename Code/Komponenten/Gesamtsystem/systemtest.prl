@@ -71,6 +71,7 @@ MODULE(system);
   END;
   
   driveleft: TASK;
+    OPEN lmotor;
     DCL default DUR INIT(0.05 SEC);
     DCL time DUR;
 
@@ -79,9 +80,11 @@ MODULE(system);
     RELEASE lm_sema;
 
     CALL step(0, 1, 1, time);
+    CLOSE lmotor;
   END;
   
   driveright: TASK;
+    OPEN rmotor;
     DCL default DUR INIT(0.05 SEC);
     DCL time DUR;
 
@@ -90,6 +93,7 @@ MODULE(system);
     RELEASE rm_sema;
 
     CALL step(1, 1, 1, time);
+    CLOSE rmotor;
   END;
   
   
