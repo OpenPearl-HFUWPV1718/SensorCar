@@ -21,9 +21,9 @@ MODULE(system);
     DCL (lr_sema, lm_sema, rm_sema) SEMA PRESET(1,1,1);
 
 	main: TASK MAIN;
-		lrout := 0;
-		speed := 0;
-		
+		lr_signal := 0;
+		lm_speed := 1;
+		rm_speed := 1;
 		ACTIVATE readlr;
 		ACTIVATE driver;
 		ACTIVATE drivel;
