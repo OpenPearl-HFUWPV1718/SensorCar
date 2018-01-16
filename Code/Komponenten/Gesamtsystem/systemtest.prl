@@ -1,1 +1,235 @@
 
+MODULE(system);
+	SYSTEM;
+		lichtrechen: RPiDigitalIn(13,8,'u');
+
+		leftstepmotor_out: RPiDigitalOut(19, 4);
+		rightstepmotor_out: RPiDigitalOut(23, 4);
+
+	PROBLEM;
+		SPC lichtrechen DATION IN SYSTEM BASIC BIT(8) GLOBAL;
+		DCL lr DATION IN BASIC BIT(8) CREATED(lichtrechen);
+		
+		SPC leftstepmotor_out DATION OUT SYSTEM BASIC BIT(4) GLOBAL;
+		DCL lmotor DATION OUT BASIC BIT(4) CREATED (leftstepmotor_out);
+		SPC rightstepmotor_out DATION OUT SYSTEM BASIC BIT(4) GLOBAL;
+		DCL rmotor DATION OUT BASIC BIT(4) CREATED (rightstepmotor_out);
+    
+    DCL (lr_signal) FLOAT;
+    DCL (lm_speed, rm_speed) FIXED;
+    
+    DCL (lr_sema, lm_sema, rm_sema) SEMA PRESET(1,1,1);
+
+	main: TASK MAIN;
+		lrout := 0;
+		speed := 0;
+		
+		ACTIVATE readlr;
+		ACTIVATE driver;
+		ACTIVATE drivel;
+		
+	
+	END;
+		
+  drive: TASK;
+     DCL lrin FLOAT;
+     DCL (lspeed, rspeed) FIXED INIT(1,1);
+     
+     REQUEST lr_sema;
+     in:= lr_signal;
+     RELEASE lr_sema;
+     
+     IF in < 0 THEN
+      lspeed := 1;
+      rspeed := -1*in;
+     FIN;
+     
+     IF in > 0 THEN
+      lspeed = in;
+      rspeed = 1;
+     FIN;
+     
+     IF in == 0 THEN
+        lspeed = 1;
+        rspeed = 1;
+     FIN;
+     
+     REQUEST lm_sema;
+     lm_speed = lspeed;
+     RELEASE lm_sema;
+     
+     REQUEST rm_sema;
+     rm_speed = rspeed;
+     RELEASE rm_sema;
+     
+     ACTIVATE driveleft;
+     ACTIVATE driveright;
+  END;
+  
+  driveleft TASK;
+    DCL default DUR INIT(0.05 SEC);
+    DCL time DUR;
+
+    REQUEST lm_sema;
+    time := 1/ lspeed * default;
+    RELEASE lm_sema;
+
+    CALL step(0, 1, 1, time);
+  END;
+  
+  driveright TASK;
+    DCL default DUR INIT(0.05 SEC);
+    DCL time DUR;
+
+    REQUEST rm_sema;
+    time := 1/ rspeed * default;
+    RELEASE rm_sema;
+
+    CALL step(1, 1, 1, time);
+  END;
+  
+  
+	readlr: TASK;
+		DCL bits BIT(8);
+		DCL timeinterval DUR;
+		DCL out FLOAT;
+		DCL count FIXED;
+		OPEN lr;
+		timeinterval := 0.01 SEC;
+		REPEAT
+			out := 0;
+			count := 0;
+			TAKE bits FROM lr;
+
+			!PUT bits, bits TO terminal BY B4(2), X, B1(8), SKIP;
+			IF bits.BIT(1) == '1'B
+			THEN
+				out := out + 4;
+				count := count +1;
+			FIN ;
+			IF bits.BIT(2) == '1'B
+			THEN
+				out := out + 3;
+				count := count +1;
+			FIN ;
+			IF bits.BIT(3) == '1'B
+			THEN
+				out := out + 2;
+				count := count +1;
+			FIN ;
+			IF bits.BIT(4) == '1'B
+			THEN
+				out := out + 1;
+				count := count +1;			
+			FIN ;
+			IF bits.BIT(5) == '1'B
+			THEN
+				out := out - 1;
+				count := count +1;
+			FIN ;
+			IF bits.BIT(6) == '1'B
+			THEN
+				out := out - 2;
+				count := count +1;
+			FIN ;
+			IF bits.BIT(7) == '1'B
+			THEN
+				out := out - 3;
+				count := count +1;
+			FIN ;
+			IF bits.BIT(8) == '1'B			
+			THEN
+				out := out - 4;
+				count := count +1;
+			FIN ;
+			IF count /= 0
+			THEN
+				out := out / count;
+			FIN ;
+      REQUEST lr_sema;
+			lr_signal := out;
+      RELEASE lr_sema;
+			AFTER timeinterval RESUME;
+		END;
+		CLOSE lr;
+	END;
+
+
+	step: PROC(motorindex FIXED, steps FIXED, dir FIXED, time DUR);
+	  DCL (a, b ) BIT(4) INIT('1010'B1, '1001'B1);
+	  DCL (c,d) BIT(4);
+	  c := '0101'B1;
+	  d := '0110'B1;
+	  IF motorindex == 0 THEN
+		IF dir == 0 THEN
+		   TO steps REPEAT
+			 SEND a TO lmotor;
+			 AFTER time RESUME;
+
+			 SEND b TO lmotor;
+			 AFTER time RESUME;
+
+			 SEND c TO lmotor;
+			 AFTER time RESUME;
+
+			 SEND d TO lmotor;
+			 AFTER time RESUME;
+		   END;
+		FIN;
+
+		IF dir == 1 THEN
+		   TO steps REPEAT
+			 SEND d TO lmotor;
+			 AFTER time RESUME;
+
+			 SEND c TO lmotor;
+			 AFTER time RESUME;
+
+			 SEND b TO lmotor;
+			 AFTER time RESUME;
+
+			 SEND a TO lmotor;
+			 AFTER time RESUME;
+		   END;
+		FIN;
+	  FIN;
+	  IF motorindex == 1 THEN
+		IF dir == 0 THEN
+		   TO steps REPEAT
+			 SEND a TO rmotor;
+			 AFTER time RESUME;
+
+			 SEND b TO rmotor;
+			 AFTER time RESUME;
+
+			 SEND c TO rmotor;
+			 AFTER time RESUME;
+
+			 SEND d TO rmotor;
+			 AFTER time RESUME;
+		   END;
+		FIN;
+
+		IF dir == 1 THEN
+		   TO steps REPEAT
+			 SEND d TO rmotor;
+			 AFTER time RESUME;
+
+			 SEND c TO rmotor;
+			 AFTER time RESUME;
+
+			 SEND b TO rmotor;
+			 AFTER time RESUME;
+
+			 SEND a TO rmotor;
+			 AFTER time RESUME;
+		   END;
+		FIN;
+	  FIN;
+	END;
+	
+	
+	
+
+
+MODEND;
