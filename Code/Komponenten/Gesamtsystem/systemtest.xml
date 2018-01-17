@@ -16,7 +16,7 @@
  </sysname>
  </username>
 
- <username name="leftstepmotor_out"  line="8">
+ <username name="leftstepmotor_out"  line="7">
  <sysname name="RPiDigitalOut">
        <parameters>
              <FIXED>19</FIXED> 
@@ -25,11 +25,19 @@
  </sysname>
  </username>
 
- <username name="rightstepmotor_out"  line="9">
+ <username name="rightstepmotor_out"  line="8">
  <sysname name="RPiDigitalOut">
        <parameters>
              <FIXED>23</FIXED> 
              <FIXED>4</FIXED> 
+       </parameters>
+ </sysname>
+ </username>
+
+ <username name="httpSocket"  line="9">
+ <sysname name="TcpIpServer">
+       <parameters>
+             <FIXED>80</FIXED> 
        </parameters>
  </sysname>
  </username>
@@ -52,6 +60,10 @@
  <spc type="dation" name="rightstepmotor_out" line="20">
  <attributes>BASIC,SYSTEM,OUT</attributes>
  <data>BIT(4)</data>
+ </spc>
+ <spc type="dation" name="httpSocket" line="23">
+ <attributes>SYSTEM,INOUT</attributes>
+ <data>ALL</data>
  </spc>
 
 </problem>

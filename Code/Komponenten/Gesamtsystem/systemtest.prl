@@ -79,12 +79,8 @@ MODULE(system);
      
      RESERVE rm_bolt;
      rm_speed = rspeed;
-<<<<<<< HEAD
-     RELEASE rm_sema;
-=======
      FREE rm_bolt;
      
->>>>>>> f5213641cd749f643d3b36980e48608271b2789c
      ACTIVATE driveleft;
      ACTIVATE driveright;
      REQUEST d1, d2;
@@ -99,14 +95,9 @@ MODULE(system);
 
     ENTER lm_bolt;
     speed := lm_speed;
-<<<<<<< HEAD
-    RELEASE lm_sema;
+    LEAVE lm_bolt;
     time := (1 / speed) * time;
     steps := ROUND(speed * steps);
-=======
-    LEAVE lm_bolt;
-    time := (1 / speed) * default;
->>>>>>> f5213641cd749f643d3b36980e48608271b2789c
 
     PUT 'linker Motor: ', speed TO termout BY A, F(6), SKIP;
     CALL step(0, steps, 1, time);
@@ -120,15 +111,9 @@ MODULE(system);
 
     ENTER rm_bolt;
     speed := rm_speed;
-<<<<<<< HEAD
-    RELEASE rm_sema;
+    LEAVE rm_bolt;
     time := (1 / speed) * time;
     steps := ROUND(speed * steps);
-=======
-    LEAVE rm_bolt;
-    time := (1 / speed) * default;
->>>>>>> f5213641cd749f643d3b36980e48608271b2789c
-
     PUT 'rechter Motor: ', speed TO termout BY A, F(6), SKIP;
 
     CALL step(1, steps, 1, time);
