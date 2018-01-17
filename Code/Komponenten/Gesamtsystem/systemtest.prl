@@ -5,8 +5,8 @@ MODULE(system);
 		stdout: StdOut;
 		lichtrechen: RPiDigitalIn(13,8,'u');
 
-		leftstepmotor_out: RPiDigitalOut(23, 4);
-		rightstepmotor_out: RPiDigitalOut(19, 4);
+		leftstepmotor_out: RPiDigitalOut(19, 4);
+		rightstepmotor_out: RPiDigitalOut(23, 4);
 
 	PROBLEM;
 		SPC stdout DATION OUT SYSTEM ALPHIC;
@@ -50,7 +50,7 @@ MODULE(system);
      
      REPEAT
      REQUEST lr_sema;
-     in:= -1 * lr_signal;
+     in:= -2 * lr_signal;
      RELEASE lr_sema;
      
      IF in < 0 THEN
@@ -75,41 +75,43 @@ MODULE(system);
      REQUEST rm_sema;
      rm_speed = rspeed;
      RELEASE rm_sema;
-     
      ACTIVATE driveleft;
      ACTIVATE driveright;
      REQUEST d1, d2;
+     AFTER 0.001 SEC RESUME;
      END;
   END;
   
   driveleft: TASK;
-    DCL default DUR INIT(0.025 SEC);
-    DCL time DUR;
+    DCL time DUR INIT(0.02 SEC);
+    DCL steps FIXED INIT(1);
     DCL speed FLOAT;
 
     REQUEST lm_sema;
     speed := lm_speed;
     RELEASE lm_sema;
-    time := (1 / speed) * default;
+    time := (1 / speed) * time;
+    steps := ROUND(speed * steps);
 
     PUT 'linker Motor: ', speed TO termout BY A, F(6), SKIP;
-    CALL step(0, 3, 1, time);
+    CALL step(0, steps, 1, time);
     RELEASE d1;
   END;
   
   driveright: TASK;
-    DCL default DUR INIT(0.025 SEC);
-    DCL time DUR;
+    DCL time DUR INIT(0.02 SEC);
+    DCL steps FIXED INIT(1);
     DCL speed FLOAT;
 
     REQUEST rm_sema;
     speed := rm_speed;
     RELEASE rm_sema;
-    time := (1 / speed) * default;
+    time := (1 / speed) * time;
+    steps := ROUND(speed * steps);
 
     PUT 'rechter Motor: ', speed TO termout BY A, F(6), SKIP;
 
-    CALL step(1, 3, 1, time);
+    CALL step(1, steps, 1, time);
     RELEASE d2;
   END;
 
@@ -121,7 +123,7 @@ MODULE(system);
 		DCL out FLOAT;
 		DCL count FIXED;
 		OPEN lr;
-		timeinterval := 0.01 SEC;
+		timeinterval := 0.005 SEC;
 		REPEAT
 			out := 0;
 			count := 0;
