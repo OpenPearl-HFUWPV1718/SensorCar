@@ -56,10 +56,13 @@ MODULE(system);
 		OPEN rmotor;
 		OPEN termin;		
 
-		ACTIVATE commands;
 		ACTIVATE webinterface;
 		ACTIVATE readlr;
-		SUSPEND;
+		
+		CALL menu();
+		
+		TERMINATE webinterface;
+		TERMINATE readlr;
 		
 		CLOSE lmotor;
 		CLOSE rmotor;
@@ -69,7 +72,7 @@ MODULE(system);
 	END;
 
 
-	commands: TASK;
+	menu: PROC();
 		DCL input FIXED;
 	
 		! Output main menu
@@ -85,26 +88,72 @@ MODULE(system);
 			! Für Menüführung sollten MODI eingeführt werden!!
 			! Aktuell funktioniert nur: (1-0)* also follow_line, dann stop, dann wieder follow_line...
 			
+			IF input == 0 THEN
+				RETURN;
+			FIN;
+			
 			IF input == 1 THEN
-				ACTIVATE demo;
-				SUSPEND;
+				CALL demo();
 			FIN;
 				
 			IF input == 2 THEN
-				ACTIVATE parcour;
-				SUSPEND;
+				CALL parcour();
 			FIN;
 		END;
 	END;
 
-	demo: TASK;
-	END;
-	
-	parcour: TASK;
+	demo: PROC();
 		DCL input FIXED;
 		DCL is_driving FIXED INIT(0);
+	
+		! Output parcour menu
+		PUT 'SensorCar OpenPEARL' TO termout BY A, SKIP;
+		PUT 'Demo-------------' TO termout BY A, SKIP;
+		PUT 'Waehlen Sie:' TO termout BY A, SKIP;
+		PUT '0 um anzuhalten' TO termout BY A, SKIP;
+		PUT '1 um loszufahren' TO termout BY A, SKIP;
+		PUT '2 um zurueck ins Hauptmenue zu gelangen' TO termout BY A, SKIP;
 		
-		TERMINATE commands;
+		REPEAT
+			GET input FROM termin BY F(6), SKIP;
+			IF is_driving == 0 THEN
+				IF input == 1 THEN
+					PUT 'Command 1: Parcour starten'  TO termout BY A, SKIP;
+					! reset the global stop bit
+					RESERVE stop_bolt;
+					global_stop := 0;
+					FREE stop_bolt;
+
+					is_driving = 1;
+
+					ACTIVATE follow_line;
+				FIN;
+				IF input == 2 THEN
+					PUT 'main' TO termout BY A, SKIP;
+					RETURN;
+				FIN;
+			FIN;
+			
+			IF is_driving == 1 THEN		
+				IF input == 0 THEN
+					PUT 'Command 0: stop'  TO termout BY A, SKIP;
+					! set the global stop bit
+					RESERVE stop_bolt;
+					global_stop := 1;
+					FREE stop_bolt;
+					
+					! wait for follow_line to finish, then terminate it
+					REQUEST fl;
+					TERMINATE follow_line;
+					is_driving = 0;
+				FIN;
+			FIN;
+		END;
+	END;
+	
+	parcour: PROC();
+		DCL input FIXED;
+		DCL is_driving FIXED INIT(0);
 	
 		! Output parcour menu
 		PUT 'SensorCar OpenPEARL' TO termout BY A, SKIP;
@@ -129,8 +178,8 @@ MODULE(system);
 					ACTIVATE follow_line;
 				FIN;
 				IF input == 2 THEN
-					ACTIVATE commands;
-					TERMINATE;
+					PUT 'main' TO termout BY A, SKIP;
+					RETURN;
 				FIN;
 			FIN;
 			
