@@ -1,4 +1,5 @@
-
+! SensorCar OpenPEARL
+! Authors: Daniel Schlageter, Kevin Hertfelder, Stefan Kienzler, Daniel Petrusic, Patrick Kroner
 
 MODULE(system);
 	SYSTEM;
@@ -9,6 +10,7 @@ MODULE(system);
 		httpSocket: TcpIpServer(80);
 
 	PROBLEM;
+		! I/O 
 		SPC stdout DATION OUT SYSTEM ALPHIC;
 		DCL termout DATION OUT ALPHIC DIM(*, 80) FORWARD STREAM CREATED(stdout);		
 
@@ -23,14 +25,21 @@ MODULE(system);
 		SPC httpSocket DATION INOUT SYSTEM ALL;
 		DCL usHttpSocket DATION INOUT ALPHIC DIM(*,200) FORWARD STREAM CREATED(httpSocket);  
     
-    DCL (lr_signal) FLOAT;
-    DCL (lm_speed, rm_speed) FLOAT;
-    
-    DCL (lr_sema, lm_sema, rm_sema, d1, d2) SEMA PRESET(1,1,1,0,0);
-    DCL (lm_bolt, rm_bolt) BOLT;
-    
-    DCL (lspeed, rspeed) FLOAT INIT(1,1);
-
+		! global constants
+		DCL default_motor_time DUR INIT(0.02 SEC);
+		DCL default_motor_steps FIXED INIT(1);
+		DCL read_sensor_interval DUR INIT(0.005 SEC);
+		
+		
+		! global variables
+		DCL (lr_signal) FLOAT; ! sensor array signal
+		DCL (lm_speed, rm_speed) FLOAT; ! speed(factor) for (left / right) step motors
+		
+		! semaphores and bolts 
+		DCL (dl, dr) SEMA PRESET(0,0);
+		DCL (lm_bolt, rm_bolt, lr_bolt) BOLT;
+		
+	! Overall coordination
 	main: TASK MAIN;
 		lr_signal := 0;
 		lm_speed := 1;
@@ -39,226 +48,272 @@ MODULE(system);
 		OPEN termout;
 		OPEN lmotor;
 		OPEN rmotor;
+		
 		ACTIVATE readlr;
-		ACTIVATE drive;
+		ACTIVATE follow_line;
 		ACTIVATE webinterface;
 		SUSPEND;
+		
 		CLOSE lmotor;
 		CLOSE rmotor;
 		CLOSE termout;
 	
 	END;
 		
-  drive: TASK;
-     DCL lrin FLOAT;
-     DCL in FLOAT;
-     
-     REPEAT
-     REQUEST lr_sema;
-     in:= -2 * lr_signal;
-     RELEASE lr_sema;
-     
-     IF in < 0 THEN
-      lspeed := 1;
-      rspeed := -1 * in;
-     FIN;
-     
-     IF in > 0 THEN
-      lspeed = in;
-      rspeed = 1;
-     FIN;
-     
-     IF in == 0 THEN
-        lspeed = 1;
-        rspeed = 1;
-     FIN;
-     
-     RESERVE lm_bolt;
-     lm_speed = lspeed;
-     FREE lm_bolt;
-     
-     RESERVE rm_bolt;
-     rm_speed = rspeed;
-     FREE rm_bolt;
-     
-     ACTIVATE driveleft;
-     ACTIVATE driveright;
-     REQUEST d1, d2;
-     AFTER 0.001 SEC RESUME;
-     END;
-  END;
+	! moves motors in order to follow a black line
+	follow_line: TASK;
+		! local variables
+		DCL (lspeed, rspeed, in) FLOAT INIT(1,1,1);
+		 
+		REPEAT
+			ENTER lr_bolt;
+			in:= -2 * lr_signal;
+			LEAVE lr_bolt;
+			 
+			IF in < 0 THEN
+				lspeed := 1;
+				rspeed := -1 * in;
+			FIN;
+			 
+			IF in > 0 THEN
+				lspeed = in;
+				rspeed = 1;
+			FIN;
+			 
+			IF in == 0 THEN
+				lspeed = 1;
+				rspeed = 1;
+			FIN;
+			 
+			RESERVE lm_bolt;
+			lm_speed = lspeed;
+			FREE lm_bolt;
+			 
+			RESERVE rm_bolt;
+			rm_speed = rspeed;
+			FREE rm_bolt;
+			
+			! drive / activate motors
+			ACTIVATE driveleft;
+			ACTIVATE driveright;
+			
+			REQUEST dl, dr; ! wait for driveleft and driveright to finish
+			AFTER 0.001 SEC RESUME; ! wait, so all tasks have actually terminated
+		END;
+	END;
   
-  driveleft: TASK;
-    DCL time DUR INIT(0.02 SEC);
-    DCL steps FIXED INIT(1);
-    DCL speed FLOAT;
+	! moves left step motor as specified by lm_speed
+	driveleft: TASK;
+		! local variables
+		DCL speed FLOAT;
+		DCL time DUR;
+		DCL steps FIXED;
+		DCL direction FIXED INIT(1);
+		
+		! get speed(factor)
+		ENTER lm_bolt;
+		speed := lm_speed;
+		LEAVE lm_bolt;
+		
+		! compute parameters
+		IF speed < 0 THEN
+			direction = 0;
+			speed = -1 * speed;
+		FIN;
+		
+		time := (1 / speed) * default_motor_time;
+		steps := ROUND(speed * default_motor_steps);
 
-    ENTER lm_bolt;
-    speed := lm_speed;
-    LEAVE lm_bolt;
-    time := (1 / speed) * time;
-    steps := ROUND(speed * steps);
-
-    PUT 'linker Motor: ', speed TO termout BY A, F(6), SKIP;
-    CALL step(0, steps, 1, time);
-    RELEASE d1;
-  END;
+		PUT 'linker Motor: ', speed TO termout BY A, F(6), SKIP; ! control output to stdout
+		CALL step(0, steps, direction, time); ! move motor
+		
+		RELEASE dl; ! release semaphore -> task is finished
+	END;
   
-  driveright: TASK;
-    DCL time DUR INIT(0.02 SEC);
-    DCL steps FIXED INIT(1);
-    DCL speed FLOAT;
+	! moves left step motor as specified by lm_speed
+	driveright: TASK;
+		! local variables
+		DCL speed FLOAT;
+		DCL time DUR;
+		DCL steps FIXED;
+		DCL direction FIXED INIT(1);
 
-    ENTER rm_bolt;
-    speed := rm_speed;
-    LEAVE rm_bolt;
-    time := (1 / speed) * time;
-    steps := ROUND(speed * steps);
-    PUT 'rechter Motor: ', speed TO termout BY A, F(6), SKIP;
-
-    CALL step(1, steps, 1, time);
-    RELEASE d2;
-  END;
+		! get speed(factor)
+		ENTER rm_bolt;
+		speed := rm_speed;
+		LEAVE rm_bolt;
+		
+		! compute parameters
+		IF speed < 0 THEN
+			direction = 0;
+			speed = -1 * speed;
+		FIN;
+		time := (1 / speed) * default_motor_time;
+		steps := ROUND(speed * default_motor_steps);
+		
+		PUT 'rechter Motor: ', speed TO termout BY A, F(6), SKIP; ! control output to stdout
+		CALL step(1, steps, direction, time); ! move motor
+		
+		RELEASE dr; ! release semaphore -> task is finished
+	END;
 
   
-  
+	! reads sensor array and computes lr_signal
 	readlr: TASK;
+		! local variables
 		DCL bits BIT(8);
-		DCL timeinterval DUR;
 		DCL out FLOAT;
 		DCL count FIXED;
+		
 		OPEN lr;
-		timeinterval := 0.005 SEC;
 		REPEAT
 			out := 0;
 			count := 0;
 			TAKE bits FROM lr;
 
+			! compute output
 			!PUT bits, bits TO terminal BY B4(2), X, B1(8), SKIP;
 			IF bits.BIT(1) == '1'B
 			THEN
 				out := out + 4;
 				count := count +1;
-			FIN ;
+			FIN;
+			
 			IF bits.BIT(2) == '1'B
 			THEN
 				out := out + 3;
 				count := count +1;
-			FIN ;
+			FIN;
+			
 			IF bits.BIT(3) == '1'B
 			THEN
 				out := out + 2;
 				count := count +1;
-			FIN ;
+			FIN;
+			
 			IF bits.BIT(4) == '1'B
 			THEN
 				out := out + 1;
 				count := count +1;			
-			FIN ;
+			FIN;
+			
 			IF bits.BIT(5) == '1'B
 			THEN
 				out := out - 1;
 				count := count +1;
-			FIN ;
+			FIN;
+			
 			IF bits.BIT(6) == '1'B
 			THEN
 				out := out - 2;
 				count := count +1;
-			FIN ;
+			FIN;
+			
 			IF bits.BIT(7) == '1'B
 			THEN
 				out := out - 3;
 				count := count +1;
-			FIN ;
+			FIN;
+			
 			IF bits.BIT(8) == '1'B			
 			THEN
 				out := out - 4;
 				count := count +1;
-			FIN ;
+			FIN;
+			
 			IF count /= 0
 			THEN
 				out := out / count;
-			FIN ;
-      REQUEST lr_sema;
+			FIN;
+			
+			! write lr_signal
+			RESERVE lr_bolt;
 			lr_signal := out;
-      RELEASE lr_sema;
-			AFTER timeinterval RESUME;
+			FREE lr_bolt;
+			
+			! wait
+			AFTER read_sensor_interval RESUME;
 		END;
 		CLOSE lr;
 	END;
 
-
+	! move specified motor (4x) steps steps in dir waiting time between steps
 	step: PROC(motorindex FIXED, steps FIXED, dir FIXED, time DUR);
-	  DCL (a, b ) BIT(4) INIT('1010'B1, '1001'B1);
-	  DCL (c,d) BIT(4);
-	  c := '0101'B1;
-	  d := '0110'B1;
-	  IF motorindex == 0 THEN
-		IF dir == 0 THEN
-		   TO steps REPEAT
-			 SEND a TO lmotor;
-			 AFTER time RESUME;
+		! local variables: bit-pattern for step motor
+		DCL (a, b ) BIT(4) INIT('1010'B1, '1001'B1);
+		! workaround compiler error (leading 0)
+		DCL (c,d) BIT(4);
+		c := '0101'B1;
+		d := '0110'B1;
 
-			 SEND b TO lmotor;
-			 AFTER time RESUME;
 
-			 SEND c TO lmotor;
-			 AFTER time RESUME;
+		IF motorindex == 0 THEN
+			IF dir == 0 THEN
+			    TO steps REPEAT
+					SEND a TO lmotor;
+					AFTER time RESUME;
 
-			 SEND d TO lmotor;
-			 AFTER time RESUME;
-		   END;
+					SEND b TO lmotor;
+					AFTER time RESUME;
+
+					SEND c TO lmotor;
+					AFTER time RESUME;
+
+					SEND d TO lmotor;
+					AFTER time RESUME;
+				END;
+			FIN;
+
+			IF dir == 1 THEN
+				TO steps REPEAT
+					SEND d TO lmotor;
+					AFTER time RESUME;
+
+					SEND c TO lmotor;
+					AFTER time RESUME;
+
+					SEND b TO lmotor;
+					AFTER time RESUME;
+
+					SEND a TO lmotor;
+					AFTER time RESUME;
+			   END;
+			FIN;
 		FIN;
+		
+		IF motorindex == 1 THEN
+			IF dir == 0 THEN
+				TO steps REPEAT
+					SEND a TO rmotor;
+					AFTER time RESUME;
 
-		IF dir == 1 THEN
-		   TO steps REPEAT
-			 SEND d TO lmotor;
-			 AFTER time RESUME;
+					SEND b TO rmotor;
+					AFTER time RESUME;
 
-			 SEND c TO lmotor;
-			 AFTER time RESUME;
+					SEND c TO rmotor;
+					AFTER time RESUME;
 
-			 SEND b TO lmotor;
-			 AFTER time RESUME;
+					SEND d TO rmotor;
+					AFTER time RESUME;
+				END;
+			FIN;
 
-			 SEND a TO lmotor;
-			 AFTER time RESUME;
-		   END;
+			IF dir == 1 THEN
+				TO steps REPEAT
+					SEND d TO rmotor;
+					AFTER time RESUME;
+
+					SEND c TO rmotor;
+					AFTER time RESUME;
+
+					SEND b TO rmotor;
+					AFTER time RESUME;
+
+					SEND a TO rmotor;
+					AFTER time RESUME;
+				END;
+			FIN;
 		FIN;
-	  FIN;
-	  IF motorindex == 1 THEN
-		IF dir == 0 THEN
-		   TO steps REPEAT
-			 SEND a TO rmotor;
-			 AFTER time RESUME;
-
-			 SEND b TO rmotor;
-			 AFTER time RESUME;
-
-			 SEND c TO rmotor;
-			 AFTER time RESUME;
-
-			 SEND d TO rmotor;
-			 AFTER time RESUME;
-		   END;
-		FIN;
-
-		IF dir == 1 THEN
-		   TO steps REPEAT
-			 SEND d TO rmotor;
-			 AFTER time RESUME;
-
-			 SEND c TO rmotor;
-			 AFTER time RESUME;
-
-			 SEND b TO rmotor;
-			 AFTER time RESUME;
-
-			 SEND a TO rmotor;
-			 AFTER time RESUME;
-		   END;
-		FIN;
-	  FIN;
 	END;
 
 
@@ -268,30 +323,33 @@ MODULE(system);
 
 !--------------------------------------------Webinterface------------------------------------------
 	webinterface: TASK;
-	      DCL request CHAR(70);
+	    DCL request CHAR(70);
 	      
-	      
-	      REPEAT		
-		OPEN usHttpSocket;	
-   	   	GET request FROM usHttpSocket BY A, SKIP;
-		
-		PUT 'HTTP/1.1 200 ok' TO usHttpSocket BY A, SKIP;
-           	PUT 'Connection: close' TO usHttpSocket BY A, SKIP;
-           	PUT 'Context-Type: text/html' TO usHttpSocket BY A, SKIP,SKIP;
+	    REPEAT		
+			OPEN usHttpSocket;	
+			
+			GET request FROM usHttpSocket BY A, SKIP;
+			
+			PUT 'HTTP/1.1 200 ok' TO usHttpSocket BY A, SKIP;
+			PUT 'Connection: close' TO usHttpSocket BY A, SKIP;
+			PUT 'Context-Type: text/html' TO usHttpSocket BY A, SKIP,SKIP;
 
-		IF request == 'GET /index.html HTTP/1.1' THEN
-	   		CALL index;
-	   	ELSE IF request == 'GET /info.html HTTP/1.1' THEN
-			CALL info;
-		ELSE IF request == 'GET /doku.html HTTP/1.1' THEN
-			CALL doku;
-		ELSE
-			CALL error;
-		FIN;		
-		FIN;
-	   	FIN;
-		CLOSE usHttpSocket;
-	     END;
+			IF request == 'GET /index.html HTTP/1.1' THEN
+				CALL index;
+			ELSE 
+				IF request == 'GET /info.html HTTP/1.1' THEN
+					CALL info;
+				ELSE 
+					IF request == 'GET /doku.html HTTP/1.1' THEN
+							CALL doku;
+					ELSE
+							CALL error;
+					FIN;		
+				FIN;
+			FIN;
+			
+			CLOSE usHttpSocket;
+	    END;
 	END;
 	
 	
@@ -301,11 +359,11 @@ MODULE(system);
 	  	DCL speedr FLOAT;
 
 		ENTER lm_bolt;
-    		speedl := lm_speed;
-    		LEAVE lm_bolt;
+    	speedl := lm_speed;
+    	LEAVE lm_bolt;
 			
 		ENTER rm_bolt;
-    		speedr := rm_speed;
+    	speedr := rm_speed;
 		LEAVE rm_bolt;
 
 
@@ -324,8 +382,8 @@ MODULE(system);
 	END;
 
 	info: PROC;
-	PUT '<HTML><HEAD><style>' TO usHttpSocket BY A, SKIP;
-	CALL style;
+		PUT '<HTML><HEAD><style>' TO usHttpSocket BY A, SKIP;
+		CALL style;
 		PUT '</style><TITLE>OpenPEARL Projekt</TITLE></HEAD>'TO usHttpSocket BY A, SKIP;
 		
 		PUT '<BODY><div id = value_div><div class = head_div><h1>Info</h1></div>' TO usHttpSocket BY A,SKIP;
@@ -369,7 +427,4 @@ MODULE(system);
 		PUT '#value_list_div{overflow: auto; width: 60%; height: 80%; margin-left: 15%;}' TO usHttpSocket BY A, SKIP;
 		PUT '#value_list{text-decoration: none; list-style-type: none;}' TO usHttpSocket BY A,SKIP;
 	END;
-	
-
-
 MODEND;
