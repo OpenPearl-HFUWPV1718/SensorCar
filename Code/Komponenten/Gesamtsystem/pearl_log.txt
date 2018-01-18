@@ -1,0 +1,6 @@
+14:50:47.060934 WARN:  no .pearlrc found
+14:50:47.061383 WARN:  error setting SCHED_RR --> using normal scheduler
+14:50:49.665764 WARN:     Task _commands terminates while 1 other tasks wait to terminate it
+14:50:52.095175 WARN:     Task _follow_line terminates while 1 other tasks wait to terminate it
+14:50:55.345859 WARN:     Task _follow_line terminates while 1 other tasks wait to terminate it
+14:52:45.875074 WARN:     Task _follow_line terminates while 1 other tasks wait to terminate it
