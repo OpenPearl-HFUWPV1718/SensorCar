@@ -70,6 +70,13 @@ MODULE(system);
 
 
 	commands: TASK;
+	
+		! Output main menu
+		PUT 'SensorCar OpenPEARL' TO termout BY A, SKIP;
+		PUT 'Hauptmenü-------------' TO termout BY A, SKIP;
+		PUT 'Wählen Sie:' TO termout BY A, SKIP;
+		PUT '1 um den Demo-Modus zu starten' TO termout BY A, SKIP;
+		PUT '2 um den Parcour-Modus zu starten' TO termout BY A, SKIP;
 		
 		REPEAT
 			DCL command FIXED;
@@ -78,43 +85,65 @@ MODULE(system);
 			! Für Menüführung sollten MODI eingeführt werden!!
 			! Aktuell funktioniert nur: (1-0)* also follow_line, dann stop, dann wieder follow_line...
 			
-			IF command == 0 THEN
-				PUT 'Command 0: stop'  TO termout BY A, SKIP;
-				! set the global stop bit
-				RESERVE stop_bolt;
-				global_stop := 1;
-				FREE stop_bolt;
-				
-				! wait for follow_line to finish, then terminate it
-				REQUEST fl;
-				TERMINATE follow_line;
-				RELEASE fl;
-			FIN;
-			
 			IF command == 1 THEN
-				PUT 'Command 1: follow_line'  TO termout BY A, SKIP;
-				! reset the global stop bit
-				RESERVE stop_bolt;
-				global_stop := 0;
-				FREE stop_bolt;
+				ACTIVATE demo;
+				SUSPEND;
 				
-				REQUEST fl;
-				ACTIVATE follow_line;
-			FIN;
-			
 			IF command == 2 THEN
-				PUT 'Command 2: reverse'  TO termout BY A, SKIP;
-			FIN;
-			
-			IF command == 3 THEN		
-				PUT 'Command 3: nothing yet' TO termout BY A, SKIP;
-			FIN;
+				ACTIVATE parcour;
+				SUSPEND;
 		END;
 	END;
 
 	demo: TASK;
+	END;
 	
+	parcour: TASK;
+		DCL is_driving FIXED INIT(0);
+		
+		TERMINATE commands;
 	
+		! Output parcour menu
+		PUT 'SensorCar OpenPEARL' TO termout BY A, SKIP;
+		PUT 'Parcour-------------' TO termout BY A, SKIP;
+		PUT 'Wählen Sie:' TO termout BY A, SKIP;
+		PUT '0 um anzuhalten' TO termout BY A, SKIP;
+		PUT '1 um loszufahren' TO termout BY A, SKIP;
+		PUT '2 um zurück ins Hauptmenü zu gelangen' TO termout BY A, SKIP;
+		
+		REPEAT
+			IF is_driving == 0 THEN
+				IF command == 1 THEN
+					PUT 'Command 1: Parcour starten'  TO termout BY A, SKIP;
+					! reset the global stop bit
+					RESERVE stop_bolt;
+					global_stop := 0;
+					FREE stop_bolt;
+					
+					REQUEST fl;
+					ACTIVATE follow_line;
+				FIN;
+				IF command == 2 THEN
+					ACTIVATE commands;
+					TERMINATE;
+				FIN;
+			FIN;
+			
+			IF is_driving == 1 THEN		
+				IF command == 0 THEN
+					PUT 'Command 0: stop'  TO termout BY A, SKIP;
+					! set the global stop bit
+					RESERVE stop_bolt;
+					global_stop := 1;
+					FREE stop_bolt;
+					
+					! wait for follow_line to finish, then terminate it
+					REQUEST fl;
+					TERMINATE follow_line;
+					RELEASE fl;
+				FIN;
+			FIN;
+		END;
 	END;
 	
 	! moves motors in order to follow a black line
