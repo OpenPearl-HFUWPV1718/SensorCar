@@ -105,6 +105,7 @@ MODULE(system);
 
 	demo_menu: PROC;
 		DCL input FIXED;
+		DCL temp BIT(1);
 		DCL is_driving FIXED INIT(0);
 	
 		! Output parcour menu
@@ -141,10 +142,11 @@ MODULE(system);
 			FIN;
 			
 			IF is_driving == 1 THEN
-				IF TRY dt THEN
+				temp := TRY dt;
+				IF temp THEN
+					PUT 'Done' TO termout BY A, SKIP;
 					TERMINATE demo;
 					is_driving = 0;
-					PUT 'Done' TO termout BY A, SKIP;
 				FIN;
 			
 				IF input == 0 THEN

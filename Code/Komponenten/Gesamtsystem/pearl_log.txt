@@ -1,12 +1,52 @@
-14:58:08.687777 WARN:  no .pearlrc found
-14:58:08.688128 WARN:  error setting SCHED_RR --> using normal scheduler
-14:58:11.559290 WARN:     Task _commands terminates while 1 other tasks wait to terminate it
-14:58:23.537793 WARN:     Task _follow_line terminates while 1 other tasks wait to terminate it
-14:58:40.474421 WARN:     Task _follow_line terminates while 1 other tasks wait to terminate it
-14:59:10.590282 WARN:     Task _follow_line terminates while 1 other tasks wait to terminate it
-14:59:38.151611 WARN:     Task _commands terminates while 1 other tasks wait to terminate it
-14:59:39.952731 WARN:     Task _follow_line terminates while 1 other tasks wait to terminate it
-14:59:42.807811 WARN:     Task _follow_line terminates while 1 other tasks wait to terminate it
-14:59:44.115138 WARN:     Task _follow_line terminates while 1 other tasks wait to terminate it
-14:59:48.480222 WARN:     Task _follow_line terminates while 1 other tasks wait to terminate it
-14:59:50.953282 ERROR: F-format: no data in field
+17:55:14.986556 WARN:  no .pearlrc found
+17:55:14.986850 WARN:  error setting SCHED_RR --> using normal scheduler
+17:55:16.909829 WARN:     Task _driveleft terminates while 1 other tasks wait to terminate it
+17:55:16.910539 WARN:     Task _driveright terminates while 1 other tasks wait to terminate it
+17:55:16.992920 WARN:     Task _driveleft terminates while 1 other tasks wait to terminate it
+17:55:16.993080 WARN:     Task _driveright terminates while 1 other tasks wait to terminate it
+17:55:17.075394 WARN:     Task _driveleft terminates while 1 other tasks wait to terminate it
+17:55:17.075550 WARN:     Task _driveright terminates while 1 other tasks wait to terminate it
+17:55:17.157890 WARN:     Task _driveleft terminates while 1 other tasks wait to terminate it
+17:55:17.158046 WARN:     Task _driveright terminates while 1 other tasks wait to terminate it
+17:55:17.240340 WARN:     Task _driveleft terminates while 1 other tasks wait to terminate it
+17:55:17.240492 WARN:     Task _driveright terminates while 1 other tasks wait to terminate it
+17:55:17.322850 WARN:     Task _driveleft terminates while 1 other tasks wait to terminate it
+17:55:17.323006 WARN:     Task _driveright terminates while 1 other tasks wait to terminate it
+17:55:17.405314 WARN:     Task _driveleft terminates while 1 other tasks wait to terminate it
+17:55:17.405468 WARN:     Task _driveright terminates while 1 other tasks wait to terminate it
+17:55:17.487889 WARN:     Task _driveleft terminates while 1 other tasks wait to terminate it
+17:55:17.488061 WARN:     Task _driveright terminates while 1 other tasks wait to terminate it
+17:55:17.570381 WARN:     Task _driveleft terminates while 1 other tasks wait to terminate it
+17:55:17.570540 WARN:     Task _driveright terminates while 1 other tasks wait to terminate it
+17:55:17.653232 WARN:     Task _driveleft terminates while 1 other tasks wait to terminate it
+17:55:17.653525 WARN:     Task _driveright terminates while 1 other tasks wait to terminate it
+17:55:17.735977 WARN:     Task _driveleft terminates while 1 other tasks wait to terminate it
+17:55:17.736170 WARN:     Task _driveright terminates while 1 other tasks wait to terminate it
+17:55:17.818558 WARN:     Task _driveleft terminates while 1 other tasks wait to terminate it
+17:55:17.818799 WARN:     Task _driveright terminates while 1 other tasks wait to terminate it
+17:55:17.818928 WARN:     Task _demo terminates while 1 other tasks wait to terminate it
+17:55:18.522357 WARN:     Task _driveleft terminates while 1 other tasks wait to terminate it
+17:55:18.522616 WARN:     Task _driveright terminates while 1 other tasks wait to terminate it
+17:55:18.604941 WARN:     Task _driveleft terminates while 1 other tasks wait to terminate it
+17:55:18.605098 WARN:     Task _driveright terminates while 1 other tasks wait to terminate it
+17:55:18.687423 WARN:     Task _driveleft terminates while 1 other tasks wait to terminate it
+17:55:18.687595 WARN:     Task _driveright terminates while 1 other tasks wait to terminate it
+17:55:18.769904 WARN:     Task _driveleft terminates while 1 other tasks wait to terminate it
+17:55:18.770129 WARN:     Task _driveright terminates while 1 other tasks wait to terminate it
+17:55:18.852455 WARN:     Task _driveleft terminates while 1 other tasks wait to terminate it
+17:55:18.852612 WARN:     Task _driveright terminates while 1 other tasks wait to terminate it
+17:55:18.934926 WARN:     Task _driveleft terminates while 1 other tasks wait to terminate it
+17:55:18.935078 WARN:     Task _driveright terminates while 1 other tasks wait to terminate it
+17:55:19.017387 WARN:     Task _driveleft terminates while 1 other tasks wait to terminate it
+17:55:19.017540 WARN:     Task _driveright terminates while 1 other tasks wait to terminate it
+17:55:19.099876 WARN:     Task _driveleft terminates while 1 other tasks wait to terminate it
+17:55:19.100068 WARN:     Task _driveright terminates while 1 other tasks wait to terminate it
+17:55:19.183003 WARN:     Task _driveleft terminates while 1 other tasks wait to terminate it
+17:55:19.183286 WARN:     Task _driveright terminates while 1 other tasks wait to terminate it
+17:55:19.265689 WARN:     Task _driveleft terminates while 1 other tasks wait to terminate it
+17:55:19.265914 WARN:     Task _driveright terminates while 1 other tasks wait to terminate it
+17:55:19.348262 WARN:     Task _driveleft terminates while 1 other tasks wait to terminate it
+17:55:19.348434 WARN:     Task _driveright terminates while 1 other tasks wait to terminate it
+17:55:19.430813 WARN:     Task _driveleft terminates while 1 other tasks wait to terminate it
+17:55:19.431056 WARN:     Task _driveright terminates while 1 other tasks wait to terminate it
+17:55:19.431180 WARN:     Task _demo terminates while 1 other tasks wait to terminate it
