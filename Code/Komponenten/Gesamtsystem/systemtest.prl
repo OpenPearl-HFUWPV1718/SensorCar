@@ -70,6 +70,7 @@ MODULE(system);
 
 
 	commands: TASK;
+		DCL input FIXED;
 	
 		! Output main menu
 		PUT 'SensorCar OpenPEARL' TO termout BY A, SKIP;
@@ -79,19 +80,20 @@ MODULE(system);
 		PUT '2 um den Parcour-Modus zu starten' TO termout BY A, SKIP;
 		
 		REPEAT
-			DCL command FIXED;
-			GET command FROM termin BY F(6), SKIP;
+			GET input FROM termin BY F(6), SKIP;
 			
 			! Für Menüführung sollten MODI eingeführt werden!!
 			! Aktuell funktioniert nur: (1-0)* also follow_line, dann stop, dann wieder follow_line...
 			
-			IF command == 1 THEN
+			IF input == 1 THEN
 				ACTIVATE demo;
 				SUSPEND;
+			FIN;
 				
-			IF command == 2 THEN
+			IF input == 2 THEN
 				ACTIVATE parcour;
 				SUSPEND;
+			FIN;
 		END;
 	END;
 
@@ -99,6 +101,7 @@ MODULE(system);
 	END;
 	
 	parcour: TASK;
+		DCL input FIXED;
 		DCL is_driving FIXED INIT(0);
 		
 		TERMINATE commands;
@@ -112,8 +115,9 @@ MODULE(system);
 		PUT '2 um zurück ins Hauptmenü zu gelangen' TO termout BY A, SKIP;
 		
 		REPEAT
+			GET input FROM termin BY F(6), SKIP;
 			IF is_driving == 0 THEN
-				IF command == 1 THEN
+				IF input == 1 THEN
 					PUT 'Command 1: Parcour starten'  TO termout BY A, SKIP;
 					! reset the global stop bit
 					RESERVE stop_bolt;
@@ -123,14 +127,14 @@ MODULE(system);
 					REQUEST fl;
 					ACTIVATE follow_line;
 				FIN;
-				IF command == 2 THEN
+				IF input == 2 THEN
 					ACTIVATE commands;
 					TERMINATE;
 				FIN;
 			FIN;
 			
 			IF is_driving == 1 THEN		
-				IF command == 0 THEN
+				IF input == 0 THEN
 					PUT 'Command 0: stop'  TO termout BY A, SKIP;
 					! set the global stop bit
 					RESERVE stop_bolt;
