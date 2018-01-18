@@ -28,7 +28,7 @@ MODULE(system);
 		! global constants
 		DCL default_motor_time DUR INIT(0.02 SEC);
 		DCL default_motor_steps FIXED INIT(1);
-		DCL read_sensor_interval DUR INIT(0.005 SEC);
+		!DCL read_sensor_interval DUR INIT(0.005 SEC);
 		
 		
 		! global variables
@@ -36,6 +36,7 @@ MODULE(system);
 		DCL (lm_speed, rm_speed) FLOAT; ! speed(factor) for (left / right) step motors
 		
 		! semaphores and bolts 
+		DCL (lr_buffer_in, lr_buffer_out) SEMA PRESET(1,0);
 		DCL (dl, dr) SEMA PRESET(0,0);
 		DCL (lm_bolt, rm_bolt, lr_bolt) BOLT;
 		
@@ -66,9 +67,11 @@ MODULE(system);
 		DCL (lspeed, rspeed, in) FLOAT INIT(1,1,1);
 		 
 		REPEAT
+			REQUEST lr_buffer_out;
 			ENTER lr_bolt;
 			in:= -2 * lr_signal;
 			LEAVE lr_bolt;
+			RELEASE lr_buffer_in;
 			 
 			IF in < 0 THEN
 				lspeed := 1;
@@ -227,12 +230,14 @@ MODULE(system);
 			FIN;
 			
 			! write lr_signal
+			REQUEST lr_buffer_in;
 			RESERVE lr_bolt;
 			lr_signal := out;
 			FREE lr_bolt;
+			RELEASE lr_buffer_out;
 			
 			! wait
-			AFTER read_sensor_interval RESUME;
+			!AFTER read_sensor_interval RESUME;
 		END;
 		CLOSE lr;
 	END;
