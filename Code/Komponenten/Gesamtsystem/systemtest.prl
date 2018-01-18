@@ -73,11 +73,11 @@ MODULE(system);
 		DCL input FIXED;
 	
 		! Output main menu
-		!PUT 'SensorCar OpenPEARL' TO termout BY A, SKIP;
-		!PUT 'Hauptmenü-------------' TO termout BY A, SKIP;
-		!PUT 'Wählen Sie:' TO termout BY A, SKIP;
-		!PUT '1 um den Demo-Modus zu starten' TO termout BY A, SKIP;
-		!PUT '2 um den Parcour-Modus zu starten' TO termout BY A, SKIP;
+		PUT 'SensorCar OpenPEARL' TO termout BY A, SKIP;
+		PUT 'Hauptmenue' TO termout BY A, SKIP;
+		PUT 'Waehlen Sie:' TO termout BY A, SKIP;
+		PUT '1 um den Demo-Modus zu starten' TO termout BY A, SKIP;
+		PUT '2 um den Parcour-Modus zu starten' TO termout BY A, SKIP;
 		
 		REPEAT
 			GET input FROM termin BY F(6), SKIP;
@@ -107,12 +107,12 @@ MODULE(system);
 		TERMINATE commands;
 	
 		! Output parcour menu
-		!PUT 'SensorCar OpenPEARL' TO termout BY A, SKIP;
-		!PUT 'Parcour-------------' TO termout BY A, SKIP;
-		!PUT 'Wählen Sie:' TO termout BY A, SKIP;
-		!PUT '0 um anzuhalten' TO termout BY A, SKIP;
-		!PUT '1 um loszufahren' TO termout BY A, SKIP;
-		!PUT '2 um zurück ins Hauptmenü zu gelangen' TO termout BY A, SKIP;
+		PUT 'SensorCar OpenPEARL' TO termout BY A, SKIP;
+		PUT 'Parcour-------------' TO termout BY A, SKIP;
+		PUT 'Waehlen Sie:' TO termout BY A, SKIP;
+		PUT '0 um anzuhalten' TO termout BY A, SKIP;
+		PUT '1 um loszufahren' TO termout BY A, SKIP;
+		PUT '2 um zurueck ins Hauptmenue zu gelangen' TO termout BY A, SKIP;
 		
 		REPEAT
 			GET input FROM termin BY F(6), SKIP;
