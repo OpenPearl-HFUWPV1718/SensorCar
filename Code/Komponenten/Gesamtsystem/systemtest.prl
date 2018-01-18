@@ -58,6 +58,7 @@ MODULE(system);
 
 		ACTIVATE commands;
 		ACTIVATE webinterface;
+		ACTIVATE readlr;
 		SUSPEND;
 		
 		CLOSE lmotor;
@@ -90,7 +91,6 @@ MODULE(system);
 			IF command == 1 THEN
 				PUT 'Command 1: follow_line'  TO termout BY A, SKIP;
 				REQUEST fl;
-				ACTIVATE readlr;
 				ACTIVATE follow_line;
 			FIN;
 			
@@ -163,6 +163,7 @@ MODULE(system);
 			LEAVE stop_bolt;
 		END;
 		RELEASE fl;
+		SUSPEND;
 	END;
   
 	! moves left step motor as specified by lm_speed
