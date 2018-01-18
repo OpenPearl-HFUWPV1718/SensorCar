@@ -76,13 +76,20 @@ MODULE(system);
 			
 			IF command == 0 THEN
 				PUT 'Command 0: stop'  TO termout BY A, SKIP;
+				! set the global stop bit
 				RESERVE stop_bolt;
 				global_stop := 1;
 				FREE stop_bolt;
+				
+				! wait for follow_line to finish, then terminate it
+				REQUEST fl;
+				TERMINATE follow_line;
+				RELEASE fl;
 			FIN;
 			
 			IF command == 1 THEN
 				PUT 'Command 1: follow_line'  TO termout BY A, SKIP;
+				REQUEST fl;
 				ACTIVATE readlr;
 				ACTIVATE follow_line;
 			FIN;
@@ -94,8 +101,6 @@ MODULE(system);
 			IF command == 3 THEN		
 				PUT 'Command 3: nothing yet' TO termout BY A, SKIP;
 			FIN;
-			
-			AFTER 0.001 SEC RESUME;
 		END;
 	END;
 
@@ -157,7 +162,7 @@ MODULE(system);
 			stop := global_stop;
 			LEAVE stop_bolt;
 		END;
-		TERMINATE;
+		RELEASE fl;
 	END;
   
 	! moves left step motor as specified by lm_speed
