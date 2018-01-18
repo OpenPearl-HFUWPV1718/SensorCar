@@ -59,7 +59,7 @@ MODULE(system);
 		ACTIVATE webinterface;
 		ACTIVATE readlr;
 		
-		CALL menu();
+		CALL menu;
 		
 		TERMINATE webinterface;
 		TERMINATE readlr;
@@ -72,7 +72,7 @@ MODULE(system);
 	END;
 
 
-	menu: PROC();
+	menu: PROC;
 		DCL input FIXED;
 	
 		! Output main menu
@@ -89,20 +89,20 @@ MODULE(system);
 			! Aktuell funktioniert nur: (1-0)* also follow_line, dann stop, dann wieder follow_line...
 			
 			IF input == 0 THEN
-				RETURN;
+				EXIT repeat;
 			FIN;
 			
 			IF input == 1 THEN
-				CALL demo();
+				CALL demo;
 			FIN;
 				
 			IF input == 2 THEN
-				CALL parcour();
+				CALL parcour;
 			FIN;
-		END;
+		END repeat;
 	END;
 
-	demo: PROC();
+	demo: PROC;
 		DCL input FIXED;
 		DCL is_driving FIXED INIT(0);
 	
@@ -130,7 +130,7 @@ MODULE(system);
 				FIN;
 				IF input == 2 THEN
 					PUT 'main' TO termout BY A, SKIP;
-					RETURN;
+					EXIT repeat;
 				FIN;
 			FIN;
 			
@@ -148,10 +148,10 @@ MODULE(system);
 					is_driving = 0;
 				FIN;
 			FIN;
-		END;
+		END repeat;
 	END;
 	
-	parcour: PROC();
+	parcour: PROC;
 		DCL input FIXED;
 		DCL is_driving FIXED INIT(0);
 	
@@ -179,7 +179,7 @@ MODULE(system);
 				FIN;
 				IF input == 2 THEN
 					PUT 'main' TO termout BY A, SKIP;
-					RETURN;
+					EXIT repeat;
 				FIN;
 			FIN;
 			
@@ -197,7 +197,7 @@ MODULE(system);
 					is_driving = 0;
 				FIN;
 			FIN;
-		END;
+		END repeat;
 	END;
 	
 	! moves motors in order to follow a black line
