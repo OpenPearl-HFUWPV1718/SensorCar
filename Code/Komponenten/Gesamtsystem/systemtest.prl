@@ -43,7 +43,7 @@ MODULE(system);
 		
 		! semaphores and bolts 
 		DCL (lr_buffer_in, lr_buffer_out) SEMA PRESET(1,0);
-		DCL (dl, dr, p, dt) SEMA PRESET(0,0,0); ! control flow semaphores
+		DCL (dl, dr, p, dt) SEMA PRESET(0,0,0,0); ! control flow semaphores
 		DCL (lm_bolt, rm_bolt, lr_bolt, stop_bolt, demo_state_bolt) BOLT;
 		
 	! Overall coordination
@@ -140,7 +140,13 @@ MODULE(system);
 				FIN;
 			FIN;
 			
-			IF is_driving == 1 THEN		
+			IF is_driving == 1 THEN
+				IF TRY dt THEN
+					TERMINATE demo;
+					is_driving = 0;
+					PUT 'Done' TO termout BY A, SKIP;
+				FIN;
+			
 				IF input == 0 THEN
 					PUT 'Command 0: stop'  TO termout BY A, SKIP;
 					! set the global stop bit
@@ -174,7 +180,7 @@ MODULE(system);
 	straight: PROC(speed FIXED);
 		DCL stop FIXED INIT(0);
 		
-		WHILE stop == 0 TO 50 REPEAT
+		TO 50 WHILE stop == 0 REPEAT
 			RESERVE lm_bolt;
 			lm_speed = speed;
 			FREE lm_bolt;
