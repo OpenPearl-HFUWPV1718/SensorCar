@@ -1,0 +1,12 @@
+14:58:08.687777 WARN:  no .pearlrc found
+14:58:08.688128 WARN:  error setting SCHED_RR --> using normal scheduler
+14:58:11.559290 WARN:     Task _commands terminates while 1 other tasks wait to terminate it
+14:58:23.537793 WARN:     Task _follow_line terminates while 1 other tasks wait to terminate it
+14:58:40.474421 WARN:     Task _follow_line terminates while 1 other tasks wait to terminate it
+14:59:10.590282 WARN:     Task _follow_line terminates while 1 other tasks wait to terminate it
+14:59:38.151611 WARN:     Task _commands terminates while 1 other tasks wait to terminate it
+14:59:39.952731 WARN:     Task _follow_line terminates while 1 other tasks wait to terminate it
+14:59:42.807811 WARN:     Task _follow_line terminates while 1 other tasks wait to terminate it
+14:59:44.115138 WARN:     Task _follow_line terminates while 1 other tasks wait to terminate it
+14:59:48.480222 WARN:     Task _follow_line terminates while 1 other tasks wait to terminate it
+14:59:50.953282 ERROR: F-format: no data in field
