@@ -280,7 +280,7 @@ MODULE(system);
 		time := (1 / speed) * default_motor_time;
 		steps := ROUND(speed * default_motor_steps);
 
-		PUT 'linker Motor: ', speed TO termout BY A, F(6), SKIP; ! control output to stdout
+		!PUT 'linker Motor: ', speed TO termout BY A, F(6), SKIP; ! control output to stdout
 		CALL step(0, steps, direction, time); ! move motor
 		
 		RELEASE dl; ! release semaphore -> task is finished
@@ -308,7 +308,7 @@ MODULE(system);
 		time := (1 / speed) * default_motor_time;
 		steps := ROUND(speed * default_motor_steps);
 		
-		PUT 'rechter Motor: ', speed TO termout BY A, F(6), SKIP; ! control output to stdout
+		!PUT 'rechter Motor: ', speed TO termout BY A, F(6), SKIP; ! control output to stdout
 		CALL step(1, steps, direction, time); ! move motor
 		
 		RELEASE dr; ! release semaphore -> task is finished
