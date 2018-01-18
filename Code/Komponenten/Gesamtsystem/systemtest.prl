@@ -4,6 +4,7 @@
 MODULE(system);
 	SYSTEM;
 		stdout: StdOut;
+		stdin: StdIn;
 		lichtrechen: RPiDigitalIn(13,8,'u');
 		leftstepmotor_out: RPiDigitalOut(19, 4);
 		rightstepmotor_out: RPiDigitalOut(23, 4);
@@ -12,7 +13,10 @@ MODULE(system);
 	PROBLEM;
 		! I/O 
 		SPC stdout DATION OUT SYSTEM ALPHIC;
-		DCL termout DATION OUT ALPHIC DIM(*, 80) FORWARD STREAM CREATED(stdout);		
+		DCL termout DATION OUT ALPHIC DIM(*, 80) FORWARD STREAM CREATED(stdout);
+		SPC stdin DATION IN SYSTEM ALPHIC;
+		DCL termin DATION IN ALPHIC DIM(*,80) FORWARD STREAM CREATED(stdin);
+		
 
 		SPC lichtrechen DATION IN SYSTEM BASIC BIT(8) GLOBAL;
 		DCL lr DATION IN BASIC BIT(8) CREATED(lichtrechen);
@@ -32,13 +36,14 @@ MODULE(system);
 		
 		
 		! global variables
+		DCL global_stop FIXED INIT(0);
 		DCL (lr_signal) FLOAT; ! sensor array signal
 		DCL (lm_speed, rm_speed) FLOAT; ! speed(factor) for (left / right) step motors
 		
 		! semaphores and bolts 
 		DCL (lr_buffer_in, lr_buffer_out) SEMA PRESET(1,0);
 		DCL (dl, dr) SEMA PRESET(0,0);
-		DCL (lm_bolt, rm_bolt, lr_bolt) BOLT;
+		DCL (lm_bolt, rm_bolt, lr_bolt, stop_bolt) BOLT;
 		
 	! Overall coordination
 	main: TASK MAIN;
@@ -50,8 +55,7 @@ MODULE(system);
 		OPEN lmotor;
 		OPEN rmotor;
 		
-		ACTIVATE readlr;
-		ACTIVATE follow_line;
+		ACTIVATE commands;
 		ACTIVATE webinterface;
 		SUSPEND;
 		
@@ -60,13 +64,63 @@ MODULE(system);
 		CLOSE termout;
 	
 	END;
+
+
+	commands: TASK;
+		OPEN termout;
+		OPEN termin;
 		
+		REPEAT
+			DCL command FIXED;
+			GET command FROM termin BY F(6), SKIP;
+			
+			IF command == 0 THEN
+				PUT 'Command 0: stop'  TO termout BY A, SKIP;
+				RESERVE stop_bolt;
+				global_stop := 1;
+				LEAVE stop_bolt;
+			FIN;
+			
+			IF command == 1 THEN
+				PUT 'Command 1: follow_line'  TO termout BY A, SKIP;
+				ACTIVATE readlr;
+				ACTIVATE follow_line;
+			FIN;
+			
+			IF command == 2 THEN
+				PUT 'Command 2: reverse'  TO termout BY A, SKIP;
+				speed := -1;
+			FIN;
+			
+			IF command == 3 THEN		
+				speed := 1;
+				AFTER 1SEC RESUME;
+				speed := -1;
+				AFTER 1SEC RESUME;
+				speed := 0;
+			FIN;
+		END;
+		
+		CLOSE termout;
+		CLOSE termin;
+	END;
+
+	demo: TASK;
+	
+	
+	END;
+	
 	! moves motors in order to follow a black line
 	follow_line: TASK;
 		! local variables
 		DCL (lspeed, rspeed, in) FLOAT INIT(1,1,1);
+		DCL stop FIXED;
+		
+		ENTER stop_bolt;
+		stop := global_stop;
+		LEAVE stop_bolt;
 		 
-		REPEAT
+		WHILE stop == 0 REPEAT
 			REQUEST lr_buffer_out; ! "lock" sensor array
 			ENTER lr_bolt;
 			in:= -2 * lr_signal;
@@ -100,8 +154,14 @@ MODULE(system);
 			ACTIVATE driveright;
 			
 			REQUEST dl, dr; ! wait for driveleft and driveright to finish
+			
 			AFTER 0.001 SEC RESUME; ! wait, so all tasks have actually terminated
+			
 			RELEASE lr_buffer_in; ! "unlock" sensor array
+			
+			ENTER stop_bolt;
+			stop := global_stop;
+			LEAVE stop_bolt;
 		END;
 	END;
   
