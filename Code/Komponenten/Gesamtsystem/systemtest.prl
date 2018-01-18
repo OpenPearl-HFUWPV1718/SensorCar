@@ -37,13 +37,14 @@ MODULE(system);
 		
 		! global variables
 		DCL global_stop FIXED INIT(0);
+		DCL demo_state FIXED INIT(0);
 		DCL (lr_signal) FLOAT; ! sensor array signal
 		DCL (lm_speed, rm_speed) FLOAT; ! speed(factor) for (left / right) step motors
 		
 		! semaphores and bolts 
 		DCL (lr_buffer_in, lr_buffer_out) SEMA PRESET(1,0);
-		DCL (dl, dr, fl) SEMA PRESET(0,0,0); ! control flow semaphores
-		DCL (lm_bolt, rm_bolt, lr_bolt, stop_bolt) BOLT;
+		DCL (dl, dr, p, dt) SEMA PRESET(0,0,0); ! control flow semaphores
+		DCL (lm_bolt, rm_bolt, lr_bolt, stop_bolt, demo_state_bolt) BOLT;
 		
 	! Overall coordination
 	main: TASK MAIN;
@@ -86,23 +87,23 @@ MODULE(system);
 			GET input FROM termin BY F(6), SKIP;
 			
 			! Für Menüführung sollten MODI eingeführt werden!!
-			! Aktuell funktioniert nur: (1-0)* also follow_line, dann stop, dann wieder follow_line...
+			! Aktuell funktioniert nur: (1-0)* also parcour, dann stop, dann wieder parcour...
 			
 			IF input == 0 THEN
 				EXIT repeat;
 			FIN;
 			
 			IF input == 1 THEN
-				CALL demo;
+				CALL demo_menu;
 			FIN;
 				
 			IF input == 2 THEN
-				CALL parcour;
+				CALL parcour_menu;
 			FIN;
 		END repeat;
 	END;
 
-	demo: PROC;
+	demo_menu: PROC;
 		DCL input FIXED;
 		DCL is_driving FIXED INIT(0);
 	
@@ -111,23 +112,28 @@ MODULE(system);
 		PUT 'Demo-------------' TO termout BY A, SKIP;
 		PUT 'Waehlen Sie:' TO termout BY A, SKIP;
 		PUT '0 um anzuhalten' TO termout BY A, SKIP;
-		PUT '1 um loszufahren' TO termout BY A, SKIP;
+		PUT '1 um geradeaus zu fahren' TO termout BY A, SKIP;
 		PUT '2 um zurueck ins Hauptmenue zu gelangen' TO termout BY A, SKIP;
 		
 		REPEAT
 			GET input FROM termin BY F(6), SKIP;
 			IF is_driving == 0 THEN
 				IF input == 1 THEN
-					PUT 'Command 1: Parcour starten'  TO termout BY A, SKIP;
+					PUT 'Command 1: Geradeausfahren'  TO termout BY A, SKIP;
 					! reset the global stop bit
 					RESERVE stop_bolt;
 					global_stop := 0;
 					FREE stop_bolt;
 
 					is_driving = 1;
+					
+					RESERVE demo_state_bolt;
+					demo_state = 1;
+					FREE demo_state_bolt;
 
-					ACTIVATE follow_line;
+					ACTIVATE demo;
 				FIN;
+				
 				IF input == 2 THEN
 					PUT 'main' TO termout BY A, SKIP;
 					EXIT repeat;
@@ -142,16 +148,58 @@ MODULE(system);
 					global_stop := 1;
 					FREE stop_bolt;
 					
-					! wait for follow_line to finish, then terminate it
-					REQUEST fl;
-					TERMINATE follow_line;
+					! wait for demo to finish, then terminate it
+					REQUEST dt;
+					TERMINATE demo;
 					is_driving = 0;
 				FIN;
 			FIN;
 		END repeat;
 	END;
 	
-	parcour: PROC;
+	demo: TASK;
+		DCL state FIXED INIT(0);
+		
+		ENTER demo_state_bolt;
+		state = demo_state;
+		LEAVE demo_state_bolt;
+	
+		IF state == 1 THEN
+			CALL straight(5);
+		FIN;
+		RELEASE dt;
+		SUSPEND;
+	END;
+	
+	straight: PROC(speed FIXED);
+		DCL stop FIXED INIT(0);
+		
+		WHILE stop == 0 TO 50 REPEAT
+			RESERVE lm_bolt;
+			lm_speed = speed;
+			FREE lm_bolt;
+			 
+			RESERVE rm_bolt;
+			rm_speed = speed;
+			FREE rm_bolt;
+			
+			! drive / activate motors
+			ACTIVATE driveleft;
+			ACTIVATE driveright;
+			
+			REQUEST dl, dr; ! wait for driveleft and driveright to finish
+			
+			TERMINATE driveleft;
+			TERMINATE driveright;
+			
+			ENTER stop_bolt;
+			stop := global_stop;
+			LEAVE stop_bolt;
+		END;
+		
+	END;
+	
+	parcour_menu: PROC;
 		DCL input FIXED;
 		DCL is_driving FIXED INIT(0);
 	
@@ -175,7 +223,7 @@ MODULE(system);
 
 					is_driving = 1;
 
-					ACTIVATE follow_line;
+					ACTIVATE parcour;
 				FIN;
 				IF input == 2 THEN
 					PUT 'main' TO termout BY A, SKIP;
@@ -191,9 +239,9 @@ MODULE(system);
 					global_stop := 1;
 					FREE stop_bolt;
 					
-					! wait for follow_line to finish, then terminate it
-					REQUEST fl;
-					TERMINATE follow_line;
+					! wait for parcour to finish, then terminate it
+					REQUEST p;
+					TERMINATE parcour;
 					is_driving = 0;
 				FIN;
 			FIN;
@@ -201,17 +249,12 @@ MODULE(system);
 	END;
 	
 	! moves motors in order to follow a black line
-	follow_line: TASK;
+	parcour: TASK;
 		! local variables
 		DCL (lspeed, rspeed, in) FLOAT INIT(1,1,1);
-		DCL stop FIXED;
-		
-		ENTER stop_bolt;
-		stop := global_stop;
-		LEAVE stop_bolt;
+		DCL stop FIXED INIT(0);
 		 
 		WHILE stop == 0 REPEAT
-			PUT 'auf signal warten' TO termout BY A, SKIP;
 			REQUEST lr_buffer_out; ! "lock" sensor array
 			ENTER lr_bolt;
 			in:= -2 * lr_signal;
@@ -232,7 +275,6 @@ MODULE(system);
 				rspeed = 1;
 			FIN;
 			 
-			PUT 'speed schreiben' TO termout BY A, SKIP;
 			RESERVE lm_bolt;
 			lm_speed = lspeed;
 			FREE lm_bolt;
@@ -241,15 +283,12 @@ MODULE(system);
 			rm_speed = rspeed;
 			FREE rm_bolt;
 			
-			PUT 'motoren aktivieren' TO termout BY A, SKIP;
 			! drive / activate motors
 			ACTIVATE driveleft;
 			ACTIVATE driveright;
 			
-			PUT 'auf motoren warten' TO termout BY A, SKIP;
 			REQUEST dl, dr; ! wait for driveleft and driveright to finish
 			
-			PUT 'motoren killen' TO termout BY A, SKIP;
 			TERMINATE driveleft;
 			TERMINATE driveright;
 			
@@ -259,8 +298,7 @@ MODULE(system);
 			stop := global_stop;
 			LEAVE stop_bolt;
 		END;
-		PUT 'task freigeben' TO termout BY A, SKIP;
-		RELEASE fl;
+		RELEASE p;
 		SUSPEND;
 	END;
   
@@ -334,7 +372,7 @@ MODULE(system);
 			out := 0;
 			count := 0;
 			
-			REQUEST lr_buffer_in; ! "lock" follow_line
+			REQUEST lr_buffer_in; ! "lock" parcour
 			TAKE bits FROM lr;
 
 			! compute output
@@ -387,7 +425,7 @@ MODULE(system);
 			RESERVE lr_bolt;
 			lr_signal := out;
 			FREE lr_bolt;
-			RELEASE lr_buffer_out; ! "unlock" follow_line
+			RELEASE lr_buffer_out; ! "unlock" parcour
 			
 			! wait
 			!AFTER read_sensor_interval RESUME;
