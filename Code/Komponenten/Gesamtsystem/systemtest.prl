@@ -193,7 +193,8 @@ MODULE(system);
 			
 			REQUEST dl, dr; ! wait for driveleft and driveright to finish
 			
-			AFTER 0.001 SEC RESUME; ! wait, so all tasks have actually terminated
+			TERMINATE driveleft;
+			TERMINATE driveright;
 			
 			RELEASE lr_buffer_in; ! "unlock" sensor array
 			
@@ -231,6 +232,7 @@ MODULE(system);
 		CALL step(0, steps, direction, time); ! move motor
 		
 		RELEASE dl; ! release semaphore -> task is finished
+		SUSPEND;
 	END;
   
 	! moves left step motor as specified by lm_speed
@@ -258,6 +260,7 @@ MODULE(system);
 		CALL step(1, steps, direction, time); ! move motor
 		
 		RELEASE dr; ! release semaphore -> task is finished
+		SUSPEND;
 	END;
 
   
