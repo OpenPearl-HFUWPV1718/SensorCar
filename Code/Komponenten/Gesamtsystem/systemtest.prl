@@ -42,7 +42,7 @@ MODULE(system);
 		
 		! semaphores and bolts 
 		DCL (lr_buffer_in, lr_buffer_out) SEMA PRESET(1,0);
-		DCL (dl, dr) SEMA PRESET(0,0);
+		DCL (dl, dr, fl) SEMA PRESET(0,0,1);
 		DCL (lm_bolt, rm_bolt, lr_bolt, stop_bolt) BOLT;
 		
 	! Overall coordination
@@ -54,7 +54,8 @@ MODULE(system);
 		OPEN termout;
 		OPEN lmotor;
 		OPEN rmotor;
-		
+		OPEN termin;		
+
 		ACTIVATE commands;
 		ACTIVATE webinterface;
 		SUSPEND;
@@ -62,13 +63,12 @@ MODULE(system);
 		CLOSE lmotor;
 		CLOSE rmotor;
 		CLOSE termout;
+		CLOSE termin;
 	
 	END;
 
 
 	commands: TASK;
-		OPEN termout;
-		OPEN termin;
 		
 		REPEAT
 			DCL command FIXED;
@@ -78,7 +78,7 @@ MODULE(system);
 				PUT 'Command 0: stop'  TO termout BY A, SKIP;
 				RESERVE stop_bolt;
 				global_stop := 1;
-				LEAVE stop_bolt;
+				FREE stop_bolt;
 			FIN;
 			
 			IF command == 1 THEN
@@ -89,20 +89,14 @@ MODULE(system);
 			
 			IF command == 2 THEN
 				PUT 'Command 2: reverse'  TO termout BY A, SKIP;
-				speed := -1;
 			FIN;
 			
 			IF command == 3 THEN		
-				speed := 1;
-				AFTER 1SEC RESUME;
-				speed := -1;
-				AFTER 1SEC RESUME;
-				speed := 0;
+				PUT 'Command 3: nothing yet' TO termout BY A, SKIP;
 			FIN;
+			
+			AFTER 0.001 SEC RESUME;
 		END;
-		
-		CLOSE termout;
-		CLOSE termin;
 	END;
 
 	demo: TASK;
@@ -163,6 +157,7 @@ MODULE(system);
 			stop := global_stop;
 			LEAVE stop_bolt;
 		END;
+		TERMINATE;
 	END;
   
 	! moves left step motor as specified by lm_speed

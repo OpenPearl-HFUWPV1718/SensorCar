@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <module name="system"  file="systemtest.prl">
 <system>
- <username name="stdout"  line="5">
+ <username name="stdout"  line="6">
  <sysname name="StdOut">
  </sysname>
  </username>
 
- <username name="lichtrechen"  line="6">
+ <username name="stdin"  line="7">
+ <sysname name="StdIn">
+ </sysname>
+ </username>
+
+ <username name="lichtrechen"  line="8">
  <sysname name="RPiDigitalIn">
        <parameters>
              <FIXED>13</FIXED> 
@@ -16,7 +21,7 @@
  </sysname>
  </username>
 
- <username name="leftstepmotor_out"  line="7">
+ <username name="leftstepmotor_out"  line="9">
  <sysname name="RPiDigitalOut">
        <parameters>
              <FIXED>19</FIXED> 
@@ -25,7 +30,7 @@
  </sysname>
  </username>
 
- <username name="rightstepmotor_out"  line="8">
+ <username name="rightstepmotor_out"  line="10">
  <sysname name="RPiDigitalOut">
        <parameters>
              <FIXED>23</FIXED> 
@@ -34,7 +39,7 @@
  </sysname>
  </username>
 
- <username name="httpSocket"  line="9">
+ <username name="httpSocket"  line="11">
  <sysname name="TcpIpServer">
        <parameters>
              <FIXED>80</FIXED> 
@@ -45,23 +50,27 @@
 
 </system>
 <problem>
- <spc type="dation" name="stdout" line="12">
+ <spc type="dation" name="stdout" line="15">
  <attributes>SYSTEM,OUT</attributes>
  <data>ALPHIC</data>
  </spc>
- <spc type="dation" name="lichtrechen" line="15">
+ <spc type="dation" name="stdin" line="17">
+ <attributes>SYSTEM,IN</attributes>
+ <data>ALPHIC</data>
+ </spc>
+ <spc type="dation" name="lichtrechen" line="21">
  <attributes>BASIC,SYSTEM,IN</attributes>
  <data>BIT(8)</data>
  </spc>
- <spc type="dation" name="leftstepmotor_out" line="18">
+ <spc type="dation" name="leftstepmotor_out" line="24">
  <attributes>BASIC,SYSTEM,OUT</attributes>
  <data>BIT(4)</data>
  </spc>
- <spc type="dation" name="rightstepmotor_out" line="20">
+ <spc type="dation" name="rightstepmotor_out" line="26">
  <attributes>BASIC,SYSTEM,OUT</attributes>
  <data>BIT(4)</data>
  </spc>
- <spc type="dation" name="httpSocket" line="23">
+ <spc type="dation" name="httpSocket" line="29">
  <attributes>SYSTEM,INOUT</attributes>
  <data>ALL</data>
  </spc>
