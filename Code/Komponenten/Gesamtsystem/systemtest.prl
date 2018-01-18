@@ -42,7 +42,7 @@ MODULE(system);
 		
 		! semaphores and bolts 
 		DCL (lr_buffer_in, lr_buffer_out) SEMA PRESET(1,0);
-		DCL (dl, dr, fl) SEMA PRESET(0,0,1);
+		DCL (dl, dr, fl) SEMA PRESET(0,0,0); ! control flow semaphores
 		DCL (lm_bolt, rm_bolt, lr_bolt, stop_bolt) BOLT;
 		
 	! Overall coordination
@@ -123,8 +123,7 @@ MODULE(system);
 					RESERVE stop_bolt;
 					global_stop := 0;
 					FREE stop_bolt;
-					
-					REQUEST fl;
+
 					ACTIVATE follow_line;
 				FIN;
 				IF input == 2 THEN
@@ -144,7 +143,6 @@ MODULE(system);
 					! wait for follow_line to finish, then terminate it
 					REQUEST fl;
 					TERMINATE follow_line;
-					RELEASE fl;
 				FIN;
 			FIN;
 		END;
@@ -280,56 +278,47 @@ MODULE(system);
 
 			! compute output
 			!PUT bits, bits TO terminal BY B4(2), X, B1(8), SKIP;
-			IF bits.BIT(1) == '1'B
-			THEN
+			IF bits.BIT(1) == '1'B THEN
 				out := out + 4;
 				count := count +1;
 			FIN;
 			
-			IF bits.BIT(2) == '1'B
-			THEN
+			IF bits.BIT(2) == '1'B THEN
 				out := out + 3;
 				count := count +1;
 			FIN;
 			
-			IF bits.BIT(3) == '1'B
-			THEN
+			IF bits.BIT(3) == '1'B THEN
 				out := out + 2;
 				count := count +1;
 			FIN;
 			
-			IF bits.BIT(4) == '1'B
-			THEN
+			IF bits.BIT(4) == '1'B THEN
 				out := out + 1;
 				count := count +1;			
 			FIN;
 			
-			IF bits.BIT(5) == '1'B
-			THEN
+			IF bits.BIT(5) == '1'B THEN
 				out := out - 1;
 				count := count +1;
 			FIN;
 			
-			IF bits.BIT(6) == '1'B
-			THEN
+			IF bits.BIT(6) == '1'B THEN
 				out := out - 2;
 				count := count +1;
 			FIN;
 			
-			IF bits.BIT(7) == '1'B
-			THEN
+			IF bits.BIT(7) == '1'B THEN
 				out := out - 3;
 				count := count +1;
 			FIN;
 			
-			IF bits.BIT(8) == '1'B			
-			THEN
+			IF bits.BIT(8) == '1'B THEN
 				out := out - 4;
 				count := count +1;
 			FIN;
 			
-			IF count /= 0
-			THEN
+			IF count /= 0 THEN
 				out := out / count;
 			FIN;
 			
