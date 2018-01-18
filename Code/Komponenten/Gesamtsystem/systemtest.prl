@@ -58,6 +58,7 @@ MODULE(system);
 
 		ACTIVATE commands;
 		ACTIVATE webinterface;
+		ACTIVATE readlr;
 		SUSPEND;
 		
 		CLOSE lmotor;
@@ -74,6 +75,8 @@ MODULE(system);
 			DCL command FIXED;
 			GET command FROM termin BY F(6), SKIP;
 			
+			! Für Menüführung sollten MODI eingeführt werden!!
+			
 			IF command == 0 THEN
 				PUT 'Command 0: stop'  TO termout BY A, SKIP;
 				! set the global stop bit
@@ -89,8 +92,13 @@ MODULE(system);
 			
 			IF command == 1 THEN
 				PUT 'Command 1: follow_line'  TO termout BY A, SKIP;
+				! reset the global stop bit
+				RESERVE stop_bolt;
+				global_stop := 0;
+				FREE stop_bolt;
+				
 				REQUEST fl;
-				ACTIVATE readlr;
+				
 				ACTIVATE follow_line;
 			FIN;
 			
@@ -163,6 +171,7 @@ MODULE(system);
 			LEAVE stop_bolt;
 		END;
 		RELEASE fl;
+		SUSPEND;
 	END;
   
 	! moves left step motor as specified by lm_speed
