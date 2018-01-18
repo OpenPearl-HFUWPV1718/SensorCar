@@ -98,7 +98,6 @@ MODULE(system);
 				FREE stop_bolt;
 				
 				REQUEST fl;
-				
 				ACTIVATE follow_line;
 			FIN;
 			
