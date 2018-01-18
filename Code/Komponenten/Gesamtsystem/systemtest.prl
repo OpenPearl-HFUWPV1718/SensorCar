@@ -76,6 +76,7 @@ MODULE(system);
 			GET command FROM termin BY F(6), SKIP;
 			
 			! Für Menüführung sollten MODI eingeführt werden!!
+			! Aktuell funktioniert nur: (1-0)* also follow_line, dann stop, dann wieder follow_line...
 			
 			IF command == 0 THEN
 				PUT 'Command 0: stop'  TO termout BY A, SKIP;
