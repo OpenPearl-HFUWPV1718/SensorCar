@@ -67,11 +67,10 @@ MODULE(system);
 		DCL (lspeed, rspeed, in) FLOAT INIT(1,1,1);
 		 
 		REPEAT
-			REQUEST lr_buffer_out;
+			REQUEST lr_buffer_out; ! "lock" sensor array
 			ENTER lr_bolt;
 			in:= -2 * lr_signal;
 			LEAVE lr_bolt;
-			RELEASE lr_buffer_in;
 			 
 			IF in < 0 THEN
 				lspeed := 1;
@@ -102,6 +101,7 @@ MODULE(system);
 			
 			REQUEST dl, dr; ! wait for driveleft and driveright to finish
 			AFTER 0.001 SEC RESUME; ! wait, so all tasks have actually terminated
+			RELEASE lr_buffer_in; ! "unlock" sensor array
 		END;
 	END;
   
@@ -172,6 +172,8 @@ MODULE(system);
 		REPEAT
 			out := 0;
 			count := 0;
+			
+			REQUEST lr_buffer_in; ! "lock" follow_line
 			TAKE bits FROM lr;
 
 			! compute output
@@ -230,11 +232,10 @@ MODULE(system);
 			FIN;
 			
 			! write lr_signal
-			REQUEST lr_buffer_in;
 			RESERVE lr_bolt;
 			lr_signal := out;
 			FREE lr_bolt;
-			RELEASE lr_buffer_out;
+			RELEASE lr_buffer_out; ! "unlock" follow_line
 			
 			! wait
 			!AFTER read_sensor_interval RESUME;
