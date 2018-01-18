@@ -211,6 +211,7 @@ MODULE(system);
 		LEAVE stop_bolt;
 		 
 		WHILE stop == 0 REPEAT
+			PUT 'auf signal warten' TO termout BY A, SKIP;
 			REQUEST lr_buffer_out; ! "lock" sensor array
 			ENTER lr_bolt;
 			in:= -2 * lr_signal;
@@ -231,6 +232,7 @@ MODULE(system);
 				rspeed = 1;
 			FIN;
 			 
+			PUT 'speed schreiben' TO termout BY A, SKIP;
 			RESERVE lm_bolt;
 			lm_speed = lspeed;
 			FREE lm_bolt;
@@ -239,12 +241,15 @@ MODULE(system);
 			rm_speed = rspeed;
 			FREE rm_bolt;
 			
+			PUT 'motoren aktivieren' TO termout BY A, SKIP;
 			! drive / activate motors
 			ACTIVATE driveleft;
 			ACTIVATE driveright;
 			
+			PUT 'auf motoren warten' TO termout BY A, SKIP;
 			REQUEST dl, dr; ! wait for driveleft and driveright to finish
 			
+			PUT 'motoren killen' TO termout BY A, SKIP;
 			TERMINATE driveleft;
 			TERMINATE driveright;
 			
@@ -254,6 +259,7 @@ MODULE(system);
 			stop := global_stop;
 			LEAVE stop_bolt;
 		END;
+		PUT 'task freigeben' TO termout BY A, SKIP;
 		RELEASE fl;
 		SUSPEND;
 	END;
