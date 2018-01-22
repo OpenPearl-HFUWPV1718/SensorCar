@@ -549,7 +549,7 @@ MODULE(system);
 					AFTER time RESUME;
 			   END;
 			FIN;
-		FIN;
+		FIN this;
 		
 		IF motorindex == 1 THEN
 			IF steps == 0 AND time == 0 THEN
@@ -587,8 +587,8 @@ MODULE(system);
 					AFTER time RESUME;
 				END;
 			FIN;
-		FIN;
-	END this;
+		FIN this;
+	END;
 
 
 
