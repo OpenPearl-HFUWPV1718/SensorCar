@@ -94,8 +94,9 @@ MODULE(system);
 		! Output main menu
 		PUT 'Hauptmenue' TO termout BY A, SKIP;
 		PUT 'Waehlen Sie:' TO termout BY A, SKIP;
-		PUT '1 um den Demo-Modus zu starten' TO termout BY A, SKIP;
-		PUT '2 um den Parcour-Modus zu starten' TO termout BY A, SKIP;
+		PUT '0 um das Programm zu beenden.' TO termout BY A, SKIP;
+		PUT '1 um den Demo-Modus zu starten.' TO termout BY A, SKIP;
+		PUT '2 um den Parcour-Modus zu starten.' TO termout BY A, SKIP;
 		
 		REPEAT
 			GET input FROM termin BY F(6), SKIP;
