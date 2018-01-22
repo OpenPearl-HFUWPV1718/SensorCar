@@ -414,6 +414,9 @@ MODULE(system);
 				
 				!PUT 'rechter Motor: ', speed TO termout BY A, F(6), SKIP; ! control output to stdout
 				CALL step(1, steps, direction, time); ! move motor
+			ELSE
+				SEND '0000'B1 TO lmotor;
+				SEND '0000'B1 TO rmotor;
 			FIN;
 			RELEASE rm_buffer_in; ! unlock managing task
 		END;
