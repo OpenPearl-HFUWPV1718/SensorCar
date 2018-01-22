@@ -9,16 +9,16 @@ MODULE (FARBSENSOR);
 		DCL so DATION OUT ALPHIC DIM(*,80) FORWARD STREAM CREATED(stdout);!TODO: delete	
 		SPC farbsensor DATION IN SYSTEM BASIC ALL GLOBAL;
 		DCL fs DATION IN BASIC ALL CREATED(farbsensor);
-		DCL (fs_signal_red, fs_signal_green, fs_signal_blue) FIXED INIT(0);!output from fs
+		DCL (fs_signal_red, fs_signal_green, fs_signal_blue) FIXED INIT(0,0,0);!output from fs
 	readfs: TASK MAIN; !TODO: delete MAIN
 		DCL colors(5) FIXED(31);
 		DCL read_sensor_interval DUR INIT(0.005 SEC);!TODO: delete 
 		OPEN so;!TODO: delete 
 		OPEN fs;
 		REPEAT
-			red := 0;
-			green := 0;
-			blue := 0;
+			fs_signal_red := 0;
+			fs_signal_green := 0;
+			fs_signal_blue := 0;
 			!TAKE colors FROM fs;
 			__cpp__("_fs.dationRead(data_colors, sizeof(data_colors));");
 			!'rot':colors(1), 'gruen':colors(2), 'blau':colors(3)
@@ -31,6 +31,7 @@ MODULE (FARBSENSOR);
 			IF colors(3) > colors(2) + colors(1) THEN
 				fs_signal_blue=1;
 			FIN;
+			PUT 'rot' ,fs_signal_red, 'gruen', fs_signal_green,'blau', fs_signal_blue TO so BY A(6),F(6), SKIP;!TODO: delete
 			AFTER read_sensor_interval RESUME;
 		END;
 		CLOSE fs;
