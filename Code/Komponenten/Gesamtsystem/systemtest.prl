@@ -142,7 +142,11 @@ MODULE(system);
 			FIN;
 			
 			IF is_driving == 1 THEN
-				temp := TRY dt;
+			! temp := TRY dt;
+			__cpp__(
+			     "{int dummy = pearlrt::Semaphore::dotry( me, 1, dt_semas);"
+			     "if (dummy) { _temp.x = 0x80;} else {_temp.x = 0;}}"
+			);
 				IF temp THEN
 					PUT 'Done' TO termout BY A, SKIP;
 					TERMINATE demo;
