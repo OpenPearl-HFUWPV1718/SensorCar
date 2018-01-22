@@ -43,7 +43,7 @@ MODULE(system);
 		
 		! semaphores and bolts 
 		DCL (lr_buffer_in, lr_buffer_out, lm_buffer_in, lm_buffer_out, rm_buffer_in, rm_buffer_out) SEMA PRESET(1,0,1,0,1,0);
-		DCL (dl, dr, p, dt) SEMA PRESET(0,0,0,0); ! control flow semaphores
+		DCL (p, dt) SEMA PRESET(0,0); ! control flow semaphores
 		DCL (lm_bolt, rm_bolt, lr_bolt, stop_bolt, demo_state_bolt) BOLT;
 		
 	! Overall coordination
@@ -88,16 +88,17 @@ MODULE(system);
 		REPEAT
 			GET input FROM termin BY F(6), SKIP;
 			
-			IF input == 0 THEN
-				EXIT repeat;
-			FIN;
-			
-			IF input == 1 THEN
-				CALL demo_menu;
-			FIN;
-				
-			IF input == 2 THEN
-				CALL parcour_menu;
+			IF NOT(input == 0 OR input == 1 OR input==2) THEN
+				PUT 'Ungueltige Eingabe' TO termout BY A, SKIP;
+			ELSE
+				CASE input
+					ALT(0)
+						EXIT repeat;
+					ALT(1)
+						CALL demo_menu;
+					ALT(2)
+						CALL parcour_menu;
+				FIN;
 			FIN;
 		END repeat;
 	END;
@@ -117,55 +118,54 @@ MODULE(system);
 		
 		REPEAT
 			GET input FROM termin BY F(6), SKIP;
-			IF is_driving == 0 THEN
-				IF input == 1 THEN
-					PUT 'Command 1: Geradeausfahren'  TO termout BY A, SKIP;
-					! reset the global stop bit
-					RESERVE stop_bolt;
-					global_stop := 0;
-					FREE stop_bolt;
-
-					is_driving = 1;
-					
-					RESERVE demo_state_bolt;
-					demo_state = 1;
-					FREE demo_state_bolt;
-
-					ACTIVATE demo;
-				FIN;
-				
-				IF input == 2 THEN
-					PUT 'main' TO termout BY A, SKIP;
-					EXIT repeat;
-				FIN;
-			FIN;
 			
-			IF is_driving == 1 THEN
-			! temp := TRY dt;
-			PUT 'vor try' TO termout BY A, SKIP;
-			__cpp__(
-			     "{int dummy = pearlrt::Semaphore::dotry( me, 1, dt_semas);"
-			     "if (dummy) { _temp.x = 0x80;} else {_temp.x = 0;}}"
-			);
+			! Check wether input is valid
+			IF NOT(is_driving == 1 AND input == 0) AND NOT(is_driving == 0 AND (input == 1 OR input==2)) THEN
+				PUT 'Ungueltige Eingabe' TO termout BY A, SKIP;
+			ELSE
+				! check wether task is finished
+				__cpp__(
+					 "{int dummy = pearlrt::Semaphore::dotry( me, 1, dt_semas);"
+					 "if (dummy) { _temp.x = 0x80;} else {_temp.x = 0;}}"
+				);
 				IF temp THEN
 					PUT 'Done' TO termout BY A, SKIP;
 					TERMINATE demo;
 					is_driving = 0;
 				FIN;
 				
-				IF input == 0 THEN
-					PUT 'Command 0: stop'  TO termout BY A, SKIP;
-					! set the global stop bit
-					RESERVE stop_bolt;
-					global_stop := 1;
-					FREE stop_bolt;
-					
-					! wait for demo to finish, then terminate it
-					IF temp =='0'B THEN
-						REQUEST dt;
-						TERMINATE demo;
-					FIN;
-					is_driving = 0;
+				! react to input
+				CASE input
+					ALT (0) 
+						PUT 'Command 0: stop'  TO termout BY A, SKIP;
+						! set the global stop bit
+						RESERVE stop_bolt;
+						global_stop := 1;
+						FREE stop_bolt;
+						
+						! wait for demo to finish, then terminate it
+						IF temp =='0'B THEN
+							REQUEST dt;
+							TERMINATE demo;
+						FIN;
+						is_driving = 0;
+					ALT (1)
+						PUT 'Command 1: Geradeausfahren'  TO termout BY A, SKIP;
+						! reset the global stop bit
+						RESERVE stop_bolt;
+						global_stop := 0;
+						FREE stop_bolt;
+
+						is_driving = 1;
+						
+						RESERVE demo_state_bolt;
+						demo_state = 1;
+						FREE demo_state_bolt;
+
+						ACTIVATE demo;
+					ALT (2)
+						PUT 'main' TO termout BY A, SKIP;
+						EXIT repeat;
 				FIN;
 			FIN;
 		END repeat;
@@ -224,37 +224,38 @@ MODULE(system);
 		PUT '2 um zurueck ins Hauptmenue zu gelangen' TO termout BY A, SKIP;
 		
 		REPEAT
-			GET input FROM termin BY F(6), SKIP;
-			IF is_driving == 0 THEN
-				IF input == 1 THEN
-					PUT 'Command 1: Parcour starten'  TO termout BY A, SKIP;
-					! reset the global stop bit
-					RESERVE stop_bolt;
-					global_stop := 0;
-					FREE stop_bolt;
-
-					is_driving = 1;
-
-					ACTIVATE parcour;
-				FIN;
-				IF input == 2 THEN
-					PUT 'main' TO termout BY A, SKIP;
-					EXIT repeat;
-				FIN;
-			FIN;
+		GET input FROM termin BY F(6), SKIP;
 			
-			IF is_driving == 1 THEN		
-				IF input == 0 THEN
-					PUT 'Command 0: stop'  TO termout BY A, SKIP;
-					! set the global stop bit
-					RESERVE stop_bolt;
-					global_stop := 1;
-					FREE stop_bolt;
-					
-					! wait for parcour to finish, then terminate it
-					REQUEST p;
-					TERMINATE parcour;
-					is_driving = 0;
+			! Check wether input is valid
+			IF NOT(is_driving == 1 AND input == 0) AND NOT(is_driving == 0 AND (input == 1 OR input==2)) THEN
+				PUT 'Ungueltige Eingabe' TO termout BY A, SKIP;
+			ELSE
+				! react to input
+				CASE input
+					ALT (0) 
+						PUT 'Command 0: stop'  TO termout BY A, SKIP;
+						! set the global stop bit
+						RESERVE stop_bolt;
+						global_stop := 1;
+						FREE stop_bolt;
+						
+						! wait for parcour to finish, then terminate it
+						REQUEST p;
+						TERMINATE parcour;
+						is_driving = 0;
+					ALT (1)
+						PUT 'Command 1: Parcour starten'  TO termout BY A, SKIP;
+						! reset the global stop bit
+						RESERVE stop_bolt;
+						global_stop := 0;
+						FREE stop_bolt;
+
+						is_driving = 1;
+
+						ACTIVATE parcour;
+					ALT (2)
+						PUT 'main' TO termout BY A, SKIP;
+						EXIT repeat;
 				FIN;
 			FIN;
 		END repeat;
