@@ -588,7 +588,9 @@ MODULE(system);
 				END;
 			FIN;
 		FIN;
-	END drive;
+		TO 1 REPEAT
+		END drive;
+	END;
 
 
 
