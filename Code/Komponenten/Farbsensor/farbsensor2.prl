@@ -1,0 +1,41 @@
+MODULE (FARBSENSOR);
+    SYSTEM;
+		stdout:StdOut;!TODO: delete
+		i2cbus: I2CBus('/dev/i2c-1');
+		farbsensor: TCS34725('29'B4) --- i2cbus;
+	PROBLEM;
+
+		SPC stdout DATION OUT SYSTEM ALPHIC;!TODO: delete
+		DCL so DATION OUT ALPHIC DIM(*,80) FORWARD STREAM CREATED(stdout);!TODO: delete	
+		SPC farbsensor DATION IN SYSTEM BASIC ALL GLOBAL;
+		DCL fs DATION IN BASIC ALL CREATED(farbsensor);
+		DCL (fs_signal_red, fs_signal_green, fs_signal_blue) FIXED INIT(0);!output from fs
+	readfs: TASK MAIN; !TODO: delete MAIN
+		DCL colors(5) FIXED(31);
+		DCL read_sensor_interval DUR INIT(0.005 SEC);!TODO: delete 
+		OPEN so;!TODO: delete 
+		OPEN fs;
+		REPEAT
+			red := 0;
+			green := 0;
+			blue := 0;
+			!TAKE colors FROM fs;
+			__cpp__("_fs.dationRead(data_colors, sizeof(data_colors));");
+			!'rot':colors(1), 'gruen':colors(2), 'blau':colors(3)
+		    IF colors(1) > colors(2) + colors(3) THEN
+				fs_signal_red=1;
+			FIN;
+			IF colors(2) > colors(1) + colors(3) THEN
+				fs_signal_green=1;
+			FIN;
+			IF colors(3) > colors(2) + colors(1) THEN
+				fs_signal_blue=1;
+			FIN;
+			AFTER read_sensor_interval RESUME;
+		END;
+		CLOSE fs;
+		CLOSE so;!TODO: delete 
+	END;
+MODEND;
+	
+		
