@@ -1,0 +1,670 @@
+! SensorCar OpenPEARL
+! Authors: Daniel Schlageter, Kevin Hertfelder, Stefan Kienzler, Daniel Petrusic, Patrick Kroner
+
+MODULE(system);
+	SYSTEM;
+		stdout: StdOut;
+		stdin: StdIn;
+		lichtrechen: RPiDigitalIn(13,8,'u');
+		leftstepmotor_out: RPiDigitalOut(19, 4);
+		rightstepmotor_out: RPiDigitalOut(23, 4);
+		httpSocket: TcpIpServer(80);
+
+	PROBLEM;
+		! I/O 
+		SPC stdout DATION OUT SYSTEM ALPHIC;
+		DCL termout DATION OUT ALPHIC DIM(*, 80) FORWARD STREAM CREATED(stdout);
+		SPC stdin DATION IN SYSTEM ALPHIC;
+		DCL termin DATION IN ALPHIC DIM(*,80) FORWARD STREAM CREATED(stdin);
+		
+
+		SPC lichtrechen DATION IN SYSTEM BASIC BIT(8) GLOBAL;
+		DCL lr DATION IN BASIC BIT(8) CREATED(lichtrechen);
+		
+		SPC leftstepmotor_out DATION OUT SYSTEM BASIC BIT(4) GLOBAL;
+		DCL lmotor DATION OUT BASIC BIT(4) CREATED (leftstepmotor_out);
+		SPC rightstepmotor_out DATION OUT SYSTEM BASIC BIT(4) GLOBAL;
+		DCL rmotor DATION OUT BASIC BIT(4) CREATED (rightstepmotor_out);
+
+		SPC httpSocket DATION INOUT SYSTEM ALL;
+		DCL usHttpSocket DATION INOUT ALPHIC DIM(*,200) FORWARD STREAM CREATED(httpSocket);  
+    
+		! global constants
+		DCL default_motor_time DUR INIT(0.02 SEC);
+		DCL default_motor_steps FIXED INIT(1);
+		!DCL read_sensor_interval DUR INIT(0.005 SEC);
+		
+		
+		! global variables
+		DCL global_stop FIXED INIT(0);
+		DCL demo_state FIXED INIT(0);
+		DCL (lr_signal) FLOAT; ! sensor array signal
+		DCL (lm_speed, rm_speed) FLOAT; ! speed(factor) for (left / right) step motors
+		
+		! semaphores and bolts 
+		DCL (lr_buffer_in, lr_buffer_out, lm_buffer_in, lm_buffer_out, rm_buffer_in, rm_buffer_out) SEMA PRESET(1,0,1,0,1,0);
+		DCL (dl, dr, p, dt) SEMA PRESET(0,0,0,0); ! control flow semaphores
+		DCL (lm_bolt, rm_bolt, lr_bolt, stop_bolt, demo_state_bolt) BOLT;
+		
+	! Overall coordination
+	main: TASK MAIN;
+		lr_signal := 0;
+		lm_speed := 0;
+		rm_speed := 0;
+		
+		OPEN termout;
+		OPEN lmotor;
+		OPEN rmotor;
+		OPEN termin;		
+
+		ACTIVATE webinterface;
+		ACTIVATE driveleft;
+		ACTIVATE driveright;
+		ACTIVATE readlr;
+		
+		CALL menu;
+		
+		TERMINATE webinterface;
+		TERMINATE readlr;
+		
+		CLOSE lmotor;
+		CLOSE rmotor;
+		CLOSE termout;
+		CLOSE termin;
+	
+	END;
+
+
+	menu: PROC;
+		DCL input FIXED;
+	
+		! Output main menu
+		PUT 'SensorCar OpenPEARL' TO termout BY A, SKIP;
+		PUT 'Hauptmenue' TO termout BY A, SKIP;
+		PUT 'Waehlen Sie:' TO termout BY A, SKIP;
+		PUT '1 um den Demo-Modus zu starten' TO termout BY A, SKIP;
+		PUT '2 um den Parcour-Modus zu starten' TO termout BY A, SKIP;
+		
+		REPEAT
+			GET input FROM termin BY F(6), SKIP;
+			
+			IF input == 0 THEN
+				EXIT repeat;
+			FIN;
+			
+			IF input == 1 THEN
+				CALL demo_menu;
+			FIN;
+				
+			IF input == 2 THEN
+				CALL parcour_menu;
+			FIN;
+		END repeat;
+	END;
+
+	demo_menu: PROC;
+		DCL input FIXED;
+		DCL temp BIT(1);
+		DCL is_driving FIXED INIT(0);
+	
+		! Output parcour menu
+		PUT 'SensorCar OpenPEARL' TO termout BY A, SKIP;
+		PUT 'Demo-------------' TO termout BY A, SKIP;
+		PUT 'Waehlen Sie:' TO termout BY A, SKIP;
+		PUT '0 um anzuhalten' TO termout BY A, SKIP;
+		PUT '1 um geradeaus zu fahren' TO termout BY A, SKIP;
+		PUT '2 um zurueck ins Hauptmenue zu gelangen' TO termout BY A, SKIP;
+		
+		REPEAT
+			GET input FROM termin BY F(6), SKIP;
+			IF is_driving == 0 THEN
+				IF input == 1 THEN
+					PUT 'Command 1: Geradeausfahren'  TO termout BY A, SKIP;
+					! reset the global stop bit
+					RESERVE stop_bolt;
+					global_stop := 0;
+					FREE stop_bolt;
+
+					is_driving = 1;
+					
+					RESERVE demo_state_bolt;
+					demo_state = 1;
+					FREE demo_state_bolt;
+
+					ACTIVATE demo;
+				FIN;
+				
+				IF input == 2 THEN
+					PUT 'main' TO termout BY A, SKIP;
+					EXIT repeat;
+				FIN;
+			FIN;
+			
+			IF is_driving == 1 THEN
+			! temp := TRY dt;
+			PUT 'vor try' TO termout BY A, SKIP;
+			__cpp__(
+			     "{int dummy = pearlrt::Semaphore::dotry( me, 1, dt_semas);"
+			     "if (dummy) { _temp.x = 0x80;} else {_temp.x = 0;}}"
+			);
+				IF temp THEN
+					PUT 'Done' TO termout BY A, SKIP;
+					TERMINATE demo;
+					is_driving = 0;
+				FIN;
+				
+				IF input == 0 THEN
+					PUT 'Command 0: stop'  TO termout BY A, SKIP;
+					! set the global stop bit
+					RESERVE stop_bolt;
+					global_stop := 1;
+					FREE stop_bolt;
+					
+					! wait for demo to finish, then terminate it
+					IF temp =='0'B THEN
+						REQUEST dt;
+						TERMINATE demo;
+					FIN;
+					is_driving = 0;
+				FIN;
+			FIN;
+		END repeat;
+	END;
+	
+	demo: TASK;
+		DCL state FIXED INIT(0);
+		
+		ENTER demo_state_bolt;
+		state = demo_state;
+		LEAVE demo_state_bolt;
+	
+		IF state == 1 THEN
+			CALL straight(5);
+		FIN;
+		RELEASE dt;
+		SUSPEND;
+	END;
+	
+	straight: PROC(speed FIXED);
+		DCL stop FIXED INIT(0);
+		
+		TO 50 WHILE stop == 0 REPEAT
+			REQUEST lm_buffer_in; 
+			REQUEST rm_buffer_in;
+		
+			RESERVE lm_bolt;
+			lm_speed = speed;
+			FREE lm_bolt;
+			 
+			RESERVE rm_bolt;
+			rm_speed = speed;
+			FREE rm_bolt;
+			
+			RELEASE lm_buffer_out; 
+			RELEASE rm_buffer_out;
+			
+			ENTER stop_bolt;
+			stop := global_stop;
+			LEAVE stop_bolt;
+		END;
+		
+		CALL stop_motors;
+	END;
+	
+	parcour_menu: PROC;
+		DCL input FIXED;
+		DCL is_driving FIXED INIT(0);
+	
+		! Output parcour menu
+		PUT 'SensorCar OpenPEARL' TO termout BY A, SKIP;
+		PUT 'Parcour-------------' TO termout BY A, SKIP;
+		PUT 'Waehlen Sie:' TO termout BY A, SKIP;
+		PUT '0 um anzuhalten' TO termout BY A, SKIP;
+		PUT '1 um loszufahren' TO termout BY A, SKIP;
+		PUT '2 um zurueck ins Hauptmenue zu gelangen' TO termout BY A, SKIP;
+		
+		REPEAT
+			GET input FROM termin BY F(6), SKIP;
+			IF is_driving == 0 THEN
+				IF input == 1 THEN
+					PUT 'Command 1: Parcour starten'  TO termout BY A, SKIP;
+					! reset the global stop bit
+					RESERVE stop_bolt;
+					global_stop := 0;
+					FREE stop_bolt;
+
+					is_driving = 1;
+
+					ACTIVATE parcour;
+				FIN;
+				IF input == 2 THEN
+					PUT 'main' TO termout BY A, SKIP;
+					EXIT repeat;
+				FIN;
+			FIN;
+			
+			IF is_driving == 1 THEN		
+				IF input == 0 THEN
+					PUT 'Command 0: stop'  TO termout BY A, SKIP;
+					! set the global stop bit
+					RESERVE stop_bolt;
+					global_stop := 1;
+					FREE stop_bolt;
+					
+					! wait for parcour to finish, then terminate it
+					REQUEST p;
+					TERMINATE parcour;
+					is_driving = 0;
+				FIN;
+			FIN;
+		END repeat;
+	END;
+	
+	! moves motors in order to follow a black line
+	parcour: TASK;
+		! local variables
+		DCL (lspeed, rspeed, in) FLOAT INIT(1,1,1);
+		DCL stop FIXED INIT(0);
+		 
+		WHILE stop == 0 REPEAT
+			! wait for driving tasks to finish
+			REQUEST lm_buffer_in; 
+			REQUEST rm_buffer_in;
+			
+			
+			RELEASE lr_buffer_in; ! "unlock" sensor array
+			REQUEST lr_buffer_out; ! "lock" sensor array
+			
+			ENTER lr_bolt;
+			in:= -2 * lr_signal;
+			LEAVE lr_bolt;
+			 
+			IF in < 0 THEN
+				lspeed := 1;
+				rspeed := -1 * in;
+			FIN;
+			 
+			IF in > 0 THEN
+				lspeed = in;
+				rspeed = 1;
+			FIN;
+			 
+			IF in == 0 THEN
+				lspeed = 1;
+				rspeed = 1;
+			FIN;
+			 
+			RESERVE lm_bolt;
+			lm_speed = lspeed;
+			FREE lm_bolt;
+			
+			RESERVE rm_bolt;
+			rm_speed = rspeed;
+			FREE rm_bolt;
+			
+			! unlock motors
+			RELEASE lm_buffer_out;
+			RELEASE rm_buffer_out;
+			
+			! check stop bit
+			ENTER stop_bolt;
+			stop := global_stop;
+			LEAVE stop_bolt;
+		END;
+		
+		CALL stop_motors;
+		
+		RELEASE p;
+		SUSPEND;
+	END;
+	
+	stop_motors: PROC;
+		! wait for driving tasks to finish
+		REQUEST lm_buffer_in; 
+		REQUEST rm_buffer_in;
+		
+		! set motors to stop
+		RESERVE lm_bolt;
+		lm_speed = 0;
+		FREE lm_bolt;
+		
+		RESERVE rm_bolt;
+		rm_speed = 0;
+		FREE rm_bolt;
+		
+		! unlock motors
+		RELEASE lm_buffer_out;
+		RELEASE rm_buffer_out;
+	END;
+  
+	! moves left step motor as specified by lm_speed
+	driveleft: TASK;
+		! local variables
+		DCL speed FLOAT;
+		DCL time DUR;
+		DCL steps FIXED;
+		DCL direction FIXED INIT(1);
+		
+		REPEAT
+			REQUEST lm_buffer_out; ! wait for input from managing task
+			! get speed(factor)
+			ENTER lm_bolt;
+			speed := lm_speed;
+			LEAVE lm_bolt;
+			
+			IF speed <> 0 THEN
+			! compute parameters
+				IF speed < 0 THEN
+					direction = 0;
+					speed = -1 * speed;
+				FIN;
+			
+				time := (1 / speed) * default_motor_time;
+				steps := ROUND(speed * default_motor_steps);
+			
+				!PUT 'linker Motor: ', speed TO termout BY A, F(6), SKIP; ! control output to stdout
+				CALL step(0, steps, direction, time); ! move motor
+			FIN;
+			RELEASE lm_buffer_in; ! unlock managing task
+		END;
+	END;
+  
+	! moves left step motor as specified by lm_speed
+	driveright: TASK;
+		! local variables
+		DCL speed FLOAT;
+		DCL time DUR;
+		DCL steps FIXED;
+		DCL direction FIXED INIT(1);
+
+		REPEAT
+			REQUEST rm_buffer_out; ! wait for input from managing task
+			! get speed(factor)
+			ENTER rm_bolt;
+			speed := rm_speed;
+			LEAVE rm_bolt;
+			
+			IF speed <> 0 THEN
+			! compute parameters
+				IF speed < 0 THEN
+					direction = 0;
+					speed = -1 * speed;
+				ELSE 
+					direction = 1;
+				FIN;
+			
+				time := (1 / speed) * default_motor_time;
+				steps := ROUND(speed * default_motor_steps);
+				
+				!PUT 'rechter Motor: ', speed TO termout BY A, F(6), SKIP; ! control output to stdout
+				CALL step(1, steps, direction, time); ! move motor
+			FIN;
+			RELEASE rm_buffer_in; ! unlock managing task
+		END;
+	END;
+
+  
+	! reads sensor array and computes lr_signal
+	readlr: TASK;
+		! local variables
+		DCL bits BIT(8);
+		DCL out FLOAT;
+		DCL count FIXED;
+		
+		OPEN lr;
+		REPEAT
+			out := 0;
+			count := 0;
+			
+			REQUEST lr_buffer_in; ! "lock" parcour
+			TAKE bits FROM lr;
+
+			! compute output
+			!PUT bits, bits TO terminal BY B4(2), X, B1(8), SKIP;
+			IF bits.BIT(1) == '1'B THEN
+				out := out + 4;
+				count := count +1;
+			FIN;
+			
+			IF bits.BIT(2) == '1'B THEN
+				out := out + 3;
+				count := count +1;
+			FIN;
+			
+			IF bits.BIT(3) == '1'B THEN
+				out := out + 2;
+				count := count +1;
+			FIN;
+			
+			IF bits.BIT(4) == '1'B THEN
+				out := out + 1;
+				count := count +1;			
+			FIN;
+			
+			IF bits.BIT(5) == '1'B THEN
+				out := out - 1;
+				count := count +1;
+			FIN;
+			
+			IF bits.BIT(6) == '1'B THEN
+				out := out - 2;
+				count := count +1;
+			FIN;
+			
+			IF bits.BIT(7) == '1'B THEN
+				out := out - 3;
+				count := count +1;
+			FIN;
+			
+			IF bits.BIT(8) == '1'B THEN
+				out := out - 4;
+				count := count +1;
+			FIN;
+			
+			IF count /= 0 THEN
+				out := out / count;
+			FIN;
+			
+			! write lr_signal
+			RESERVE lr_bolt;
+			lr_signal := out;
+			FREE lr_bolt;
+			RELEASE lr_buffer_out; ! "unlock" parcour
+			
+			! wait
+			!AFTER read_sensor_interval RESUME;
+		END;
+		CLOSE lr;
+	END;
+
+	! move specified motor (4x) steps steps in dir waiting time between steps
+	step: PROC(motorindex FIXED, steps FIXED, dir FIXED, time DUR);
+		! local variables: bit-pattern for step motor
+		DCL (a, b ) BIT(4) INIT('1010'B1, '1001'B1);
+		! workaround compiler error (leading 0)
+		DCL (c,d) BIT(4);
+		c := '0101'B1;
+		d := '0110'B1;
+
+
+		IF motorindex == 0 THEN
+			IF dir == 0 THEN
+			    TO steps REPEAT
+					SEND a TO lmotor;
+					AFTER time RESUME;
+
+					SEND b TO lmotor;
+					AFTER time RESUME;
+
+					SEND c TO lmotor;
+					AFTER time RESUME;
+
+					SEND d TO lmotor;
+					AFTER time RESUME;
+				END;
+			FIN;
+
+			IF dir == 1 THEN
+				TO steps REPEAT
+					SEND d TO lmotor;
+					AFTER time RESUME;
+
+					SEND c TO lmotor;
+					AFTER time RESUME;
+
+					SEND b TO lmotor;
+					AFTER time RESUME;
+
+					SEND a TO lmotor;
+					AFTER time RESUME;
+			   END;
+			FIN;
+		FIN;
+		
+		IF motorindex == 1 THEN
+			IF dir == 0 THEN
+				TO steps REPEAT
+					SEND a TO rmotor;
+					AFTER time RESUME;
+
+					SEND b TO rmotor;
+					AFTER time RESUME;
+
+					SEND c TO rmotor;
+					AFTER time RESUME;
+
+					SEND d TO rmotor;
+					AFTER time RESUME;
+				END;
+			FIN;
+
+			IF dir == 1 THEN
+				TO steps REPEAT
+					SEND d TO rmotor;
+					AFTER time RESUME;
+
+					SEND c TO rmotor;
+					AFTER time RESUME;
+
+					SEND b TO rmotor;
+					AFTER time RESUME;
+
+					SEND a TO rmotor;
+					AFTER time RESUME;
+				END;
+			FIN;
+		FIN;
+	END;
+
+
+
+
+
+
+!--------------------------------------------Webinterface------------------------------------------
+	webinterface: TASK;
+	    DCL request CHAR(70);
+	      
+	    REPEAT		
+			OPEN usHttpSocket;	
+			
+			GET request FROM usHttpSocket BY A, SKIP;
+			
+			PUT 'HTTP/1.1 200 ok' TO usHttpSocket BY A, SKIP;
+			PUT 'Connection: close' TO usHttpSocket BY A, SKIP;
+			PUT 'Context-Type: text/html' TO usHttpSocket BY A, SKIP,SKIP;
+
+			IF request == 'GET /index.html HTTP/1.1' THEN
+				CALL index;
+			ELSE 
+				IF request == 'GET /info.html HTTP/1.1' THEN
+					CALL info;
+				ELSE 
+					IF request == 'GET /doku.html HTTP/1.1' THEN
+							CALL doku;
+					ELSE
+							CALL error;
+					FIN;		
+				FIN;
+			FIN;
+			
+			CLOSE usHttpSocket;
+	    END;
+	END;
+	
+	
+	index: PROC;
+
+		DCL speedl FLOAT;
+	  	DCL speedr FLOAT;
+
+		ENTER lm_bolt;
+    	speedl := lm_speed;
+    	LEAVE lm_bolt;
+			
+		ENTER rm_bolt;
+    	speedr := rm_speed;
+		LEAVE rm_bolt;
+
+
+		PUT '<HTML><HEAD><style>' TO usHttpSocket BY A, SKIP;
+		CALL style;
+		PUT '</style><meta http-equiv = refresh content = 1; URL = /index.html >' TO usHttpSocket BY A, SKIP;
+		PUT '<TITLE>OpenPEARL Projekt</TITLE></HEAD>'TO usHttpSocket BY A, SKIP;
+		
+		PUT '<BODY><div id = value_div><div class = head_div><h1>Auto</h1></div>' TO usHttpSocket BY A,SKIP;
+		PUT '<div id = value_list_div><ul id = value_list>' TO usHttpSocket BY A, SKIP;
+		PUT '<li>Geschwindigkeit Lins:', speedl, '</li>'TO usHttpSocket BY A, F(6), A, SKIP;	
+		PUT '<li>Geschwindigkeit Rechts:', speedr, '</li>'TO usHttpSocket BY A, F(6), A, SKIP;	
+		PUT '</ul></div></div>' TO usHttpSocket BY A, SKIP;
+		PUT '<div id = navigation ><div class = head_div ></div>' TO usHttpSocket BY A, SKIP;
+		PUT '<div class = nav_div ><p><a href = info.html>Info</a></p><p><a href = doku.html>Doku</a></p></div></div></BODY></HTML>' TO usHttpSocket BY A, SKIP;	
+	END;
+
+	info: PROC;
+		PUT '<HTML><HEAD><style>' TO usHttpSocket BY A, SKIP;
+		CALL style;
+		PUT '</style><TITLE>OpenPEARL Projekt</TITLE></HEAD>'TO usHttpSocket BY A, SKIP;
+		
+		PUT '<BODY><div id = value_div><div class = head_div><h1>Info</h1></div>' TO usHttpSocket BY A,SKIP;
+		PUT '<div id = value_list_div> Hier koennte ihre info stehen' TO usHttpSocket BY A, SKIP;
+		PUT '</div></div>' TO usHttpSocket BY A, SKIP;
+		PUT '<div id = navigation ><div class = head_div ></div>' TO usHttpSocket BY A, SKIP;
+		PUT '<div class = nav_div ><p><a href = index.html>Start</a></p><p><a href = doku.html>Doku</a></p></div></div></BODY></HTML>' TO usHttpSocket BY A, SKIP;
+	END;
+
+	doku: PROC;
+		PUT '<HTML><HEAD><style>' TO usHttpSocket BY A, SKIP;
+		CALL style;
+		PUT '</style><TITLE>OpenPEARL Projekt</TITLE></HEAD>'TO usHttpSocket BY A, SKIP;
+		
+		PUT '<BODY><div id = value_div><div class = head_div><h1>Doku</h1></div>' TO usHttpSocket BY A,SKIP;
+		PUT '<div id = value_list_div>Hier koennte ihre Doku stehen' TO usHttpSocket BY A, SKIP;
+		PUT '</div></div>' TO usHttpSocket BY A, SKIP;
+		PUT '<div id = navigation ><div class = head_div ></div>' TO usHttpSocket BY A, SKIP;
+		PUT '<div class = nav_div ><p><a href = index.html>Start</a></p><p><a href = info.html>Info</a></p></div></div></BODY></HTML>' TO usHttpSocket BY A, SKIP;
+	END;
+
+	error: PROC;
+		PUT '<HTML><HEAD><style>' TO usHttpSocket BY A, SKIP;
+		CALL style;
+		PUT '</style><TITLE>OpenPEARL Projekt</TITLE></HEAD>'TO usHttpSocket BY A, SKIP;
+
+		PUT '<BODY><div id = value_div><div class = head_div><h1>Error 404</h1></div><div id = value_list_div style = text-align:center; ><ul id = value_list><li>Site not found</li></ul></div></div><div id = navigation ><div class = head_div ></div></BODY></HTML>' TO usHttpSocket BY A, SKIP;
+	END;
+
+
+	style: PROC;
+		PUT 'html{margin: 0; font-family: sans-serif;}' TO usHttpSocket BY A, SKIP;
+		PUT 'body{margin: 0; background-color: #eaecbd;}' TO usHttpSocket BY A, SKIP;
+		PUT 'h1{margin: 0;}' TO usHttpSocket BY A, SKIP;
+		PUT '#navigation{position: absolute; overflow: auto; left: 0; top: 0; width: 13%; height: 100%;}' TO usHttpSocket BY A, SKIP;
+		PUT '.head_div{position: relative ; left: 0; top: 0; width: 100%; height: 3.78em; line-height: 3.7em; margin: 0; background-color: #008040; color: white; text-align: center;}' TO usHttpSocket BY A, SKIP;
+		PUT 'value_div{position: absolute; right: 0; bottom: 0; width: 87%; height: 100%;}' TO usHttpSocket BY A, SKIP;
+		PUT '.nav_div{font-size: 1.5em; margin-left: 1em; border-right: solid gray;}' TO usHttpSocket BY A, SKIP;
+		PUT 'a{text-decoration: none; color: gray;}' TO usHttpSocket BY A, SKIP;
+		PUT 'a:hover{text-decoration: underline;}' TO usHttpSocket BY A, SKIP;
+		PUT '#value_list_div{overflow: auto; width: 60%; height: 80%; margin-left: 15%;}' TO usHttpSocket BY A, SKIP;
+		PUT '#value_list{text-decoration: none; list-style-type: none;}' TO usHttpSocket BY A,SKIP;
+	END;
+MODEND;
