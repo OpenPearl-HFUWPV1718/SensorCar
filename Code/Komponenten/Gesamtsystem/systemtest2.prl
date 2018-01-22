@@ -368,8 +368,12 @@ MODULE(system);
 			speed := lm_speed;
 			LEAVE lm_bolt;
 			
-			IF NOT(speed == 0) THEN
-			! compute parameters
+			IF speed == 0 THEN
+			
+				time = 0;
+				steps = 0;
+			ELSE
+				! compute parameters
 				IF speed < 0 THEN
 					direction = 0;
 					speed = -1 * speed;
@@ -377,10 +381,11 @@ MODULE(system);
 			
 				time := (1 / speed) * default_motor_time;
 				steps := ROUND(speed * default_motor_steps);
-			
-				!PUT 'linker Motor: ', speed TO termout BY A, F(6), SKIP; ! control output to stdout
-				CALL step(0, steps, direction, time); ! move motor
 			FIN;
+			
+			!PUT 'linker Motor: ', speed TO termout BY A, F(6), SKIP; ! control output to stdout
+			CALL step(0, steps, direction, time); ! move motor
+			
 			RELEASE lm_buffer_in; ! unlock managing task
 		END;
 	END;
@@ -400,7 +405,10 @@ MODULE(system);
 			speed := rm_speed;
 			LEAVE rm_bolt;
 			
-			IF NOT(speed == 0) THEN
+			IF (speed == 0) THEN
+				time = 0;
+				steps = 0;
+			ELSE
 			! compute parameters
 				IF speed < 0 THEN
 					direction = 0;
@@ -411,13 +419,11 @@ MODULE(system);
 			
 				time := (1 / speed) * default_motor_time;
 				steps := ROUND(speed * default_motor_steps);
-				
-				!PUT 'rechter Motor: ', speed TO termout BY A, F(6), SKIP; ! control output to stdout
-				CALL step(1, steps, direction, time); ! move motor
-			ELSE
-				SEND '0000'B1 TO lmotor;
-				SEND '0000'B1 TO rmotor;
 			FIN;
+			
+			!PUT 'rechter Motor: ', speed TO termout BY A, F(6), SKIP; ! control output to stdout
+			CALL step(1, steps, direction, time); ! move motor
+				
 			RELEASE rm_buffer_in; ! unlock managing task
 		END;
 	END;
@@ -501,12 +507,17 @@ MODULE(system);
 		! local variables: bit-pattern for step motor
 		DCL (a, b ) BIT(4) INIT('1010'B1, '1001'B1);
 		! workaround compiler error (leading 0)
-		DCL (c,d) BIT(4);
+		DCL (c,d, e) BIT(4);
 		c := '0101'B1;
 		d := '0110'B1;
+		e := '0000'B1;
 
 
 		IF motorindex == 0 THEN
+			IF steps == 0 AND time == 0 THEN
+				SEND e to lmotor;
+				EXIT this;
+			FIN;
 			IF dir == 0 THEN
 			    TO steps REPEAT
 					SEND a TO lmotor;
@@ -541,6 +552,10 @@ MODULE(system);
 		FIN;
 		
 		IF motorindex == 1 THEN
+			IF steps == 0 AND time == 0 THEN
+				SEND e to rmotor;
+				EXIT this;
+			FIN;
 			IF dir == 0 THEN
 				TO steps REPEAT
 					SEND a TO rmotor;
@@ -573,7 +588,7 @@ MODULE(system);
 				END;
 			FIN;
 		FIN;
-	END;
+	END this;
 
 
 
