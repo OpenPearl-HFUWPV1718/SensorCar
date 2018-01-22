@@ -12,6 +12,10 @@ MODULE (FARBSENSOR);
 	main: TASK MAIN;
 		DCL colors(5) FIXED(31);
 		DCL timeinterval DUR;
+                DCL (rBits,gBits,bBits) BIT(8);
+		DCL gesamt BIT(24); 
+                DCL help FIXED(7);
+		DCL help2 FIXED(24);
 		OPEN so;
 		OPEN fs;
 		timeinterval = 1 SEC;
@@ -23,7 +27,19 @@ MODULE (FARBSENSOR);
                               'blau', colors(3), 'summe',colors(4),
                             'lum',colors(5) TO so 
                           BY A(6),F(6), SKIP;
-                        PUT TO so BY SKIP;
+                     help =  (colors(4) // 512);
+                     rBits = TOBIT help;
+                     rBits = rBits SHIFT 1;
+                     help =  (colors(2) // 512);
+                     gBits = TOBIT help;
+                     gBits = gBits SHIFT 1;
+                     help =  (colors(3) // 512);
+                     bBits = TOBIT help;
+                     bBits = bBits SHIFT 1;
+		    
+		    
+                     PUT 'RGB ', rBits, gBits, bBits TO so BY A,X,B4(2),X,B4(2),X,B4(2),SKIP;
+                          PUT TO so BY SKIP;
 			AFTER timeinterval RESUME;
 		END;
 		PUT 'END!' TO so BY A, SKIP;

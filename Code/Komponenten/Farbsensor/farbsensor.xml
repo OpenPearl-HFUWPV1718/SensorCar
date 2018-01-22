@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module name="FARBSENSOR"  file="farbsensor.prl">
+<system>
+ <username name="stdout"  line="3">
+ <sysname name="StdOut">
+ </sysname>
+ </username>
+
+ <username name="i2cbus"  line="4">
+ <sysname name="I2CBus">
+       <parameters>
+             <CHAR>'/dev/i2c-1'</CHAR> 
+       </parameters>
+ </sysname>
+ </username>
+
+ <username name="farbsensor"  line="5">
+ <sysname name="TCS34725">
+       <parameters>
+             <BIT>'29'B4</BIT> 
+       </parameters>
+     <association name="i2cbus">
+     </association>
+ </sysname>
+ </username>
+
+
+</system>
+<problem>
+ <spc type="dation" name="stdout" line="7">
+ <attributes>SYSTEM,OUT</attributes>
+ <data>ALPHIC</data>
+ </spc>
+ <spc type="dation" name="farbsensor" line="10">
+ <attributes>BASIC,SYSTEM,IN</attributes>
+ <data>ALL</data>
+ </spc>
+
+</problem>
+</module>

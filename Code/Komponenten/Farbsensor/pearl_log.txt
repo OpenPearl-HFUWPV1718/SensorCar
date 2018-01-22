@@ -1,0 +1,1 @@
+17:59:56.563285 WARN:  no .pearlrc found
