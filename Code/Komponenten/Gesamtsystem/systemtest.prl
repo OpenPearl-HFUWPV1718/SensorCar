@@ -143,6 +143,7 @@ MODULE(system);
 			
 			IF is_driving == 1 THEN
 			! temp := TRY dt;
+			PUT 'vor try' TO termout BY A, SKIP;
 			__cpp__(
 			     "{int dummy = pearlrt::Semaphore::dotry( me, 1, dt_semas);"
 			     "if (dummy) { _temp.x = 0x80;} else {_temp.x = 0;}}"
@@ -152,7 +153,7 @@ MODULE(system);
 					TERMINATE demo;
 					is_driving = 0;
 				FIN;
-			
+				
 				IF input == 0 THEN
 					PUT 'Command 0: stop'  TO termout BY A, SKIP;
 					! set the global stop bit
@@ -161,8 +162,10 @@ MODULE(system);
 					FREE stop_bolt;
 					
 					! wait for demo to finish, then terminate it
-					REQUEST dt;
-					TERMINATE demo;
+					IF temp =='0'B THEN
+						REQUEST dt;
+						TERMINATE demo;
+					FIN;
 					is_driving = 0;
 				FIN;
 			FIN;
@@ -195,6 +198,7 @@ MODULE(system);
 			rm_speed = speed;
 			FREE rm_bolt;
 			
+			PUT 'demo speed geshrieben' TO termout BY A, SKIP;
 			! drive / activate motors
 			ACTIVATE driveleft;
 			ACTIVATE driveright;
@@ -355,6 +359,7 @@ MODULE(system);
 		ENTER rm_bolt;
 		speed := rm_speed;
 		LEAVE rm_bolt;
+		
 		
 		! compute parameters
 		IF speed < 0 THEN
