@@ -38,13 +38,14 @@ MODULE(system);
 		! global variables
 		DCL global_stop FIXED INIT(0);
 		DCL demo_state FIXED INIT(0);
+		DCL demo_var FIXED INIT(0);
 		DCL (lr_signal) FLOAT; ! sensor array signal
 		DCL (lm_speed, rm_speed) FLOAT; ! speed(factor) for (left / right) step motors
 		
 		! semaphores and bolts 
 		DCL (lr_buffer_in, lr_buffer_out, lm_buffer_in, lm_buffer_out, rm_buffer_in, rm_buffer_out) SEMA PRESET(1,0,1,0,1,0);
 		DCL (p, dt) SEMA PRESET(0,0); ! control flow semaphores
-		DCL (lm_bolt, rm_bolt, lr_bolt, stop_bolt, demo_state_bolt) BOLT;
+		DCL (lm_bolt, rm_bolt, lr_bolt, stop_bolt, demo_state_bolt, demo_var_bolt) BOLT;
 		
 	! Overall coordination
 	main: TASK MAIN;
@@ -96,14 +97,14 @@ MODULE(system);
 			ELSE
 				CASE input
 					ALT(0)
-						EXIT mainmenu;
+						EXIT repeat;
 					ALT(1)
 						CALL demo_menu;
 					ALT(2)
 						CALL parcour_menu;
 				FIN;
 			FIN;
-		END mainmenu;
+		END repeat;
 	END;
 
 	demo_menu: PROC;
@@ -154,6 +155,13 @@ MODULE(system);
 						is_driving = 0;
 					ALT (1)
 						PUT 'Command 1: Geradeausfahren'  TO termout BY A, SKIP;
+						
+						PUT 'Geben Sie die gewuenschte Geschwindigkeit ein [-10, 10]' TO termout BY A, SKIP;
+						GET var FROM termin BY F(6), SKIP;
+						RESERVE demo_var_bolt;
+						demo_var = var;
+						FREE demo_var_bolt;
+						
 						! reset the global stop bit
 						RESERVE stop_bolt;
 						global_stop := 0;
@@ -180,9 +188,13 @@ MODULE(system);
 		ENTER demo_state_bolt;
 		state = demo_state;
 		LEAVE demo_state_bolt;
+		
+		ENTER demo_var_bolt;
+		var = demo_var;
+		LEAVE demo_var_bolt;
 	
 		IF state == 1 THEN
-			CALL straight(5);
+			CALL straight(var);
 		FIN;
 		RELEASE dt;
 		SUSPEND;
@@ -618,7 +630,7 @@ MODULE(system);
 		
 		PUT '<BODY><div id = value_div><div class = head_div><h1>Auto</h1></div>' TO usHttpSocket BY A,SKIP;
 		PUT '<div id = value_list_div><ul id = value_list>' TO usHttpSocket BY A, SKIP;
-		PUT '<li>Geschwindigkeit Lins:', speedl, '</li>'TO usHttpSocket BY A, F(6), A, SKIP;	
+		PUT '<li>Geschwindigkeit Links:', speedl, '</li>'TO usHttpSocket BY A, F(6), A, SKIP;	
 		PUT '<li>Geschwindigkeit Rechts:', speedr, '</li>'TO usHttpSocket BY A, F(6), A, SKIP;	
 		PUT '</ul></div></div>' TO usHttpSocket BY A, SKIP;
 		PUT '<div id = navigation ><div class = head_div ></div>' TO usHttpSocket BY A, SKIP;
