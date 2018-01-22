@@ -49,6 +49,12 @@ MODULE(system);
 		
 	! Overall coordination
 	main: TASK MAIN;
+		CALL init;
+		CALL menu;
+		CALL term;
+	END;
+
+	init: PROC;
 		lr_signal := 0;
 		lm_speed := 0;
 		rm_speed := 0;
@@ -56,38 +62,36 @@ MODULE(system);
 		OPEN termout;
 		OPEN lmotor;
 		OPEN rmotor;
-		OPEN termin;		
-
+		OPEN termin;	
+	
 		ACTIVATE webinterface;
+		ACTIVATE readlr;
 		ACTIVATE driveleft;
 		ACTIVATE driveright;
-		ACTIVATE readlr;
-
-		CALL init;
-		CALL menu;
+		
+		CALL stop_motors;
+		PUT 'SensorCar OpenPEARL' TO termout BY A, SKIP;
+	END;
+	
+	term: PROC;
+		PUT 'Tschuess.' TO termout BY A, SKIP;
 		
 		TERMINATE webinterface;
 		TERMINATE readlr;
 		TERMINATE driveleft;
 		TERMINATE driveright;
 
-		PUT 'Tschuess' TO termout BY A, SKIP;
+		
 		CLOSE lmotor;
 		CLOSE rmotor;
 		CLOSE termout;
 		CLOSE termin;
-	
-	END;
-
-	init: PROC;
-		CALL stop_motors;
 	END;
 
 	menu: PROC;
 		DCL input FIXED;
 	
 		! Output main menu
-		PUT 'SensorCar OpenPEARL' TO termout BY A, SKIP;
 		PUT 'Hauptmenue' TO termout BY A, SKIP;
 		PUT 'Waehlen Sie:' TO termout BY A, SKIP;
 		PUT '1 um den Demo-Modus zu starten' TO termout BY A, SKIP;
