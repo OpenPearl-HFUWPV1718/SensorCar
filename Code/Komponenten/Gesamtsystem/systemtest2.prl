@@ -370,7 +370,7 @@ MODULE(system);
 			
 			IF speed == 0 THEN
 			
-				time = 0;
+				time = 0 SEC;
 				steps = 0;
 			ELSE
 				! compute parameters
@@ -406,7 +406,7 @@ MODULE(system);
 			LEAVE rm_bolt;
 			
 			IF (speed == 0) THEN
-				time = 0;
+				time = 0 SEC;
 				steps = 0;
 			ELSE
 			! compute parameters
@@ -514,82 +514,80 @@ MODULE(system);
 
 
 		IF motorindex == 0 THEN
-			IF steps == 0 AND time == 0 THEN
+			IF steps == 0 AND time == 0 SEC THEN
 				SEND e TO lmotor;
-				EXIT drive;
-			FIN;
-			IF dir == 0 THEN
-			    TO steps REPEAT
-					SEND a TO lmotor;
-					AFTER time RESUME;
+			ELSE
+				IF dir == 0 THEN
+					TO steps REPEAT
+						SEND a TO lmotor;
+						AFTER time RESUME;
 
-					SEND b TO lmotor;
-					AFTER time RESUME;
+						SEND b TO lmotor;
+						AFTER time RESUME;
 
-					SEND c TO lmotor;
-					AFTER time RESUME;
+						SEND c TO lmotor;
+						AFTER time RESUME;
 
-					SEND d TO lmotor;
-					AFTER time RESUME;
-				END;
-			FIN;
+						SEND d TO lmotor;
+						AFTER time RESUME;
+					END;
+				FIN;
 
-			IF dir == 1 THEN
-				TO steps REPEAT
-					SEND d TO lmotor;
-					AFTER time RESUME;
+				IF dir == 1 THEN
+					TO steps REPEAT
+						SEND d TO lmotor;
+						AFTER time RESUME;
 
-					SEND c TO lmotor;
-					AFTER time RESUME;
+						SEND c TO lmotor;
+						AFTER time RESUME;
 
-					SEND b TO lmotor;
-					AFTER time RESUME;
+						SEND b TO lmotor;
+						AFTER time RESUME;
 
-					SEND a TO lmotor;
-					AFTER time RESUME;
-			   END;
+						SEND a TO lmotor;
+						AFTER time RESUME;
+				   END;
+				FIN;
 			FIN;
 		FIN;
 		
 		IF motorindex == 1 THEN
-			IF steps == 0 AND time == 0 THEN
+			IF steps == 0 AND time == 0 SEC THEN
 				SEND e TO rmotor;
-				EXIT drive;
-			FIN;
-			IF dir == 0 THEN
-				TO steps REPEAT
-					SEND a TO rmotor;
-					AFTER time RESUME;
+			ELSE
+				IF dir == 0 THEN
+					TO steps REPEAT
+						SEND a TO rmotor;
+						AFTER time RESUME;
 
-					SEND b TO rmotor;
-					AFTER time RESUME;
+						SEND b TO rmotor;
+						AFTER time RESUME;
 
-					SEND c TO rmotor;
-					AFTER time RESUME;
+						SEND c TO rmotor;
+						AFTER time RESUME;
 
-					SEND d TO rmotor;
-					AFTER time RESUME;
-				END;
-			FIN;
+						SEND d TO rmotor;
+						AFTER time RESUME;
+					END;
+				FIN;
 
-			IF dir == 1 THEN
-				TO steps REPEAT
-					SEND d TO rmotor;
-					AFTER time RESUME;
+				IF dir == 1 THEN
+					TO steps REPEAT
+						SEND d TO rmotor;
+						AFTER time RESUME;
 
-					SEND c TO rmotor;
-					AFTER time RESUME;
+						SEND c TO rmotor;
+						AFTER time RESUME;
 
-					SEND b TO rmotor;
-					AFTER time RESUME;
+						SEND b TO rmotor;
+						AFTER time RESUME;
 
-					SEND a TO rmotor;
-					AFTER time RESUME;
-				END;
+						SEND a TO rmotor;
+						AFTER time RESUME;
+					END;
+				FIN;
 			FIN;
 		FIN;
-		TO 1 REPEAT
-		END drive;
 	END;
 
 
