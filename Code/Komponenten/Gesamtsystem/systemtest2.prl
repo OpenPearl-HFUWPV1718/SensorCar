@@ -66,7 +66,10 @@ MODULE(system);
 		
 		TERMINATE webinterface;
 		TERMINATE readlr;
-		
+		TERMINATE driveleft;
+		TERMINATE driveright;
+
+		PUT 'Tschuess' TO termout BY A, SKIP;
 		CLOSE lmotor;
 		CLOSE rmotor;
 		CLOSE termout;
@@ -93,14 +96,14 @@ MODULE(system);
 			ELSE
 				CASE input
 					ALT(0)
-						EXIT repeat;
+						EXIT mainmenu;
 					ALT(1)
 						CALL demo_menu;
 					ALT(2)
 						CALL parcour_menu;
 				FIN;
 			FIN;
-		END repeat;
+		END mainmenu;
 	END;
 
 	demo_menu: PROC;
@@ -353,7 +356,7 @@ MODULE(system);
 			speed := lm_speed;
 			LEAVE lm_bolt;
 			
-			IF speed <> 0 THEN
+			IF NOT(speed == 0) THEN
 			! compute parameters
 				IF speed < 0 THEN
 					direction = 0;
@@ -385,7 +388,7 @@ MODULE(system);
 			speed := rm_speed;
 			LEAVE rm_bolt;
 			
-			IF speed <> 0 THEN
+			IF NOT(speed == 0) THEN
 			! compute parameters
 				IF speed < 0 THEN
 					direction = 0;
