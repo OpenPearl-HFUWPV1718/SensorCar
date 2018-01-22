@@ -515,7 +515,7 @@ MODULE(system);
 
 		IF motorindex == 0 THEN
 			IF steps == 0 AND time == 0 THEN
-				SEND e to lmotor;
+				SEND e TO lmotor;
 				EXIT this;
 			FIN;
 			IF dir == 0 THEN
@@ -553,7 +553,7 @@ MODULE(system);
 		
 		IF motorindex == 1 THEN
 			IF steps == 0 AND time == 0 THEN
-				SEND e to rmotor;
+				SEND e TO rmotor;
 				EXIT this;
 			FIN;
 			IF dir == 0 THEN
