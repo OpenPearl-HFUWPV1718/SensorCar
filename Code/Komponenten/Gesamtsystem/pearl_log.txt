@@ -1,4 +1,7 @@
-15:33:41.598254 WARN:  no .pearlrc found
-15:33:41.598637 WARN:  error setting SCHED_RR --> using normal scheduler
-15:33:47.209906 WARN:     Task _demo terminates while 1 other tasks wait to terminate it
-15:33:49.192526 WARN:     Task _demo terminates while 1 other tasks wait to terminate it
+15:44:25.257533 WARN:  no .pearlrc found
+15:44:25.257887 WARN:  error setting SCHED_RR --> using normal scheduler
+15:44:40.978946 WARN:     Task _demo terminates while 1 other tasks wait to terminate it
+15:44:59.351758 WARN:     Task _demo terminates while 1 other tasks wait to terminate it
+15:45:14.203137 WARN:     Task _demo terminates while 1 other tasks wait to terminate it
+15:45:29.239968 WARN:     Task _demo terminates while 1 other tasks wait to terminate it
+15:45:41.018026 WARN:     Task _demo terminates while 1 other tasks wait to terminate it

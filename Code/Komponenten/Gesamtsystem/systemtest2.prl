@@ -108,7 +108,7 @@ MODULE(system);
 	END;
 
 	demo_menu: PROC;
-		DCL input FIXED;
+		DCL (input, var) FIXED;
 		DCL temp BIT(1);
 		DCL is_driving FIXED INIT(0);
 	
@@ -183,7 +183,7 @@ MODULE(system);
 	END;
 	
 	demo: TASK;
-		DCL state FIXED INIT(0);
+		DCL (state,var) FIXED INIT(0,0);
 		
 		ENTER demo_state_bolt;
 		state = demo_state;
