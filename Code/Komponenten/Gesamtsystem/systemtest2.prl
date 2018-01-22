@@ -62,7 +62,8 @@ MODULE(system);
 		ACTIVATE driveleft;
 		ACTIVATE driveright;
 		ACTIVATE readlr;
-		
+
+		CALL init;
 		CALL menu;
 		
 		TERMINATE webinterface;
@@ -78,6 +79,9 @@ MODULE(system);
 	
 	END;
 
+	init: PROC;
+		CALL stop_motors;
+	END;
 
 	menu: PROC;
 		DCL input FIXED;
