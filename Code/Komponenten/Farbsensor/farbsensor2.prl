@@ -50,12 +50,13 @@ MODULE (FARBSENSOR);
 			IF (colors(1) < 2200) AND (colors(2) < 2200) AND (colors(3) < 2200) THEN
 				fs_signal_black = 1;
 			FIN;
-			IF (colors(1) > 27000) AND (colors(2) > 27000) AND (colors(3) > 27000) THEN
+			IF (colors(1) > 25000) AND (colors(2) > 25000) AND (colors(3) > 25000) THEN
 				fs_signal_white = 1;
 			FIN;
 			PUT 'rot' ,fs_signal_red, 'gruen', fs_signal_green,'blau', fs_signal_blue, 'schwarz', fs_signal_black, 'white', fs_signal_white  TO so BY A(7),F(6), SKIP;!TODO: delete
+			PUT TO so BY SKIP;
 			AFTER read_sensor_interval RESUME;
-			AFTER timeintervall RESUME;
+			!AFTER timeintervall RESUME;
 		END;
 		CLOSE fs;
 		CLOSE so;!TODO: delete 

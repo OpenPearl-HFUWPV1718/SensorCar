@@ -17,22 +17,21 @@ static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_13000_31(13000);
 static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_2_31(2);
 static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_6000_31(6000);
 static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_3_31(3);
-static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_5000_31(5000);
 static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_12000_31(12000);
 static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_11000_31(11000);
 static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_2500_31(2500);
 static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_3500_31(3500);
 static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_4000_31(4000);
 static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_2200_31(2200);
-static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_27000_31(27000);
+static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_25000_31(25000);
 static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_7_31(7);
 static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_6_31(6);
-static /*const*/ pearlrt::Character<10>         CONSTANT_CHARACTER_40f1c22b_d1b4_477d_9275_69592ed6ba38("/dev/i2c-1");
-static /*const*/ pearlrt::Character<3>         CONSTANT_CHARACTER_942b600e_65ed_4497_b39c_3b80022e2457("rot");
-static /*const*/ pearlrt::Character<5>         CONSTANT_CHARACTER_e00180e7_6fca_493c_8506_09dd43ee6adb("gruen");
-static /*const*/ pearlrt::Character<4>         CONSTANT_CHARACTER_94b3cba0_5edd_4e31_8e05_479a6a395f8b("blau");
-static /*const*/ pearlrt::Character<7>         CONSTANT_CHARACTER_b2567db9_8cc9_4fb3_9952_f7d16b106a81("schwarz");
-static /*const*/ pearlrt::Character<5>         CONSTANT_CHARACTER_04af4930_47b2_4bcb_8555_3b4a8535486c("white");
+static /*const*/ pearlrt::Character<10>         CONSTANT_CHARACTER_2cefd599_b86b_41ad_b3f5_1a087c3c5a91("/dev/i2c-1");
+static /*const*/ pearlrt::Character<3>         CONSTANT_CHARACTER_1992fcd5_8efa_4573_acf3_75585325a459("rot");
+static /*const*/ pearlrt::Character<5>         CONSTANT_CHARACTER_25a11228_3329_4697_ba88_9604bef6bbbf("gruen");
+static /*const*/ pearlrt::Character<4>         CONSTANT_CHARACTER_2e326954_130c_403c_9fc2_7972d6f5e3c6("blau");
+static /*const*/ pearlrt::Character<7>         CONSTANT_CHARACTER_715ad048_fdb7_4eba_8bf3_82c62499f10f("schwarz");
+static /*const*/ pearlrt::Character<5>         CONSTANT_CHARACTER_43ce52e2_6cb6_4507_9505_e87bbe113be3("white");
 
 /////////////////////////////////////////////////////////////////////////////
 // TASK SPECIFIERS
@@ -158,7 +157,7 @@ DCLTASK(_readfs, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitString
 
                     me->setLocation(44, filename);
                     if ((((*(data_colors + ad_1_1_5->offset(pearlrt::Fixed<31>(CONSTANT_FIXED_POS_1_31)))) < 
-                    CONSTANT_FIXED_POS_5000_31)).bitAnd((((*(data_colors + ad_1_1_5->offset(pearlrt::Fixed<31>(
+                    CONSTANT_FIXED_POS_6000_31)).bitAnd((((*(data_colors + ad_1_1_5->offset(pearlrt::Fixed<31>(
                         CONSTANT_FIXED_POS_2_31)))) > CONSTANT_FIXED_POS_12000_31)
                     )).bitAnd((((*(data_colors + ad_1_1_5->offset(pearlrt::Fixed<31>(
                         CONSTANT_FIXED_POS_3_31)))) < CONSTANT_FIXED_POS_11000_31)
@@ -191,10 +190,10 @@ DCLTASK(_readfs, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitString
 
                     me->setLocation(53, filename);
                     if ((((*(data_colors + ad_1_1_5->offset(pearlrt::Fixed<31>(CONSTANT_FIXED_POS_1_31)))) > 
-                    CONSTANT_FIXED_POS_27000_31)).bitAnd((((*(data_colors + ad_1_1_5->offset(pearlrt::Fixed<31>(
-                        CONSTANT_FIXED_POS_2_31)))) > CONSTANT_FIXED_POS_27000_31)
+                    CONSTANT_FIXED_POS_25000_31)).bitAnd((((*(data_colors + ad_1_1_5->offset(pearlrt::Fixed<31>(
+                        CONSTANT_FIXED_POS_2_31)))) > CONSTANT_FIXED_POS_25000_31)
                     )).bitAnd((((*(data_colors + ad_1_1_5->offset(pearlrt::Fixed<31>(
-                        CONSTANT_FIXED_POS_3_31)))) > CONSTANT_FIXED_POS_27000_31)
+                        CONSTANT_FIXED_POS_3_31)))) > CONSTANT_FIXED_POS_25000_31)
                     )).getBoolean()) {
                         me->setLocation(54, filename);
                             _fs_signal_white = CONSTANT_FIXED_POS_1_31;
@@ -204,23 +203,23 @@ DCLTASK(_readfs, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitString
                     // PUT STATEMENT BEGIN
                     try {
                         _so.beginSequence(me);
-                        _so.toA(CONSTANT_CHARACTER_942b600e_65ed_4497_b39c_3b80022e2457,(pearlrt::Fixed<31>)(
+                        _so.toA(CONSTANT_CHARACTER_1992fcd5_8efa_4573_acf3_75585325a459,(pearlrt::Fixed<31>)(
                         CONSTANT_FIXED_POS_7_31)) ;
                         _so.toF(_fs_signal_red,(pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_6_31));
                         _so.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
-                        _so.toA(CONSTANT_CHARACTER_e00180e7_6fca_493c_8506_09dd43ee6adb,(pearlrt::Fixed<31>)(
+                        _so.toA(CONSTANT_CHARACTER_25a11228_3329_4697_ba88_9604bef6bbbf,(pearlrt::Fixed<31>)(
                         CONSTANT_FIXED_POS_7_31)) ;
                         _so.toF(_fs_signal_green,(pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_6_31));
                         _so.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
-                        _so.toA(CONSTANT_CHARACTER_94b3cba0_5edd_4e31_8e05_479a6a395f8b,(pearlrt::Fixed<31>)(
+                        _so.toA(CONSTANT_CHARACTER_2e326954_130c_403c_9fc2_7972d6f5e3c6,(pearlrt::Fixed<31>)(
                         CONSTANT_FIXED_POS_7_31)) ;
                         _so.toF(_fs_signal_blue,(pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_6_31));
                         _so.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
-                        _so.toA(CONSTANT_CHARACTER_b2567db9_8cc9_4fb3_9952_f7d16b106a81,(pearlrt::Fixed<31>)(
+                        _so.toA(CONSTANT_CHARACTER_715ad048_fdb7_4eba_8bf3_82c62499f10f,(pearlrt::Fixed<31>)(
                         CONSTANT_FIXED_POS_7_31)) ;
                         _so.toF(_fs_signal_black,(pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_6_31));
                         _so.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
-                        _so.toA(CONSTANT_CHARACTER_04af4930_47b2_4bcb_8555_3b4a8535486c,(pearlrt::Fixed<31>)(
+                        _so.toA(CONSTANT_CHARACTER_43ce52e2_6cb6_4507_9505_e87bbe113be3,(pearlrt::Fixed<31>)(
                         CONSTANT_FIXED_POS_7_31)) ;
                         _so.toF(_fs_signal_white,(pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_6_31));
                         _so.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
@@ -236,25 +235,35 @@ DCLTASK(_readfs, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitString
                     // PUT STATEMENT END
 
                     me->setLocation(57, filename);
-                        me->resume( pearlrt::Task::AFTER,
-                                    /* at     */  pearlrt::Clock(),
-                                    /* after  */  pearlrt::Duration(_read_sensor_interval)
-                                  );
+                    // PUT STATEMENT BEGIN
+                    try {
+                        _so.beginSequence(me);
+                        _so.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
+                        _so.endSequence();
+                    }
+                    catch(pearlrt::Signal &s) {
+                        if ( ! _so.updateRst(&s) ) {
+                            _so.endSequence();
+                            throw;
+                        }
+                        _so.endSequence();
+                    }
+                    // PUT STATEMENT END
 
                     me->setLocation(58, filename);
                         me->resume( pearlrt::Task::AFTER,
                                     /* at     */  pearlrt::Clock(),
-                                    /* after  */  pearlrt::Duration(_timeintervall)
+                                    /* after  */  pearlrt::Duration(_read_sensor_interval)
                                   );
 
 
                 }
 
         }
-        me->setLocation(60, filename);
+        me->setLocation(61, filename);
         _fs.dationClose(0, (pearlrt::Fixed<15>*) 0);
 
-        me->setLocation(61, filename);
+        me->setLocation(62, filename);
         _so.dationClose(0, (pearlrt::Fixed<15>*) 0);
 
 }
