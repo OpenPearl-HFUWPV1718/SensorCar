@@ -9,20 +9,24 @@ MODULE (FARBSENSOR);
 		DCL so DATION OUT ALPHIC DIM(*,80) FORWARD STREAM CREATED(stdout);!TODO: delete	
 		SPC farbsensor DATION IN SYSTEM BASIC ALL GLOBAL;
 		DCL fs DATION IN BASIC ALL CREATED(farbsensor);
-		DCL (fs_signal_red, fs_signal_green, fs_signal_blue) FIXED INIT(0,0,0);!output from fs
+		DCL (fs_signal_red, fs_signal_green, fs_signal_blue, fs_signal_black, fs_signal_white) FIXED INIT(0,0,0,0,0);!output from fs
 	readfs: TASK MAIN; !TODO: delete MAIN
 		DCL colors(5) FIXED(31);
-		DCL read_sensor_interval DUR INIT(0.005 SEC);!TODO: delete 
+		DCL read_sensor_interval DUR INIT(0.005 SEC);!TODO: delete
+		DCL timeintervall DUR;
+		timeintervall = 1 SEC;  
 		OPEN so;!TODO: delete 
 		OPEN fs;
 		REPEAT
 			fs_signal_red := 0;
 			fs_signal_green := 0;
 			fs_signal_blue := 0;
+			fs_signal_black := 0;
+			fs_signal_white := 0;
 			!TAKE colors FROM fs;
 			__cpp__("_fs.dationRead(data_colors, sizeof(data_colors));");
 			!'rot':colors(1), 'gruen':colors(2), 'blau':colors(3)
-		    IF colors(1) > colors(2) + colors(3) THEN
+		  /*  IF colors(1) > colors(2) + colors(3) THEN
 				fs_signal_red=1;
 			FIN;
 			IF colors(2) > colors(1) + colors(3) THEN
@@ -31,8 +35,27 @@ MODULE (FARBSENSOR);
 			IF colors(3) > colors(2) + colors(1) THEN
 				fs_signal_blue=1;
 			FIN;
-			PUT 'rot' ,fs_signal_red, 'gruen', fs_signal_green,'blau', fs_signal_blue TO so BY A(6),F(6), SKIP;!TODO: delete
+
+			*/
+
+			IF (colors(1)>13000) AND (colors(2) < 6000) AND (colors(3) < 6000) THEN
+				fs_signal_red = 1;
+			FIN;
+			IF (colors(1) < 6000) AND (colors(2) > 12000) AND (colors(3) < 11000) THEN
+				fs_signal_green = 1;
+			FIN;
+			IF (colors(1) < 2500) AND (colors(2) < 3500) AND (colors(3) > 4000) THEN
+				fs_signal_blue = 1;
+			FIN;
+			IF (colors(1) < 2200) AND (colors(2) < 2200) AND (colors(3) < 2200) THEN
+				fs_signal_black = 1;
+			FIN;
+			IF (colors(1) > 27000) AND (colors(2) > 27000) AND (colors(3) > 27000) THEN
+				fs_signal_white = 1;
+			FIN;
+			PUT 'rot' ,fs_signal_red, 'gruen', fs_signal_green,'blau', fs_signal_blue, 'schwarz', fs_signal_black, 'white', fs_signal_white  TO so BY A(7),F(6), SKIP;!TODO: delete
 			AFTER read_sensor_interval RESUME;
+			AFTER timeintervall RESUME;
 		END;
 		CLOSE fs;
 		CLOSE so;!TODO: delete 
