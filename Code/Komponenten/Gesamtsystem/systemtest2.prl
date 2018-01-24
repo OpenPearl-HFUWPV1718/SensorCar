@@ -416,8 +416,9 @@ MODULE(system);
 	END;
 	
 	light: TASK;
-		DCL (rspeed, lspeed, light) FIXED INIT(0,0,0);
-		DCL (on, off) BIT(1) INIT('0'B1, '1'B1);
+		DCL (rspeed, lspeed) FLOAT INIT(0,0);
+		DCL light FIXED INIT(0);
+		DCL (on, off) BIT(1) INIT('1'B1, '0'B1);
 		
 		REPEAT;
 			ENTER lm_bolt;
