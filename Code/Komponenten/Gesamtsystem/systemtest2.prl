@@ -56,7 +56,7 @@ MODULE(system);
 		DCL global_light FIXED INIT(1);
 		DCL global_blinker FIXED INIT(0);
 		DCL (lr_signal) FLOAT; ! sensor array signal
-		DCL (lm_speed, rm_speed) FIXED; ! speed(factor) for (left / right) step motors
+		DCL (lm_speed, rm_speed) FLOAT; ! speed(factor) for (left / right) step motors
 		
 		! semaphores and bolts 
 		DCL (lr_buffer_in, lr_buffer_out, lm_buffer_in, lm_buffer_out, rm_buffer_in, rm_buffer_out) SEMA PRESET(1,0,1,0,1,0);
@@ -316,7 +316,7 @@ MODULE(system);
 	! moves motors in order to follow a black line
 	parcour: TASK;
 		! local variables
-		DCL (lspeed, rspeed, in) FIXED INIT(1,1,1);
+		DCL (lspeed, rspeed, in) FLOAT INIT(1,1,1);
 		DCL stop FIXED INIT(0);
 		 
 		WHILE stop == 0 REPEAT
@@ -329,7 +329,7 @@ MODULE(system);
 			REQUEST lr_buffer_out; ! "lock" sensor array
 			
 			ENTER lr_bolt;
-			in:= -2 * TOFIXED(lr_signal);
+			in:= -2 * lr_signal;
 			LEAVE lr_bolt;
 			 
 			IF in < 0 THEN
