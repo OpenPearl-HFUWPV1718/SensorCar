@@ -833,7 +833,7 @@ MODULE(system);
     		speedr := rm_speed;
 		LEAVE rm_bolt;
 
-		/*ENTER fs_bolt;
+		ENTER fs_bolt;
 		IF fs_signal == 1 THEN
 			color := 'red';
 		FIN;
@@ -842,7 +842,8 @@ MODULE(system);
 		FIN;
 		IF fs_signal == 3 THEN
 			color := 'blue';
-		FIN;*/
+		FIN;
+		LEAVE fs_bolt;
 
 
 		PUT '<HTML><HEAD><style>' TO usHttpSocket BY A, SKIP;
