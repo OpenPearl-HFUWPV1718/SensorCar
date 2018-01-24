@@ -786,6 +786,9 @@ MODULE(system);
 				fs_color = 4; ! weiß
 				!PUT 'weiss erkannt' TO termout BY A, SKIP;
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of e2d22d7... ..
+=======
 >>>>>>> parent of e2d22d7... ..
 =======
 >>>>>>> parent of e2d22d7... ..
