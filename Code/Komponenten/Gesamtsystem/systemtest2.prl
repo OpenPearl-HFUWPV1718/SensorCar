@@ -9,6 +9,11 @@ MODULE(system);
 		leftstepmotor_out: RPiDigitalOut(19, 4);
 		rightstepmotor_out: RPiDigitalOut(23, 4);
 		httpSocket: TcpIpServer(80);
+		left_blinker: RPiDigitalOut(25, 1);
+		right_blinker: RPiDigitalOut(24, 1);
+		std_lights: RPiDigitalOut(26, 1);
+		stop_lights: RPiDigitalOut(27, 1);
+		
 
 	PROBLEM;
 		! I/O 
@@ -25,6 +30,15 @@ MODULE(system);
 		DCL lmotor DATION OUT BASIC BIT(4) CREATED (leftstepmotor_out);
 		SPC rightstepmotor_out DATION OUT SYSTEM BASIC BIT(4) GLOBAL;
 		DCL rmotor DATION OUT BASIC BIT(4) CREATED (rightstepmotor_out);
+		
+		SPC left_blinker DATION OUT SYSTEM BASIC BIT(1) GLOBAL;
+		DCL blinker_l DATION OUT BASIC BIT(1) CREATED (left_blinker);
+		SPC right_blinker DATION OUT SYSTEM BASIC BIT(1) GLOBAL;
+		DCL blinker_r DATION OUT BASIC BIT(1) CREATED (right_blinker);
+		SPC std_lights DATION OUT SYSTEM BASIC BIT(1) GLOBAL;
+		DCL lights DATION OUT BASIC BIT(1) CREATED (std_lights);
+		SPC stop_lights DATION OUT SYSTEM BASIC BIT(1) GLOBAL;
+		DCL stop_light DATION OUT BASIC BIT(1) CREATED (stop_lights);
 
 		SPC httpSocket DATION INOUT SYSTEM ALL;
 		DCL usHttpSocket DATION INOUT ALPHIC DIM(*,200) FORWARD STREAM CREATED(httpSocket);  
@@ -39,13 +53,15 @@ MODULE(system);
 		DCL global_stop FIXED INIT(0);
 		DCL demo_state FIXED INIT(0);
 		DCL demo_var FIXED INIT(0);
+		DCL global_light FIXED INIT(1);
+		DCL global_blinker FIXED INIT(0);
 		DCL (lr_signal) FLOAT; ! sensor array signal
 		DCL (lm_speed, rm_speed) FLOAT; ! speed(factor) for (left / right) step motors
 		
 		! semaphores and bolts 
 		DCL (lr_buffer_in, lr_buffer_out, lm_buffer_in, lm_buffer_out, rm_buffer_in, rm_buffer_out) SEMA PRESET(1,0,1,0,1,0);
 		DCL (p, dt) SEMA PRESET(0,0); ! control flow semaphores
-		DCL (lm_bolt, rm_bolt, lr_bolt, stop_bolt, demo_state_bolt, demo_var_bolt) BOLT;
+		DCL (lm_bolt, rm_bolt, lr_bolt, stop_bolt, demo_state_bolt, demo_var_bolt, blinker_bolt, light_bolt) BOLT;
 		
 	! Overall coordination
 	main: TASK MAIN;
@@ -62,12 +78,18 @@ MODULE(system);
 		OPEN termout;
 		OPEN lmotor;
 		OPEN rmotor;
-		OPEN termin;	
+		OPEN termin;
+		OPEN lights;
+		OPEN blinker_l;
+		OPEN blinker_r;
+		OPEN stop_light;
 	
 		ACTIVATE webinterface;
 		ACTIVATE readlr;
 		ACTIVATE driveleft;
 		ACTIVATE driveright;
+		ACTIVATE light;
+		ACTIVATE blinker;
 		
 		CALL stop_motors;
 		PUT 'SensorCar OpenPEARL' TO termout BY A, SKIP;
@@ -80,12 +102,18 @@ MODULE(system);
 		TERMINATE readlr;
 		TERMINATE driveleft;
 		TERMINATE driveright;
+		TERMINATE light;
+		TERMINATE blinker;
 
 		
 		CLOSE lmotor;
 		CLOSE rmotor;
 		CLOSE termout;
 		CLOSE termin;
+		CLOSE lights;
+		CLOSE blinker_l;
+		CLOSE blinker_r;
+		CLOSE stop_light;
 	END;
 
 	menu: PROC;
@@ -360,6 +388,88 @@ MODULE(system);
 		! unlock motors
 		RELEASE lm_buffer_out;
 		RELEASE rm_buffer_out;
+	END;
+	
+	light: TASK;
+		DCL (rspeed, lspeed, light) FIXED INIT(0,0,0);
+		DCL (on, off) BIT(1) INIT('0'B1, '1'B1);
+		
+		REPEAT;
+			ENTER lm_bolt;
+			lspeed := lm_speed;
+			LEAVE lm_bolt;
+			
+			ENTER rm_bolt;
+			rspeed := rm_speed;
+			LEAVE rm_bolt;
+			
+			ENTER light_bolt;
+			light := global_light;
+			LEAVE light_bolt;
+				
+			
+			IF lspeed == 0 AND rspeed == 0 THEN
+				SEND on TO stop_light;
+			ELSE 
+				SEND off TO stop_light;
+			FIN;
+				
+			IF lspeed > rspeed THEN
+				RESERVE blinker_bolt;
+				global_blinker := 1;
+				FREE blinker_bolt;
+			FIN;
+			
+			IF rspeed > lspeed THEN	
+				RESERVE blinker_bolt;
+				global_blinker := -1;
+				FREE blinker_bolt;
+			FIN;
+			
+			IF rspeed == lspeed THEN	
+				RESERVE blinker_bolt;
+				global_blinker := 0;
+				FREE blinker_bolt;
+			FIN;
+			
+			IF light == 1 THEN
+				SEND on TO lights;
+			ELSE
+				SEND off TO lights;
+			FIN;
+			AFTER 0.01 SEC RESUME;
+		END;
+	END;
+	
+	blinker: TASK;
+		DCL var FIXED INIT(0);
+		
+		REPEAT;
+			ENTER blinker_bolt;
+			var := global_blinker;
+			LEAVE blinker_bolt;
+			
+			IF var == 1 THEN
+				SEND on TO blinker_r;
+				AFTER 0.5 SEC RESUME;
+				SEND off TO blinker_r;
+				AFTER 0.5 SEC RESUME;
+			FIN;
+			
+			IF var == -1 THEN
+				SEND on TO blinker_l;
+				AFTER 0.5 SEC RESUME;
+				SEND off TO blinker_l;
+				AFTER 0.5 SEC RESUME;
+			FIN;
+		END;
+	END;
+	
+	switchlights: PROC (state FIXED);
+		IF state == 1 OR state == 0 THEN
+			RESERVE light_bolt;
+			global_light = state;
+			FREE light_bolt;
 	END;
   
 	! moves left step motor as specified by lm_speed
