@@ -26,8 +26,8 @@ static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_27_31(27);
 static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_6_31(6);
 static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_2_31(2);
 static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_50_31(50);
-static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_NEG_2_31(-2);
 static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_5_31(5);
+static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_NEG_2_31(-2);
 static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_3_31(3);
 static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_13000_31(13000);
 static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_6000_31(6000);
@@ -35,75 +35,72 @@ static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_12000_31(12000);
 static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_11000_31(11000);
 static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_2500_31(2500);
 static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_3500_31(3500);
-static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_4000_31(4000);
-static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_2200_31(2200);
-static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_25000_31(25000);
-static /*const*/ pearlrt::Character<1>         CONSTANT_CHARACTER_a321c61a_8022_417c_8606_b5cd3e448a22("u");
-static /*const*/ pearlrt::Character<10>         CONSTANT_CHARACTER_c45d1803_1e99_42dc_a080_98246364f1d4("/dev/i2c-1");
-static /*const*/ pearlrt::Character<19>         CONSTANT_CHARACTER_c6fc32de_fc7b_426e_82de_29449c006ef8("SensorCar OpenPEARL");
-static /*const*/ pearlrt::Character<9>         CONSTANT_CHARACTER_3425d5fa_3d89_4331_9b27_d53a30ba6375("Tschuess.");
-static /*const*/ pearlrt::Character<10>         CONSTANT_CHARACTER_47adcfc5_6923_4c39_a8ce_d2aa12637efc("Hauptmenue");
-static /*const*/ pearlrt::Character<12>         CONSTANT_CHARACTER_f42eddf0_cead_428d_9272_c71ce9eb2c92("Waehlen Sie:");
-static /*const*/ pearlrt::Character<29>         CONSTANT_CHARACTER_3d74fcb9_5f6a_48d9_a1c5_c4c05ee30464("0 um das Programm zu beenden.");
-static /*const*/ pearlrt::Character<31>         CONSTANT_CHARACTER_87310e7e_4bb7_4ab5_bfab_8e392a527a98("1 um den Demo-Modus zu starten.");
-static /*const*/ pearlrt::Character<34>         CONSTANT_CHARACTER_e1aac3a7_98b2_46b4_8661_3c175c1fa930("2 um den Parcour-Modus zu starten.");
-static /*const*/ pearlrt::Character<18>         CONSTANT_CHARACTER_cc49c874_7707_4663_b633_45ae723e9312("Ungueltige Eingabe");
-static /*const*/ pearlrt::Character<17>         CONSTANT_CHARACTER_95a86ed8_8dec_4894_8885_bb8ec94c7f5a("Demo-------------");
-static /*const*/ pearlrt::Character<15>         CONSTANT_CHARACTER_c3d93691_7303_435a_b9d8_f1a66dc99e16("0 um anzuhalten");
-static /*const*/ pearlrt::Character<24>         CONSTANT_CHARACTER_f469d94b_613d_4544_923e_783f2c507858("1 um geradeaus zu fahren");
-static /*const*/ pearlrt::Character<39>         CONSTANT_CHARACTER_c1129d48_92c8_4688_ba84_4558f1f4c158("2 um zurueck ins Hauptmenue zu gelangen");
-static /*const*/ pearlrt::Character<4>         CONSTANT_CHARACTER_3be7bde0_3077_41d1_9d07_b80a399b4ad1("Done");
-static /*const*/ pearlrt::Character<15>         CONSTANT_CHARACTER_940a541a_76b5_4482_b2a2_a221f0959062("Command 0: stop");
-static /*const*/ pearlrt::Character<26>         CONSTANT_CHARACTER_9a30fab0_f963_4b00_82c3_22580b1b2e02("Command 1: Geradeausfahren");
-static /*const*/ pearlrt::Character<55>         CONSTANT_CHARACTER_a001d848_885e_46d8_b7e8_8dee6a61f8a5("Geben Sie die gewuenschte Geschwindigkeit ein [-10, 10]");
-static /*const*/ pearlrt::Character<4>         CONSTANT_CHARACTER_110a18c4_727c_4b72_b0e4_ca7ebc050315("main");
-static /*const*/ pearlrt::Character<20>         CONSTANT_CHARACTER_f7cdb9f0_96c6_427d_b8d7_850c648346a4("Parcour-------------");
-static /*const*/ pearlrt::Character<16>         CONSTANT_CHARACTER_7316c20e_2b7c_43a4_8999_0070ea732cb5("1 um loszufahren");
-static /*const*/ pearlrt::Character<26>         CONSTANT_CHARACTER_c9f826bc_ba06_46cb_b05f_5eaf67832ccd("Command 1: Parcour starten");
-static /*const*/ pearlrt::Character<29>         CONSTANT_CHARACTER_7ba3ea40_cbf2_4d6b_8515_160551c8552c("rot erkannt, stop eingeleitet");
-static /*const*/ pearlrt::Character<32>         CONSTANT_CHARACTER_7c30b486_e0e8_4241_a1d9_6c9d2cfca596("gruen erkannt, geradeausfahren..");
-static /*const*/ pearlrt::Character<11>         CONSTANT_CHARACTER_fb2c729a_1c65_4da6_8a1f_a91c90f67762("rot erkannt");
-static /*const*/ pearlrt::Character<13>         CONSTANT_CHARACTER_4a25aa47_6d89_4254_8d14_8658b649116d("gruen erkannt");
-static /*const*/ pearlrt::Character<12>         CONSTANT_CHARACTER_7fa75fa7_d802_412e_b269_62b8c5099415("blau erkannt");
-static /*const*/ pearlrt::Character<15>         CONSTANT_CHARACTER_401e611e_573a_4796_a200_cd17fc1f396e("schwarz erkannt");
-static /*const*/ pearlrt::Character<13>         CONSTANT_CHARACTER_1a74b659_bbbb_441d_bf1f_a012dee998d7("weiss erkannt");
-static /*const*/ pearlrt::Character<15>         CONSTANT_CHARACTER_60ddb92c_40f2_4016_a903_d16664622d66("HTTP/1.1 200 ok");
-static /*const*/ pearlrt::Character<17>         CONSTANT_CHARACTER_5c9ff354_6a48_453c_975d_09427ccc3f8e("Connection: close");
-static /*const*/ pearlrt::Character<23>         CONSTANT_CHARACTER_c7670349_6d52_4485_9524_b627d885916b("Context-Type: text/html");
-static /*const*/ pearlrt::Character<24>         CONSTANT_CHARACTER_77eadb32_c9aa_40d0_9e72_728b3561ab45("GET /index.html HTTP/1.1");
-static /*const*/ pearlrt::Character<23>         CONSTANT_CHARACTER_69166795_aa7d_43b3_a162_2bc9bc63f301("GET /info.html HTTP/1.1");
-static /*const*/ pearlrt::Character<23>         CONSTANT_CHARACTER_9f78d07c_5b38_40ec_9c39_4c052a1d5b5c("GET /doku.html HTTP/1.1");
-static /*const*/ pearlrt::Character<19>         CONSTANT_CHARACTER_1bd2d1b7_93d6_4839_ac2b_4483182abe81("<HTML><HEAD><style>");
-static /*const*/ pearlrt::Character<67>         CONSTANT_CHARACTER_ebe5d8f5_a90d_41f6_be08_e113fafb3874("</style><meta http-equiv = refresh content = 1; URL = /index.html >");
-static /*const*/ pearlrt::Character<39>         CONSTANT_CHARACTER_a452a8be_03f0_4081_9e9b_65db261ed42e("<TITLE>OpenPEARL Projekt</TITLE></HEAD>");
-static /*const*/ pearlrt::Character<67>         CONSTANT_CHARACTER_9ba2dd3b_3a0a_4727_93e0_8ee42343c409("<BODY><div id = value_div><div class = head_div><h1>Auto</h1></div>");
-static /*const*/ pearlrt::Character<45>         CONSTANT_CHARACTER_b729a379_6ef5_49e4_96d4_50756146c6a4("<div id = value_list_div><ul id = value_list>");
-static /*const*/ pearlrt::Character<26>         CONSTANT_CHARACTER_b4931447_c616_40ff_8c54_4c43aa3537d0("<li>Geschwindigkeit Links:");
-static /*const*/ pearlrt::Character<5>         CONSTANT_CHARACTER_13964ad2_cca0_44b2_a878_5294f9930cb7("</li>");
-static /*const*/ pearlrt::Character<27>         CONSTANT_CHARACTER_10955655_c716_4576_9886_f2506a634027("<li>Geschwindigkeit Rechts:");
-static /*const*/ pearlrt::Character<17>         CONSTANT_CHARACTER_8e797daf_b28d_46f3_bb53_8867e60245c3("</ul></div></div>");
-static /*const*/ pearlrt::Character<51>         CONSTANT_CHARACTER_a967d692_6d87_4b67_9eee_a850d1f24e42("<div id = navigation ><div class = head_div ></div>");
-static /*const*/ pearlrt::Character<118>         CONSTANT_CHARACTER_80873240_ca92_443a_8132_015a423b4d47("<div class = nav_div ><p><a href = info.html>Info</a></p><p><a href = doku.html>Doku</a></p></div></div></BODY></HTML>");
-static /*const*/ pearlrt::Character<47>         CONSTANT_CHARACTER_6ef16dbf_9aa8_478a_9f49_abcea5cb8916("</style><TITLE>OpenPEARL Projekt</TITLE></HEAD>");
-static /*const*/ pearlrt::Character<67>         CONSTANT_CHARACTER_78b3cddb_2539_4ff5_8fef_9b966b77af4b("<BODY><div id = value_div><div class = head_div><h1>Info</h1></div>");
-static /*const*/ pearlrt::Character<55>         CONSTANT_CHARACTER_f6eb5ff1_13a8_4231_a287_52f2798e38c0("<div id = value_list_div> Hier koennte ihre info stehen");
-static /*const*/ pearlrt::Character<12>         CONSTANT_CHARACTER_0f7a069f_5968_4701_9aac_327377081268("</div></div>");
-static /*const*/ pearlrt::Character<120>         CONSTANT_CHARACTER_6095be2d_36f8_4882_847a_ac8ac015947f("<div class = nav_div ><p><a href = index.html>Start</a></p><p><a href = doku.html>Doku</a></p></div></div></BODY></HTML>");
-static /*const*/ pearlrt::Character<67>         CONSTANT_CHARACTER_2012dc7c_658a_4b00_962e_d40d1e490b25("<BODY><div id = value_div><div class = head_div><h1>Doku</h1></div>");
-static /*const*/ pearlrt::Character<54>         CONSTANT_CHARACTER_e5d1f942_9a4f_4aa8_bb23_f7f52ebf4c30("<div id = value_list_div>Hier koennte ihre Doku stehen");
-static /*const*/ pearlrt::Character<120>         CONSTANT_CHARACTER_6f78ba5a_a127_4625_a682_d16ae3e91866("<div class = nav_div ><p><a href = index.html>Start</a></p><p><a href = info.html>Info</a></p></div></div></BODY></HTML>");
-static /*const*/ pearlrt::Character<250>         CONSTANT_CHARACTER_f8b33584_8c3b_436d_bdc5_9574bf37c27a("<BODY><div id = value_div><div class = head_div><h1>Error 404</h1></div><div id = value_list_div style = text-align:center; ><ul id = value_list><li>Site not found</li></ul></div></div><div id = navigation ><div class = head_div ></div></BODY></HTML>");
-static /*const*/ pearlrt::Character<41>         CONSTANT_CHARACTER_0c4fabf5_bb4e_4af7_8b94_e0c91e84baee("html{margin: 0; font-family: sans-serif;}");
-static /*const*/ pearlrt::Character<43>         CONSTANT_CHARACTER_96ae2f8a_1742_4566_845e_e9288340f09f("body{margin: 0; background-color: #eaecbd;}");
-static /*const*/ pearlrt::Character<14>         CONSTANT_CHARACTER_a274b959_f120_4b76_a5ea_148586fc3cbd("h1{margin: 0;}");
-static /*const*/ pearlrt::Character<91>         CONSTANT_CHARACTER_e42c3a9c_11b6_4b60_a6c7_55ae69198b19("#navigation{position: absolute; overflow: auto; left: 0; top: 0; width: 13%; height: 100%;}");
-static /*const*/ pearlrt::Character<169>         CONSTANT_CHARACTER_76e33a4d_8849_4395_967c_d7b0c65f5071(".head_div{position: relative ; left: 0; top: 0; width: 100%; height: 3.78em; line-height: 3.7em; margin: 0; background-color: #008040; color: white; text-align: center;}");
-static /*const*/ pearlrt::Character<77>         CONSTANT_CHARACTER_c512a966_dc7d_48bd_9487_f518c51a71be("value_div{position: absolute; right: 0; bottom: 0; width: 87%; height: 100%;}");
-static /*const*/ pearlrt::Character<71>         CONSTANT_CHARACTER_fd17696e_2345_42e4_a25e_cf9dc4744487(".nav_div{font-size: 1.5em; margin-left: 1em; border-right: solid gray;}");
-static /*const*/ pearlrt::Character<38>         CONSTANT_CHARACTER_d2ac1714_a640_422c_858b_c59f245ce591("a{text-decoration: none; color: gray;}");
-static /*const*/ pearlrt::Character<36>         CONSTANT_CHARACTER_1075a230_c297_4be7_9e11_1e2ed26c402f("a:hover{text-decoration: underline;}");
-static /*const*/ pearlrt::Character<75>         CONSTANT_CHARACTER_b5d93ad5_4030_4d4a_8d28_eb2d08a828ae("#value_list_div{overflow: auto; width: 60%; height: 80%; margin-left: 15%;}");
-static /*const*/ pearlrt::Character<58>         CONSTANT_CHARACTER_28b9a0ea_d559_449f_ac2a_5836e88245e5("#value_list{text-decoration: none; list-style-type: none;}");
+static /*const*/ pearlrt::Fixed<31>         CONSTANT_FIXED_POS_3800_31(3800);
+static /*const*/ pearlrt::Character<1>         CONSTANT_CHARACTER_8106d707_4167_48b8_b209_176fec71b134("u");
+static /*const*/ pearlrt::Character<10>         CONSTANT_CHARACTER_b8269d9f_b51d_4c38_bcbd_1d5ce7d63023("/dev/i2c-1");
+static /*const*/ pearlrt::Character<19>         CONSTANT_CHARACTER_daab6b10_8b6e_4b40_a3a1_3e766a27d2fc("SensorCar OpenPEARL");
+static /*const*/ pearlrt::Character<9>         CONSTANT_CHARACTER_69b02cea_c201_4f80_9bbd_013cd478308b("Tschuess.");
+static /*const*/ pearlrt::Character<10>         CONSTANT_CHARACTER_836f6542_2216_40f9_ab5f_4b50fd169f4d("Hauptmenue");
+static /*const*/ pearlrt::Character<12>         CONSTANT_CHARACTER_9f06543e_2a82_44cc_a645_964c39536f31("Waehlen Sie:");
+static /*const*/ pearlrt::Character<29>         CONSTANT_CHARACTER_02c9f947_4128_47a7_930b_7d3727007124("0 um das Programm zu beenden.");
+static /*const*/ pearlrt::Character<31>         CONSTANT_CHARACTER_c104411d_df0a_4812_9749_86d4a18a4ee7("1 um den Demo-Modus zu starten.");
+static /*const*/ pearlrt::Character<34>         CONSTANT_CHARACTER_4ef94632_5eb1_43a9_9a3e_8103fec5e490("2 um den Parcour-Modus zu starten.");
+static /*const*/ pearlrt::Character<18>         CONSTANT_CHARACTER_5a52678d_c928_4329_a1d7_906c4b961316("Ungueltige Eingabe");
+static /*const*/ pearlrt::Character<17>         CONSTANT_CHARACTER_16031b9e_09b8_40c2_94d6_ee2be22a996b("Demo-------------");
+static /*const*/ pearlrt::Character<15>         CONSTANT_CHARACTER_c7a2bcf6_e392_460b_bf34_61a5ca30b3bd("0 um anzuhalten");
+static /*const*/ pearlrt::Character<24>         CONSTANT_CHARACTER_d13ab8dd_804b_4b08_b177_a3b3b4a975a6("1 um geradeaus zu fahren");
+static /*const*/ pearlrt::Character<39>         CONSTANT_CHARACTER_a4fbeb8d_29d5_4343_b840_4cc470b83cf3("2 um zurueck ins Hauptmenue zu gelangen");
+static /*const*/ pearlrt::Character<4>         CONSTANT_CHARACTER_c8f31f74_e714_4380_be28_f3c486dda346("Done");
+static /*const*/ pearlrt::Character<15>         CONSTANT_CHARACTER_5e22d532_332a_4feb_a896_f7fa4fb072c8("Command 0: stop");
+static /*const*/ pearlrt::Character<26>         CONSTANT_CHARACTER_9b77096d_6d4e_4f09_95a1_06f5e1373eef("Command 1: Geradeausfahren");
+static /*const*/ pearlrt::Character<55>         CONSTANT_CHARACTER_e18f3eea_c0dd_4ba7_aeb0_d049873435bd("Geben Sie die gewuenschte Geschwindigkeit ein [-10, 10]");
+static /*const*/ pearlrt::Character<4>         CONSTANT_CHARACTER_f2187332_2516_4d30_8610_154f0428aa17("main");
+static /*const*/ pearlrt::Character<20>         CONSTANT_CHARACTER_1de28991_01ef_43ec_858d_a4e599527468("Parcour-------------");
+static /*const*/ pearlrt::Character<16>         CONSTANT_CHARACTER_58a93862_2b0b_414e_944b_f3cb1887366b("1 um loszufahren");
+static /*const*/ pearlrt::Character<26>         CONSTANT_CHARACTER_36dd8d78_6b17_4da3_b670_e4d5b303b057("Command 1: Parcour starten");
+static /*const*/ pearlrt::Character<29>         CONSTANT_CHARACTER_668e1068_5536_4f46_92db_123ea27ade39("rot erkannt, stop eingeleitet");
+static /*const*/ pearlrt::Character<32>         CONSTANT_CHARACTER_ecc82241_dd61_4d9f_9f64_0023c9270bd0("gruen erkannt, geradeausfahren..");
+static /*const*/ pearlrt::Character<15>         CONSTANT_CHARACTER_bfdf5ba3_3228_4aeb_a745_d9e00c283545("HTTP/1.1 200 ok");
+static /*const*/ pearlrt::Character<17>         CONSTANT_CHARACTER_e30ea687_4b02_454c_a270_17a9447bdc51("Connection: close");
+static /*const*/ pearlrt::Character<23>         CONSTANT_CHARACTER_fa492f13_1f79_4b9a_92da_5b5d7b80b41f("Context-Type: text/html");
+static /*const*/ pearlrt::Character<24>         CONSTANT_CHARACTER_f506d159_4989_441d_b5a6_b70601bb8d4d("GET /index.html HTTP/1.1");
+static /*const*/ pearlrt::Character<23>         CONSTANT_CHARACTER_d3b77f4b_b5ec_45b2_9240_fafe8a45cce1("GET /info.html HTTP/1.1");
+static /*const*/ pearlrt::Character<23>         CONSTANT_CHARACTER_eb36bcf0_e549_4e29_862b_eb68b88a9274("GET /doku.html HTTP/1.1");
+static /*const*/ pearlrt::Character<5>         CONSTANT_CHARACTER_5d33eb99_c740_4da7_988a_feb48b857362("black");
+static /*const*/ pearlrt::Character<19>         CONSTANT_CHARACTER_c6008f73_e4d1_484b_9603_07a51d4e4444("<HTML><HEAD><style>");
+static /*const*/ pearlrt::Character<68>         CONSTANT_CHARACTER_b7f9bd2a_62fa_4952_8822_1f1fda3646f3("</style><meta http-equiv = refresh content = 10; URL = /index.html >");
+static /*const*/ pearlrt::Character<39>         CONSTANT_CHARACTER_3125c586_820c_458b_b7c8_986c51fe637b("<TITLE>OpenPEARL Projekt</TITLE></HEAD>");
+static /*const*/ pearlrt::Character<67>         CONSTANT_CHARACTER_a62da6da_8cf8_4edb_a611_154b25927c5e("<BODY><div id = value_div><div class = head_div><h1>Auto</h1></div>");
+static /*const*/ pearlrt::Character<45>         CONSTANT_CHARACTER_cda63935_478c_4960_aa48_f083af4534e8("<div id = value_list_div><ul id = value_list>");
+static /*const*/ pearlrt::Character<26>         CONSTANT_CHARACTER_dd685631_e9e2_416a_a3c9_f76deb0a857c("<li>Geschwindigkeit Links:");
+static /*const*/ pearlrt::Character<5>         CONSTANT_CHARACTER_b30dcc3a_45d8_4135_8954_4ea7ce6de41f("</li>");
+static /*const*/ pearlrt::Character<27>         CONSTANT_CHARACTER_625c26c9_6eb0_4422_9c60_81b942b8f168("<li>Geschwindigkeit Rechts:");
+static /*const*/ pearlrt::Character<61>         CONSTANT_CHARACTER_a04099b2_7a9f_4ab3_be76_b83e31840eb7("<li>Farbsensor: <div id = color_div style = background-color:");
+static /*const*/ pearlrt::Character<12>         CONSTANT_CHARACTER_45c35474_be7f_4798_9b39_bdc40bab80f8("></div></li>");
+static /*const*/ pearlrt::Character<17>         CONSTANT_CHARACTER_44d5f859_7403_43c0_94be_56e86f56957e("</ul></div></div>");
+static /*const*/ pearlrt::Character<51>         CONSTANT_CHARACTER_65db3ab6_1dec_4b78_b327_c7a7cf0f5ba4("<div id = navigation ><div class = head_div ></div>");
+static /*const*/ pearlrt::Character<118>         CONSTANT_CHARACTER_29731e9e_f321_41cb_96da_fab8327bcbe5("<div class = nav_div ><p><a href = info.html>Info</a></p><p><a href = doku.html>Doku</a></p></div></div></BODY></HTML>");
+static /*const*/ pearlrt::Character<47>         CONSTANT_CHARACTER_9dce4a3c_f88a_4dcf_be2e_4ffd9d0aab9d("</style><TITLE>OpenPEARL Projekt</TITLE></HEAD>");
+static /*const*/ pearlrt::Character<67>         CONSTANT_CHARACTER_382b32a4_1317_4c82_952a_8cf45964efc3("<BODY><div id = value_div><div class = head_div><h1>Info</h1></div>");
+static /*const*/ pearlrt::Character<55>         CONSTANT_CHARACTER_afebb033_c9ec_481c_ae74_6a684fa0b511("<div id = value_list_div> Hier koennte ihre info stehen");
+static /*const*/ pearlrt::Character<12>         CONSTANT_CHARACTER_9129595a_15e2_4837_86c6_e92f9ac88070("</div></div>");
+static /*const*/ pearlrt::Character<120>         CONSTANT_CHARACTER_a06c5d1d_6240_43fa_b33e_df628c5bdc87("<div class = nav_div ><p><a href = index.html>Start</a></p><p><a href = doku.html>Doku</a></p></div></div></BODY></HTML>");
+static /*const*/ pearlrt::Character<67>         CONSTANT_CHARACTER_c6720e22_20d2_418e_91ca_fb64ef3fcb66("<BODY><div id = value_div><div class = head_div><h1>Doku</h1></div>");
+static /*const*/ pearlrt::Character<54>         CONSTANT_CHARACTER_d6933647_9cbc_48ab_8f65_0ab57ffa3bd4("<div id = value_list_div>Hier koennte ihre Doku stehen");
+static /*const*/ pearlrt::Character<120>         CONSTANT_CHARACTER_32977f17_de9b_4f7f_aaf1_e1404301649f("<div class = nav_div ><p><a href = index.html>Start</a></p><p><a href = info.html>Info</a></p></div></div></BODY></HTML>");
+static /*const*/ pearlrt::Character<250>         CONSTANT_CHARACTER_1eae12f1_6574_4f95_a497_e3849c1a72e8("<BODY><div id = value_div><div class = head_div><h1>Error 404</h1></div><div id = value_list_div style = text-align:center; ><ul id = value_list><li>Site not found</li></ul></div></div><div id = navigation ><div class = head_div ></div></BODY></HTML>");
+static /*const*/ pearlrt::Character<41>         CONSTANT_CHARACTER_40401c28_e6fe_4ca4_85d2_8cbac9c0a4cd("html{margin: 0; font-family: sans-serif;}");
+static /*const*/ pearlrt::Character<43>         CONSTANT_CHARACTER_242aeb5d_4d9b_4165_8660_9f3d86ae0215("body{margin: 0; background-color: #eaecbd;}");
+static /*const*/ pearlrt::Character<14>         CONSTANT_CHARACTER_043e4a48_8847_469a_ba75_4b19548a7eed("h1{margin: 0;}");
+static /*const*/ pearlrt::Character<91>         CONSTANT_CHARACTER_5d23c525_6a98_4a13_b691_d4fec8bbc8eb("#navigation{position: absolute; overflow: auto; left: 0; top: 0; width: 13%; height: 100%;}");
+static /*const*/ pearlrt::Character<169>         CONSTANT_CHARACTER_60ce9bc3_77f4_4b52_bb89_b45b1e8182a8(".head_div{position: relative ; left: 0; top: 0; width: 100%; height: 3.78em; line-height: 3.7em; margin: 0; background-color: #008040; color: white; text-align: center;}");
+static /*const*/ pearlrt::Character<77>         CONSTANT_CHARACTER_b77db6db_e9ba_4850_8f26_36494ea50568("value_div{position: absolute; right: 0; bottom: 0; width: 87%; height: 100%;}");
+static /*const*/ pearlrt::Character<71>         CONSTANT_CHARACTER_3bf7eb13_9928_4128_81e2_2386cefc427b(".nav_div{font-size: 1.5em; margin-left: 1em; border-right: solid gray;}");
+static /*const*/ pearlrt::Character<38>         CONSTANT_CHARACTER_cbb42cef_51f9_450f_bb4d_5d80f2a3e0ae("a{text-decoration: none; color: gray;}");
+static /*const*/ pearlrt::Character<36>         CONSTANT_CHARACTER_0fbee487_4683_4313_9cf6_f6b2f429e73d("a:hover{text-decoration: underline;}");
+static /*const*/ pearlrt::Character<75>         CONSTANT_CHARACTER_64074b32_94ed_4de4_8eac_7b09936d6e51("#value_list_div{overflow: auto; width: 60%; height: 80%; margin-left: 15%;}");
+static /*const*/ pearlrt::Character<58>         CONSTANT_CHARACTER_9cdcfdd0_bc48_458a_a0e7_b7457b8e6bee("#value_list{text-decoration: none; list-style-type: none;}");
+static /*const*/ pearlrt::Character<40>         CONSTANT_CHARACTER_b287641c_d1c8_44dc_966d_e8a666d9350e("#color_div{width: 1.5em; height: 1.5em;}");
 
 /////////////////////////////////////////////////////////////////////////////
 // TASK SPECIFIERS
@@ -233,7 +230,7 @@ pearlrt::DationPG _usHttpSocket(_httpSocket, pearlrt::Dation::INOUT  | pearlrt::
 /////////////////////////////////////////////////////////////////////////////
 // VARIABLE DECLARATIONS
 /////////////////////////////////////////////////////////////////////////////
-pearlrt::Duration  _default_motor_time(0.02); 
+pearlrt::Duration  _default_motor_time(0.05); 
 
 pearlrt::Fixed<31>  _default_motor_steps(1); 
 
@@ -282,8 +279,6 @@ static pearlrt::Semaphore *rm_buffer_out_semas[] = {&_rm_buffer_out};
 static pearlrt::Semaphore *p_semas[] = {&_p}; 
 static pearlrt::Semaphore *lr_buffer_in_semas[] = {&_lr_buffer_in}; 
 static pearlrt::Semaphore *lr_buffer_out_semas[] = {&_lr_buffer_out}; 
-static pearlrt::Semaphore *fs_buffer_in_semas[] = {&_fs_buffer_in}; 
-static pearlrt::Semaphore *fs_buffer_out_semas[] = {&_fs_buffer_out}; 
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -308,8 +303,8 @@ static pearlrt::Bolt *demo_var_bolt_bolts[] = {&_demo_var_bolt};
 static pearlrt::Bolt *demo_state_bolt_bolts[] = {&_demo_state_bolt}; 
 static pearlrt::Bolt *lm_bolt_bolts[] = {&_lm_bolt}; 
 static pearlrt::Bolt *rm_bolt_bolts[] = {&_rm_bolt}; 
-static pearlrt::Bolt *lr_bolt_bolts[] = {&_lr_bolt}; 
 static pearlrt::Bolt *fs_bolt_bolts[] = {&_fs_bolt}; 
+static pearlrt::Bolt *lr_bolt_bolts[] = {&_lr_bolt}; 
 static pearlrt::Bolt *light_bolt_bolts[] = {&_light_bolt}; 
 static pearlrt::Bolt *blinker_bolt_bolts[] = {&_blinker_bolt}; 
 
@@ -505,7 +500,7 @@ _init(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _termout.beginSequence(me);
-        _termout.toA(CONSTANT_CHARACTER_c6fc32de_fc7b_426e_82de_29449c006ef8) ;
+        _termout.toA(CONSTANT_CHARACTER_daab6b10_8b6e_4b40_a3a1_3e766a27d2fc) ;
         _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _termout.endSequence();
     }
@@ -527,7 +522,7 @@ _term(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _termout.beginSequence(me);
-        _termout.toA(CONSTANT_CHARACTER_3425d5fa_3d89_4331_9b27_d53a30ba6375) ;
+        _termout.toA(CONSTANT_CHARACTER_69b02cea_c201_4f80_9bbd_013cd478308b) ;
         _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _termout.endSequence();
     }
@@ -603,7 +598,7 @@ _menu(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _termout.beginSequence(me);
-        _termout.toA(CONSTANT_CHARACTER_47adcfc5_6923_4c39_a8ce_d2aa12637efc) ;
+        _termout.toA(CONSTANT_CHARACTER_836f6542_2216_40f9_ab5f_4b50fd169f4d) ;
         _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _termout.endSequence();
     }
@@ -620,7 +615,7 @@ _menu(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _termout.beginSequence(me);
-        _termout.toA(CONSTANT_CHARACTER_f42eddf0_cead_428d_9272_c71ce9eb2c92) ;
+        _termout.toA(CONSTANT_CHARACTER_9f06543e_2a82_44cc_a645_964c39536f31) ;
         _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _termout.endSequence();
     }
@@ -637,7 +632,7 @@ _menu(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _termout.beginSequence(me);
-        _termout.toA(CONSTANT_CHARACTER_3d74fcb9_5f6a_48d9_a1c5_c4c05ee30464) ;
+        _termout.toA(CONSTANT_CHARACTER_02c9f947_4128_47a7_930b_7d3727007124) ;
         _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _termout.endSequence();
     }
@@ -654,7 +649,7 @@ _menu(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _termout.beginSequence(me);
-        _termout.toA(CONSTANT_CHARACTER_87310e7e_4bb7_4ab5_bfab_8e392a527a98) ;
+        _termout.toA(CONSTANT_CHARACTER_c104411d_df0a_4812_9749_86d4a18a4ee7) ;
         _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _termout.endSequence();
     }
@@ -671,7 +666,7 @@ _menu(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _termout.beginSequence(me);
-        _termout.toA(CONSTANT_CHARACTER_e1aac3a7_98b2_46b4_8661_3c175c1fa930) ;
+        _termout.toA(CONSTANT_CHARACTER_4ef94632_5eb1_43a9_9a3e_8103fec5e490) ;
         _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _termout.endSequence();
     }
@@ -713,7 +708,7 @@ _menu(pearlrt::Task *me)
                     // PUT STATEMENT BEGIN
                     try {
                         _termout.beginSequence(me);
-                        _termout.toA(CONSTANT_CHARACTER_cc49c874_7707_4663_b633_45ae723e9312) ;
+                        _termout.toA(CONSTANT_CHARACTER_5a52678d_c928_4329_a1d7_906c4b961316) ;
                         _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
                         _termout.endSequence();
                     }
@@ -774,7 +769,7 @@ _demo_menu(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _termout.beginSequence(me);
-        _termout.toA(CONSTANT_CHARACTER_c6fc32de_fc7b_426e_82de_29449c006ef8) ;
+        _termout.toA(CONSTANT_CHARACTER_daab6b10_8b6e_4b40_a3a1_3e766a27d2fc) ;
         _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _termout.endSequence();
     }
@@ -791,7 +786,7 @@ _demo_menu(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _termout.beginSequence(me);
-        _termout.toA(CONSTANT_CHARACTER_95a86ed8_8dec_4894_8885_bb8ec94c7f5a) ;
+        _termout.toA(CONSTANT_CHARACTER_16031b9e_09b8_40c2_94d6_ee2be22a996b) ;
         _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _termout.endSequence();
     }
@@ -808,7 +803,7 @@ _demo_menu(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _termout.beginSequence(me);
-        _termout.toA(CONSTANT_CHARACTER_f42eddf0_cead_428d_9272_c71ce9eb2c92) ;
+        _termout.toA(CONSTANT_CHARACTER_9f06543e_2a82_44cc_a645_964c39536f31) ;
         _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _termout.endSequence();
     }
@@ -825,7 +820,7 @@ _demo_menu(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _termout.beginSequence(me);
-        _termout.toA(CONSTANT_CHARACTER_c3d93691_7303_435a_b9d8_f1a66dc99e16) ;
+        _termout.toA(CONSTANT_CHARACTER_c7a2bcf6_e392_460b_bf34_61a5ca30b3bd) ;
         _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _termout.endSequence();
     }
@@ -842,7 +837,7 @@ _demo_menu(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _termout.beginSequence(me);
-        _termout.toA(CONSTANT_CHARACTER_f469d94b_613d_4544_923e_783f2c507858) ;
+        _termout.toA(CONSTANT_CHARACTER_d13ab8dd_804b_4b08_b177_a3b3b4a975a6) ;
         _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _termout.endSequence();
     }
@@ -859,7 +854,7 @@ _demo_menu(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _termout.beginSequence(me);
-        _termout.toA(CONSTANT_CHARACTER_c1129d48_92c8_4688_ba84_4558f1f4c158) ;
+        _termout.toA(CONSTANT_CHARACTER_a4fbeb8d_29d5_4343_b840_4cc470b83cf3) ;
         _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _termout.endSequence();
     }
@@ -903,7 +898,7 @@ _demo_menu(pearlrt::Task *me)
                     // PUT STATEMENT BEGIN
                     try {
                         _termout.beginSequence(me);
-                        _termout.toA(CONSTANT_CHARACTER_cc49c874_7707_4663_b633_45ae723e9312) ;
+                        _termout.toA(CONSTANT_CHARACTER_5a52678d_c928_4329_a1d7_906c4b961316) ;
                         _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
                         _termout.endSequence();
                     }
@@ -930,7 +925,7 @@ _demo_menu(pearlrt::Task *me)
                         // PUT STATEMENT BEGIN
                         try {
                             _termout.beginSequence(me);
-                            _termout.toA(CONSTANT_CHARACTER_3be7bde0_3077_41d1_9d07_b80a399b4ad1) ;
+                            _termout.toA(CONSTANT_CHARACTER_c8f31f74_e714_4380_be28_f3c486dda346) ;
                             _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
                             _termout.endSequence();
                         }
@@ -958,7 +953,7 @@ _demo_menu(pearlrt::Task *me)
                             // PUT STATEMENT BEGIN
                             try {
                                 _termout.beginSequence(me);
-                                _termout.toA(CONSTANT_CHARACTER_940a541a_76b5_4482_b2a2_a221f0959062) ;
+                                _termout.toA(CONSTANT_CHARACTER_5e22d532_332a_4feb_a896_f7fa4fb072c8) ;
                                 _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
                                 _termout.endSequence();
                             }
@@ -996,7 +991,7 @@ _demo_menu(pearlrt::Task *me)
                             // PUT STATEMENT BEGIN
                             try {
                                 _termout.beginSequence(me);
-                                _termout.toA(CONSTANT_CHARACTER_9a30fab0_f963_4b00_82c3_22580b1b2e02) ;
+                                _termout.toA(CONSTANT_CHARACTER_9b77096d_6d4e_4f09_95a1_06f5e1373eef) ;
                                 _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
                                 _termout.endSequence();
                             }
@@ -1013,7 +1008,7 @@ _demo_menu(pearlrt::Task *me)
                             // PUT STATEMENT BEGIN
                             try {
                                 _termout.beginSequence(me);
-                                _termout.toA(CONSTANT_CHARACTER_a001d848_885e_46d8_b7e8_8dee6a61f8a5) ;
+                                _termout.toA(CONSTANT_CHARACTER_e18f3eea_c0dd_4ba7_aeb0_d049873435bd) ;
                                 _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
                                 _termout.endSequence();
                             }
@@ -1082,7 +1077,7 @@ _demo_menu(pearlrt::Task *me)
                             // PUT STATEMENT BEGIN
                             try {
                                 _termout.beginSequence(me);
-                                _termout.toA(CONSTANT_CHARACTER_110a18c4_727c_4b72_b0e4_ca7ebc050315) ;
+                                _termout.toA(CONSTANT_CHARACTER_f2187332_2516_4d30_8610_154f0428aa17) ;
                                 _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
                                 _termout.endSequence();
                             }
@@ -1189,7 +1184,7 @@ _parcour_menu(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _termout.beginSequence(me);
-        _termout.toA(CONSTANT_CHARACTER_c6fc32de_fc7b_426e_82de_29449c006ef8) ;
+        _termout.toA(CONSTANT_CHARACTER_daab6b10_8b6e_4b40_a3a1_3e766a27d2fc) ;
         _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _termout.endSequence();
     }
@@ -1206,7 +1201,7 @@ _parcour_menu(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _termout.beginSequence(me);
-        _termout.toA(CONSTANT_CHARACTER_f7cdb9f0_96c6_427d_b8d7_850c648346a4) ;
+        _termout.toA(CONSTANT_CHARACTER_1de28991_01ef_43ec_858d_a4e599527468) ;
         _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _termout.endSequence();
     }
@@ -1223,7 +1218,7 @@ _parcour_menu(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _termout.beginSequence(me);
-        _termout.toA(CONSTANT_CHARACTER_f42eddf0_cead_428d_9272_c71ce9eb2c92) ;
+        _termout.toA(CONSTANT_CHARACTER_9f06543e_2a82_44cc_a645_964c39536f31) ;
         _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _termout.endSequence();
     }
@@ -1240,7 +1235,7 @@ _parcour_menu(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _termout.beginSequence(me);
-        _termout.toA(CONSTANT_CHARACTER_c3d93691_7303_435a_b9d8_f1a66dc99e16) ;
+        _termout.toA(CONSTANT_CHARACTER_c7a2bcf6_e392_460b_bf34_61a5ca30b3bd) ;
         _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _termout.endSequence();
     }
@@ -1257,7 +1252,7 @@ _parcour_menu(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _termout.beginSequence(me);
-        _termout.toA(CONSTANT_CHARACTER_7316c20e_2b7c_43a4_8999_0070ea732cb5) ;
+        _termout.toA(CONSTANT_CHARACTER_58a93862_2b0b_414e_944b_f3cb1887366b) ;
         _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _termout.endSequence();
     }
@@ -1274,7 +1269,7 @@ _parcour_menu(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _termout.beginSequence(me);
-        _termout.toA(CONSTANT_CHARACTER_c1129d48_92c8_4688_ba84_4558f1f4c158) ;
+        _termout.toA(CONSTANT_CHARACTER_a4fbeb8d_29d5_4343_b840_4cc470b83cf3) ;
         _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _termout.endSequence();
     }
@@ -1318,7 +1313,7 @@ _parcour_menu(pearlrt::Task *me)
                     // PUT STATEMENT BEGIN
                     try {
                         _termout.beginSequence(me);
-                        _termout.toA(CONSTANT_CHARACTER_cc49c874_7707_4663_b633_45ae723e9312) ;
+                        _termout.toA(CONSTANT_CHARACTER_5a52678d_c928_4329_a1d7_906c4b961316) ;
                         _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
                         _termout.endSequence();
                     }
@@ -1341,7 +1336,7 @@ _parcour_menu(pearlrt::Task *me)
                             // PUT STATEMENT BEGIN
                             try {
                                 _termout.beginSequence(me);
-                                _termout.toA(CONSTANT_CHARACTER_940a541a_76b5_4482_b2a2_a221f0959062) ;
+                                _termout.toA(CONSTANT_CHARACTER_5e22d532_332a_4feb_a896_f7fa4fb072c8) ;
                                 _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
                                 _termout.endSequence();
                             }
@@ -1375,7 +1370,7 @@ _parcour_menu(pearlrt::Task *me)
                             // PUT STATEMENT BEGIN
                             try {
                                 _termout.beginSequence(me);
-                                _termout.toA(CONSTANT_CHARACTER_c9f826bc_ba06_46cb_b05f_5eaf67832ccd) ;
+                                _termout.toA(CONSTANT_CHARACTER_36dd8d78_6b17_4da3_b670_e4d5b303b057) ;
                                 _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
                                 _termout.endSequence();
                             }
@@ -1415,7 +1410,7 @@ _parcour_menu(pearlrt::Task *me)
                             // PUT STATEMENT BEGIN
                             try {
                                 _termout.beginSequence(me);
-                                _termout.toA(CONSTANT_CHARACTER_110a18c4_727c_4b72_b0e4_ca7ebc050315) ;
+                                _termout.toA(CONSTANT_CHARACTER_f2187332_2516_4d30_8610_154f0428aa17) ;
                                 _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
                                 _termout.endSequence();
                             }
@@ -1446,38 +1441,38 @@ _parcour_menu(pearlrt::Task *me)
 void
 _stop_motors(pearlrt::Task *me)
 {
-    me->setLocation(405, filename);
-        pearlrt::Semaphore::request( me, 1, lm_buffer_in_semas);
-    me->setLocation(406, filename);
-        pearlrt::Semaphore::request( me, 1, rm_buffer_in_semas);
-    me->setLocation(409, filename);
-    pearlrt::Bolt::reserve( me, 1, lm_bolt_bolts);
     me->setLocation(410, filename);
-        _lm_speed = CONSTANT_FIXED_POS_0_31;
+        pearlrt::Semaphore::request( me, 1, lm_buffer_in_semas);
     me->setLocation(411, filename);
-    pearlrt::Bolt::free( me, 1, lm_bolt_bolts);
-    me->setLocation(413, filename);
-    pearlrt::Bolt::reserve( me, 1, rm_bolt_bolts);
+        pearlrt::Semaphore::request( me, 1, rm_buffer_in_semas);
     me->setLocation(414, filename);
-        _rm_speed = CONSTANT_FIXED_POS_0_31;
+    pearlrt::Bolt::reserve( me, 1, lm_bolt_bolts);
     me->setLocation(415, filename);
-    pearlrt::Bolt::free( me, 1, rm_bolt_bolts);
+        _lm_speed = CONSTANT_FIXED_POS_0_31;
+    me->setLocation(416, filename);
+    pearlrt::Bolt::free( me, 1, lm_bolt_bolts);
     me->setLocation(418, filename);
-        pearlrt::Semaphore::release( me, 1, lm_buffer_out_semas);
+    pearlrt::Bolt::reserve( me, 1, rm_bolt_bolts);
     me->setLocation(419, filename);
+        _rm_speed = CONSTANT_FIXED_POS_0_31;
+    me->setLocation(420, filename);
+    pearlrt::Bolt::free( me, 1, rm_bolt_bolts);
+    me->setLocation(423, filename);
+        pearlrt::Semaphore::release( me, 1, lm_buffer_out_semas);
+    me->setLocation(424, filename);
         pearlrt::Semaphore::release( me, 1, rm_buffer_out_semas);
 }
 
 void
 _switchlights(pearlrt::Task *me, pearlrt::Fixed<31>  _state)
 {
-    me->setLocation(500, filename);
+    me->setLocation(505, filename);
     if ((_state == CONSTANT_FIXED_POS_1_31).bitOr((_state == CONSTANT_FIXED_POS_0_31)).getBoolean()) {
-        me->setLocation(501, filename);
+        me->setLocation(506, filename);
         pearlrt::Bolt::reserve( me, 1, light_bolt_bolts);
-        me->setLocation(502, filename);
+        me->setLocation(507, filename);
             _global_light = _state;
-        me->setLocation(503, filename);
+        me->setLocation(508, filename);
         pearlrt::Bolt::free( me, 1, light_bolt_bolts);
     }
 
@@ -1494,17 +1489,17 @@ _step(pearlrt::Task *me, pearlrt::Fixed<31>  _motorindex, pearlrt::Fixed<31>  _s
     pearlrt::BitString<4>  _e; 
 
 
-    me->setLocation(661, filename);
-        _c = pearlrt::BitString<4>(5);
-    me->setLocation(662, filename);
-        _d = pearlrt::BitString<4>(6);
-    me->setLocation(663, filename);
-        _e = pearlrt::BitString<4>(0);
     me->setLocation(666, filename);
+        _c = pearlrt::BitString<4>(5);
+    me->setLocation(667, filename);
+        _d = pearlrt::BitString<4>(6);
+    me->setLocation(668, filename);
+        _e = pearlrt::BitString<4>(0);
+    me->setLocation(671, filename);
     if ((_motorindex == CONSTANT_FIXED_POS_0_31).getBoolean()) {
-        me->setLocation(667, filename);
+        me->setLocation(672, filename);
         if ((_steps == CONSTANT_FIXED_POS_0_31).bitAnd((_time == pearlrt::Duration(0.0))).getBoolean()) {
-            me->setLocation(668, filename);
+            me->setLocation(673, filename);
             // SEND STATEMENT BEGIN
             try {
                 _lmotor.beginSequence(me);
@@ -1522,9 +1517,9 @@ _step(pearlrt::Task *me, pearlrt::Fixed<31>  _motorindex, pearlrt::Fixed<31>  _s
 
         }
         else {
-            me->setLocation(670, filename);
+            me->setLocation(675, filename);
             if ((_dir == CONSTANT_FIXED_POS_0_31).getBoolean()) {
-                me->setLocation(671, filename);
+                me->setLocation(676, filename);
                 {
                     pearlrt::Fixed<15> a_value(1);
 
@@ -1539,7 +1534,7 @@ _step(pearlrt::Task *me, pearlrt::Fixed<31>  _motorindex, pearlrt::Fixed<31>  _s
                                 ((a_value >= e_value).getBoolean())))
                         {
 
-                            me->setLocation(672, filename);
+                            me->setLocation(677, filename);
                             // SEND STATEMENT BEGIN
                             try {
                                 _lmotor.beginSequence(me);
@@ -1555,13 +1550,13 @@ _step(pearlrt::Task *me, pearlrt::Fixed<31>  _motorindex, pearlrt::Fixed<31>  _s
                             }
                             // SEND STATEMENT END
 
-                            me->setLocation(673, filename);
+                            me->setLocation(678, filename);
                                 me->resume( pearlrt::Task::AFTER,
                                             /* at     */  pearlrt::Clock(),
                                             /* after  */  pearlrt::Duration(_time)
                                           );
 
-                            me->setLocation(675, filename);
+                            me->setLocation(680, filename);
                             // SEND STATEMENT BEGIN
                             try {
                                 _lmotor.beginSequence(me);
@@ -1577,13 +1572,13 @@ _step(pearlrt::Task *me, pearlrt::Fixed<31>  _motorindex, pearlrt::Fixed<31>  _s
                             }
                             // SEND STATEMENT END
 
-                            me->setLocation(676, filename);
+                            me->setLocation(681, filename);
                                 me->resume( pearlrt::Task::AFTER,
                                             /* at     */  pearlrt::Clock(),
                                             /* after  */  pearlrt::Duration(_time)
                                           );
 
-                            me->setLocation(678, filename);
+                            me->setLocation(683, filename);
                             // SEND STATEMENT BEGIN
                             try {
                                 _lmotor.beginSequence(me);
@@ -1599,13 +1594,13 @@ _step(pearlrt::Task *me, pearlrt::Fixed<31>  _motorindex, pearlrt::Fixed<31>  _s
                             }
                             // SEND STATEMENT END
 
-                            me->setLocation(679, filename);
+                            me->setLocation(684, filename);
                                 me->resume( pearlrt::Task::AFTER,
                                             /* at     */  pearlrt::Clock(),
                                             /* after  */  pearlrt::Duration(_time)
                                           );
 
-                            me->setLocation(681, filename);
+                            me->setLocation(686, filename);
                             // SEND STATEMENT BEGIN
                             try {
                                 _lmotor.beginSequence(me);
@@ -1621,14 +1616,14 @@ _step(pearlrt::Task *me, pearlrt::Fixed<31>  _motorindex, pearlrt::Fixed<31>  _s
                             }
                             // SEND STATEMENT END
 
-                            me->setLocation(682, filename);
+                            me->setLocation(687, filename);
                                 me->resume( pearlrt::Task::AFTER,
                                             /* at     */  pearlrt::Clock(),
                                             /* after  */  pearlrt::Duration(_time)
                                           );
 
 
-                            me->setLocation(671, filename);
+                            me->setLocation(676, filename);
 
                             if (((s_value > CONSTANT_FIXED_POS_0_31).getBoolean() &&
                                  (a_value <= (e_value - s_value)).getBoolean()) ||
@@ -1642,9 +1637,9 @@ _step(pearlrt::Task *me, pearlrt::Fixed<31>  _motorindex, pearlrt::Fixed<31>  _s
                 }
             }
 
-            me->setLocation(686, filename);
+            me->setLocation(691, filename);
             if ((_dir == CONSTANT_FIXED_POS_1_31).getBoolean()) {
-                me->setLocation(687, filename);
+                me->setLocation(692, filename);
                 {
                     pearlrt::Fixed<15> a_value(1);
 
@@ -1659,7 +1654,7 @@ _step(pearlrt::Task *me, pearlrt::Fixed<31>  _motorindex, pearlrt::Fixed<31>  _s
                                 ((a_value >= e_value).getBoolean())))
                         {
 
-                            me->setLocation(688, filename);
+                            me->setLocation(693, filename);
                             // SEND STATEMENT BEGIN
                             try {
                                 _lmotor.beginSequence(me);
@@ -1675,13 +1670,13 @@ _step(pearlrt::Task *me, pearlrt::Fixed<31>  _motorindex, pearlrt::Fixed<31>  _s
                             }
                             // SEND STATEMENT END
 
-                            me->setLocation(689, filename);
+                            me->setLocation(694, filename);
                                 me->resume( pearlrt::Task::AFTER,
                                             /* at     */  pearlrt::Clock(),
                                             /* after  */  pearlrt::Duration(_time)
                                           );
 
-                            me->setLocation(691, filename);
+                            me->setLocation(696, filename);
                             // SEND STATEMENT BEGIN
                             try {
                                 _lmotor.beginSequence(me);
@@ -1697,13 +1692,13 @@ _step(pearlrt::Task *me, pearlrt::Fixed<31>  _motorindex, pearlrt::Fixed<31>  _s
                             }
                             // SEND STATEMENT END
 
-                            me->setLocation(692, filename);
+                            me->setLocation(697, filename);
                                 me->resume( pearlrt::Task::AFTER,
                                             /* at     */  pearlrt::Clock(),
                                             /* after  */  pearlrt::Duration(_time)
                                           );
 
-                            me->setLocation(694, filename);
+                            me->setLocation(699, filename);
                             // SEND STATEMENT BEGIN
                             try {
                                 _lmotor.beginSequence(me);
@@ -1719,13 +1714,13 @@ _step(pearlrt::Task *me, pearlrt::Fixed<31>  _motorindex, pearlrt::Fixed<31>  _s
                             }
                             // SEND STATEMENT END
 
-                            me->setLocation(695, filename);
+                            me->setLocation(700, filename);
                                 me->resume( pearlrt::Task::AFTER,
                                             /* at     */  pearlrt::Clock(),
                                             /* after  */  pearlrt::Duration(_time)
                                           );
 
-                            me->setLocation(697, filename);
+                            me->setLocation(702, filename);
                             // SEND STATEMENT BEGIN
                             try {
                                 _lmotor.beginSequence(me);
@@ -1741,14 +1736,14 @@ _step(pearlrt::Task *me, pearlrt::Fixed<31>  _motorindex, pearlrt::Fixed<31>  _s
                             }
                             // SEND STATEMENT END
 
-                            me->setLocation(698, filename);
+                            me->setLocation(703, filename);
                                 me->resume( pearlrt::Task::AFTER,
                                             /* at     */  pearlrt::Clock(),
                                             /* after  */  pearlrt::Duration(_time)
                                           );
 
 
-                            me->setLocation(687, filename);
+                            me->setLocation(692, filename);
 
                             if (((s_value > CONSTANT_FIXED_POS_0_31).getBoolean() &&
                                  (a_value <= (e_value - s_value)).getBoolean()) ||
@@ -1765,11 +1760,11 @@ _step(pearlrt::Task *me, pearlrt::Fixed<31>  _motorindex, pearlrt::Fixed<31>  _s
         }
     }
 
-    me->setLocation(704, filename);
+    me->setLocation(709, filename);
     if ((_motorindex == CONSTANT_FIXED_POS_1_31).getBoolean()) {
-        me->setLocation(705, filename);
+        me->setLocation(710, filename);
         if ((_steps == CONSTANT_FIXED_POS_0_31).bitAnd((_time == pearlrt::Duration(0.0))).getBoolean()) {
-            me->setLocation(706, filename);
+            me->setLocation(711, filename);
             // SEND STATEMENT BEGIN
             try {
                 _rmotor.beginSequence(me);
@@ -1787,9 +1782,9 @@ _step(pearlrt::Task *me, pearlrt::Fixed<31>  _motorindex, pearlrt::Fixed<31>  _s
 
         }
         else {
-            me->setLocation(708, filename);
+            me->setLocation(713, filename);
             if ((_dir == CONSTANT_FIXED_POS_0_31).getBoolean()) {
-                me->setLocation(709, filename);
+                me->setLocation(714, filename);
                 {
                     pearlrt::Fixed<15> a_value(1);
 
@@ -1804,7 +1799,7 @@ _step(pearlrt::Task *me, pearlrt::Fixed<31>  _motorindex, pearlrt::Fixed<31>  _s
                                 ((a_value >= e_value).getBoolean())))
                         {
 
-                            me->setLocation(710, filename);
+                            me->setLocation(715, filename);
                             // SEND STATEMENT BEGIN
                             try {
                                 _rmotor.beginSequence(me);
@@ -1820,13 +1815,13 @@ _step(pearlrt::Task *me, pearlrt::Fixed<31>  _motorindex, pearlrt::Fixed<31>  _s
                             }
                             // SEND STATEMENT END
 
-                            me->setLocation(711, filename);
+                            me->setLocation(716, filename);
                                 me->resume( pearlrt::Task::AFTER,
                                             /* at     */  pearlrt::Clock(),
                                             /* after  */  pearlrt::Duration(_time)
                                           );
 
-                            me->setLocation(713, filename);
+                            me->setLocation(718, filename);
                             // SEND STATEMENT BEGIN
                             try {
                                 _rmotor.beginSequence(me);
@@ -1842,13 +1837,13 @@ _step(pearlrt::Task *me, pearlrt::Fixed<31>  _motorindex, pearlrt::Fixed<31>  _s
                             }
                             // SEND STATEMENT END
 
-                            me->setLocation(714, filename);
+                            me->setLocation(719, filename);
                                 me->resume( pearlrt::Task::AFTER,
                                             /* at     */  pearlrt::Clock(),
                                             /* after  */  pearlrt::Duration(_time)
                                           );
 
-                            me->setLocation(716, filename);
+                            me->setLocation(721, filename);
                             // SEND STATEMENT BEGIN
                             try {
                                 _rmotor.beginSequence(me);
@@ -1864,13 +1859,13 @@ _step(pearlrt::Task *me, pearlrt::Fixed<31>  _motorindex, pearlrt::Fixed<31>  _s
                             }
                             // SEND STATEMENT END
 
-                            me->setLocation(717, filename);
+                            me->setLocation(722, filename);
                                 me->resume( pearlrt::Task::AFTER,
                                             /* at     */  pearlrt::Clock(),
                                             /* after  */  pearlrt::Duration(_time)
                                           );
 
-                            me->setLocation(719, filename);
+                            me->setLocation(724, filename);
                             // SEND STATEMENT BEGIN
                             try {
                                 _rmotor.beginSequence(me);
@@ -1886,14 +1881,14 @@ _step(pearlrt::Task *me, pearlrt::Fixed<31>  _motorindex, pearlrt::Fixed<31>  _s
                             }
                             // SEND STATEMENT END
 
-                            me->setLocation(720, filename);
+                            me->setLocation(725, filename);
                                 me->resume( pearlrt::Task::AFTER,
                                             /* at     */  pearlrt::Clock(),
                                             /* after  */  pearlrt::Duration(_time)
                                           );
 
 
-                            me->setLocation(709, filename);
+                            me->setLocation(714, filename);
 
                             if (((s_value > CONSTANT_FIXED_POS_0_31).getBoolean() &&
                                  (a_value <= (e_value - s_value)).getBoolean()) ||
@@ -1907,9 +1902,9 @@ _step(pearlrt::Task *me, pearlrt::Fixed<31>  _motorindex, pearlrt::Fixed<31>  _s
                 }
             }
 
-            me->setLocation(724, filename);
+            me->setLocation(729, filename);
             if ((_dir == CONSTANT_FIXED_POS_1_31).getBoolean()) {
-                me->setLocation(725, filename);
+                me->setLocation(730, filename);
                 {
                     pearlrt::Fixed<15> a_value(1);
 
@@ -1924,7 +1919,7 @@ _step(pearlrt::Task *me, pearlrt::Fixed<31>  _motorindex, pearlrt::Fixed<31>  _s
                                 ((a_value >= e_value).getBoolean())))
                         {
 
-                            me->setLocation(726, filename);
+                            me->setLocation(731, filename);
                             // SEND STATEMENT BEGIN
                             try {
                                 _rmotor.beginSequence(me);
@@ -1940,13 +1935,13 @@ _step(pearlrt::Task *me, pearlrt::Fixed<31>  _motorindex, pearlrt::Fixed<31>  _s
                             }
                             // SEND STATEMENT END
 
-                            me->setLocation(727, filename);
+                            me->setLocation(732, filename);
                                 me->resume( pearlrt::Task::AFTER,
                                             /* at     */  pearlrt::Clock(),
                                             /* after  */  pearlrt::Duration(_time)
                                           );
 
-                            me->setLocation(729, filename);
+                            me->setLocation(734, filename);
                             // SEND STATEMENT BEGIN
                             try {
                                 _rmotor.beginSequence(me);
@@ -1962,13 +1957,13 @@ _step(pearlrt::Task *me, pearlrt::Fixed<31>  _motorindex, pearlrt::Fixed<31>  _s
                             }
                             // SEND STATEMENT END
 
-                            me->setLocation(730, filename);
+                            me->setLocation(735, filename);
                                 me->resume( pearlrt::Task::AFTER,
                                             /* at     */  pearlrt::Clock(),
                                             /* after  */  pearlrt::Duration(_time)
                                           );
 
-                            me->setLocation(732, filename);
+                            me->setLocation(737, filename);
                             // SEND STATEMENT BEGIN
                             try {
                                 _rmotor.beginSequence(me);
@@ -1984,13 +1979,13 @@ _step(pearlrt::Task *me, pearlrt::Fixed<31>  _motorindex, pearlrt::Fixed<31>  _s
                             }
                             // SEND STATEMENT END
 
-                            me->setLocation(733, filename);
+                            me->setLocation(738, filename);
                                 me->resume( pearlrt::Task::AFTER,
                                             /* at     */  pearlrt::Clock(),
                                             /* after  */  pearlrt::Duration(_time)
                                           );
 
-                            me->setLocation(735, filename);
+                            me->setLocation(740, filename);
                             // SEND STATEMENT BEGIN
                             try {
                                 _rmotor.beginSequence(me);
@@ -2006,14 +2001,14 @@ _step(pearlrt::Task *me, pearlrt::Fixed<31>  _motorindex, pearlrt::Fixed<31>  _s
                             }
                             // SEND STATEMENT END
 
-                            me->setLocation(736, filename);
+                            me->setLocation(741, filename);
                                 me->resume( pearlrt::Task::AFTER,
                                             /* at     */  pearlrt::Clock(),
                                             /* after  */  pearlrt::Duration(_time)
                                           );
 
 
-                            me->setLocation(725, filename);
+                            me->setLocation(730, filename);
 
                             if (((s_value > CONSTANT_FIXED_POS_0_31).getBoolean() &&
                                  (a_value <= (e_value - s_value)).getBoolean()) ||
@@ -2039,24 +2034,28 @@ _index(pearlrt::Task *me)
 
     pearlrt::Float<53>  _speedr; 
 
+    pearlrt::Character<7>  _color; 
 
-    me->setLocation(827, filename);
-    pearlrt::Bolt::enter( me, 1, lm_bolt_bolts);
+
+    me->setLocation(826, filename);
+        _color = CONSTANT_CHARACTER_5d33eb99_c740_4da7_988a_feb48b857362;
     me->setLocation(828, filename);
-        _speedl = _lm_speed;
+    pearlrt::Bolt::enter( me, 1, lm_bolt_bolts);
     me->setLocation(829, filename);
+        _speedl = _lm_speed;
+    me->setLocation(830, filename);
     pearlrt::Bolt::leave( me, 1, lm_bolt_bolts);
-    me->setLocation(831, filename);
-    pearlrt::Bolt::enter( me, 1, rm_bolt_bolts);
     me->setLocation(832, filename);
-        _speedr = _rm_speed;
+    pearlrt::Bolt::enter( me, 1, rm_bolt_bolts);
     me->setLocation(833, filename);
+        _speedr = _rm_speed;
+    me->setLocation(834, filename);
     pearlrt::Bolt::leave( me, 1, rm_bolt_bolts);
     me->setLocation(836, filename);
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_1bd2d1b7_93d6_4839_ac2b_4483182abe81) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_c6008f73_e4d1_484b_9603_07a51d4e4444) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -2075,7 +2074,7 @@ _index(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_ebe5d8f5_a90d_41f6_be08_e113fafb3874) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_b7f9bd2a_62fa_4952_8822_1f1fda3646f3) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -2092,7 +2091,7 @@ _index(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_a452a8be_03f0_4081_9e9b_65db261ed42e) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_3125c586_820c_458b_b7c8_986c51fe637b) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -2109,7 +2108,7 @@ _index(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_9ba2dd3b_3a0a_4727_93e0_8ee42343c409) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_a62da6da_8cf8_4edb_a611_154b25927c5e) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -2126,7 +2125,7 @@ _index(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_b729a379_6ef5_49e4_96d4_50756146c6a4) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_cda63935_478c_4960_aa48_f083af4534e8) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -2143,9 +2142,9 @@ _index(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_b4931447_c616_40ff_8c54_4c43aa3537d0) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_dd685631_e9e2_416a_a3c9_f76deb0a857c) ;
         _usHttpSocket.toF(_speedl,(pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_6_31));
-        _usHttpSocket.toA(CONSTANT_CHARACTER_13964ad2_cca0_44b2_a878_5294f9930cb7) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_b30dcc3a_45d8_4135_8954_4ea7ce6de41f) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -2162,9 +2161,9 @@ _index(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_10955655_c716_4576_9886_f2506a634027) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_625c26c9_6eb0_4422_9c60_81b942b8f168) ;
         _usHttpSocket.toF(_speedr,(pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_6_31));
-        _usHttpSocket.toA(CONSTANT_CHARACTER_13964ad2_cca0_44b2_a878_5294f9930cb7) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_b30dcc3a_45d8_4135_8954_4ea7ce6de41f) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -2181,7 +2180,9 @@ _index(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_8e797daf_b28d_46f3_bb53_8867e60245c3) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_a04099b2_7a9f_4ab3_be76_b83e31840eb7) ;
+        _usHttpSocket.toA(_color) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_45c35474_be7f_4798_9b39_bdc40bab80f8) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -2198,7 +2199,7 @@ _index(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_a967d692_6d87_4b67_9eee_a850d1f24e42) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_44d5f859_7403_43c0_94be_56e86f56957e) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -2215,7 +2216,24 @@ _index(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_80873240_ca92_443a_8132_015a423b4d47) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_65db3ab6_1dec_4b78_b327_c7a7cf0f5ba4) ;
+        _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
+        _usHttpSocket.endSequence();
+    }
+    catch(pearlrt::Signal &s) {
+        if ( ! _usHttpSocket.updateRst(&s) ) {
+            _usHttpSocket.endSequence();
+            throw;
+        }
+        _usHttpSocket.endSequence();
+    }
+    // PUT STATEMENT END
+
+    me->setLocation(848, filename);
+    // PUT STATEMENT BEGIN
+    try {
+        _usHttpSocket.beginSequence(me);
+        _usHttpSocket.toA(CONSTANT_CHARACTER_29731e9e_f321_41cb_96da_fab8327bcbe5) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -2233,30 +2251,11 @@ _index(pearlrt::Task *me)
 void
 _info(pearlrt::Task *me)
 {
-    me->setLocation(851, filename);
-    // PUT STATEMENT BEGIN
-    try {
-        _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_1bd2d1b7_93d6_4839_ac2b_4483182abe81) ;
-        _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
-        _usHttpSocket.endSequence();
-    }
-    catch(pearlrt::Signal &s) {
-        if ( ! _usHttpSocket.updateRst(&s) ) {
-            _usHttpSocket.endSequence();
-            throw;
-        }
-        _usHttpSocket.endSequence();
-    }
-    // PUT STATEMENT END
-
     me->setLocation(852, filename);
-    _style( me);
-    me->setLocation(853, filename);
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_6ef16dbf_9aa8_478a_9f49_abcea5cb8916) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_c6008f73_e4d1_484b_9603_07a51d4e4444) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -2269,11 +2268,13 @@ _info(pearlrt::Task *me)
     }
     // PUT STATEMENT END
 
-    me->setLocation(855, filename);
+    me->setLocation(853, filename);
+    _style( me);
+    me->setLocation(854, filename);
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_78b3cddb_2539_4ff5_8fef_9b966b77af4b) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_9dce4a3c_f88a_4dcf_be2e_4ffd9d0aab9d) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -2290,7 +2291,7 @@ _info(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_f6eb5ff1_13a8_4231_a287_52f2798e38c0) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_382b32a4_1317_4c82_952a_8cf45964efc3) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -2307,7 +2308,7 @@ _info(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_0f7a069f_5968_4701_9aac_327377081268) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_afebb033_c9ec_481c_ae74_6a684fa0b511) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -2324,7 +2325,7 @@ _info(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_a967d692_6d87_4b67_9eee_a850d1f24e42) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_9129595a_15e2_4837_86c6_e92f9ac88070) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -2341,7 +2342,24 @@ _info(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_6095be2d_36f8_4882_847a_ac8ac015947f) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_65db3ab6_1dec_4b78_b327_c7a7cf0f5ba4) ;
+        _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
+        _usHttpSocket.endSequence();
+    }
+    catch(pearlrt::Signal &s) {
+        if ( ! _usHttpSocket.updateRst(&s) ) {
+            _usHttpSocket.endSequence();
+            throw;
+        }
+        _usHttpSocket.endSequence();
+    }
+    // PUT STATEMENT END
+
+    me->setLocation(860, filename);
+    // PUT STATEMENT BEGIN
+    try {
+        _usHttpSocket.beginSequence(me);
+        _usHttpSocket.toA(CONSTANT_CHARACTER_a06c5d1d_6240_43fa_b33e_df628c5bdc87) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -2359,30 +2377,11 @@ _info(pearlrt::Task *me)
 void
 _doku(pearlrt::Task *me)
 {
-    me->setLocation(863, filename);
-    // PUT STATEMENT BEGIN
-    try {
-        _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_1bd2d1b7_93d6_4839_ac2b_4483182abe81) ;
-        _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
-        _usHttpSocket.endSequence();
-    }
-    catch(pearlrt::Signal &s) {
-        if ( ! _usHttpSocket.updateRst(&s) ) {
-            _usHttpSocket.endSequence();
-            throw;
-        }
-        _usHttpSocket.endSequence();
-    }
-    // PUT STATEMENT END
-
     me->setLocation(864, filename);
-    _style( me);
-    me->setLocation(865, filename);
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_6ef16dbf_9aa8_478a_9f49_abcea5cb8916) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_c6008f73_e4d1_484b_9603_07a51d4e4444) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -2395,11 +2394,13 @@ _doku(pearlrt::Task *me)
     }
     // PUT STATEMENT END
 
-    me->setLocation(867, filename);
+    me->setLocation(865, filename);
+    _style( me);
+    me->setLocation(866, filename);
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_2012dc7c_658a_4b00_962e_d40d1e490b25) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_9dce4a3c_f88a_4dcf_be2e_4ffd9d0aab9d) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -2416,7 +2417,7 @@ _doku(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_e5d1f942_9a4f_4aa8_bb23_f7f52ebf4c30) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_c6720e22_20d2_418e_91ca_fb64ef3fcb66) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -2433,7 +2434,7 @@ _doku(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_0f7a069f_5968_4701_9aac_327377081268) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_d6933647_9cbc_48ab_8f65_0ab57ffa3bd4) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -2450,7 +2451,7 @@ _doku(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_a967d692_6d87_4b67_9eee_a850d1f24e42) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_9129595a_15e2_4837_86c6_e92f9ac88070) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -2467,7 +2468,24 @@ _doku(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_6f78ba5a_a127_4625_a682_d16ae3e91866) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_65db3ab6_1dec_4b78_b327_c7a7cf0f5ba4) ;
+        _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
+        _usHttpSocket.endSequence();
+    }
+    catch(pearlrt::Signal &s) {
+        if ( ! _usHttpSocket.updateRst(&s) ) {
+            _usHttpSocket.endSequence();
+            throw;
+        }
+        _usHttpSocket.endSequence();
+    }
+    // PUT STATEMENT END
+
+    me->setLocation(872, filename);
+    // PUT STATEMENT BEGIN
+    try {
+        _usHttpSocket.beginSequence(me);
+        _usHttpSocket.toA(CONSTANT_CHARACTER_32977f17_de9b_4f7f_aaf1_e1404301649f) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -2485,30 +2503,11 @@ _doku(pearlrt::Task *me)
 void
 _error(pearlrt::Task *me)
 {
-    me->setLocation(875, filename);
-    // PUT STATEMENT BEGIN
-    try {
-        _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_1bd2d1b7_93d6_4839_ac2b_4483182abe81) ;
-        _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
-        _usHttpSocket.endSequence();
-    }
-    catch(pearlrt::Signal &s) {
-        if ( ! _usHttpSocket.updateRst(&s) ) {
-            _usHttpSocket.endSequence();
-            throw;
-        }
-        _usHttpSocket.endSequence();
-    }
-    // PUT STATEMENT END
-
     me->setLocation(876, filename);
-    _style( me);
-    me->setLocation(877, filename);
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_6ef16dbf_9aa8_478a_9f49_abcea5cb8916) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_c6008f73_e4d1_484b_9603_07a51d4e4444) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -2521,11 +2520,30 @@ _error(pearlrt::Task *me)
     }
     // PUT STATEMENT END
 
-    me->setLocation(879, filename);
+    me->setLocation(877, filename);
+    _style( me);
+    me->setLocation(878, filename);
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_f8b33584_8c3b_436d_bdc5_9574bf37c27a) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_9dce4a3c_f88a_4dcf_be2e_4ffd9d0aab9d) ;
+        _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
+        _usHttpSocket.endSequence();
+    }
+    catch(pearlrt::Signal &s) {
+        if ( ! _usHttpSocket.updateRst(&s) ) {
+            _usHttpSocket.endSequence();
+            throw;
+        }
+        _usHttpSocket.endSequence();
+    }
+    // PUT STATEMENT END
+
+    me->setLocation(880, filename);
+    // PUT STATEMENT BEGIN
+    try {
+        _usHttpSocket.beginSequence(me);
+        _usHttpSocket.toA(CONSTANT_CHARACTER_1eae12f1_6574_4f95_a497_e3849c1a72e8) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -2543,28 +2561,11 @@ _error(pearlrt::Task *me)
 void
 _style(pearlrt::Task *me)
 {
-    me->setLocation(884, filename);
-    // PUT STATEMENT BEGIN
-    try {
-        _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_0c4fabf5_bb4e_4af7_8b94_e0c91e84baee) ;
-        _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
-        _usHttpSocket.endSequence();
-    }
-    catch(pearlrt::Signal &s) {
-        if ( ! _usHttpSocket.updateRst(&s) ) {
-            _usHttpSocket.endSequence();
-            throw;
-        }
-        _usHttpSocket.endSequence();
-    }
-    // PUT STATEMENT END
-
     me->setLocation(885, filename);
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_96ae2f8a_1742_4566_845e_e9288340f09f) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_40401c28_e6fe_4ca4_85d2_8cbac9c0a4cd) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -2581,7 +2582,7 @@ _style(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_a274b959_f120_4b76_a5ea_148586fc3cbd) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_242aeb5d_4d9b_4165_8660_9f3d86ae0215) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -2598,7 +2599,7 @@ _style(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_e42c3a9c_11b6_4b60_a6c7_55ae69198b19) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_043e4a48_8847_469a_ba75_4b19548a7eed) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -2615,7 +2616,7 @@ _style(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_76e33a4d_8849_4395_967c_d7b0c65f5071) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_5d23c525_6a98_4a13_b691_d4fec8bbc8eb) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -2632,7 +2633,7 @@ _style(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_c512a966_dc7d_48bd_9487_f518c51a71be) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_60ce9bc3_77f4_4b52_bb89_b45b1e8182a8) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -2649,7 +2650,7 @@ _style(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_fd17696e_2345_42e4_a25e_cf9dc4744487) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_b77db6db_e9ba_4850_8f26_36494ea50568) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -2666,7 +2667,7 @@ _style(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_d2ac1714_a640_422c_858b_c59f245ce591) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_3bf7eb13_9928_4128_81e2_2386cefc427b) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -2683,7 +2684,7 @@ _style(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_1075a230_c297_4be7_9e11_1e2ed26c402f) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_cbb42cef_51f9_450f_bb4d_5d80f2a3e0ae) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -2700,7 +2701,7 @@ _style(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_b5d93ad5_4030_4d4a_8d28_eb2d08a828ae) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_0fbee487_4683_4313_9cf6_f6b2f429e73d) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -2717,7 +2718,41 @@ _style(pearlrt::Task *me)
     // PUT STATEMENT BEGIN
     try {
         _usHttpSocket.beginSequence(me);
-        _usHttpSocket.toA(CONSTANT_CHARACTER_28b9a0ea_d559_449f_ac2a_5836e88245e5) ;
+        _usHttpSocket.toA(CONSTANT_CHARACTER_64074b32_94ed_4de4_8eac_7b09936d6e51) ;
+        _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
+        _usHttpSocket.endSequence();
+    }
+    catch(pearlrt::Signal &s) {
+        if ( ! _usHttpSocket.updateRst(&s) ) {
+            _usHttpSocket.endSequence();
+            throw;
+        }
+        _usHttpSocket.endSequence();
+    }
+    // PUT STATEMENT END
+
+    me->setLocation(895, filename);
+    // PUT STATEMENT BEGIN
+    try {
+        _usHttpSocket.beginSequence(me);
+        _usHttpSocket.toA(CONSTANT_CHARACTER_9cdcfdd0_bc48_458a_a0e7_b7457b8e6bee) ;
+        _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
+        _usHttpSocket.endSequence();
+    }
+    catch(pearlrt::Signal &s) {
+        if ( ! _usHttpSocket.updateRst(&s) ) {
+            _usHttpSocket.endSequence();
+            throw;
+        }
+        _usHttpSocket.endSequence();
+    }
+    // PUT STATEMENT END
+
+    me->setLocation(896, filename);
+    // PUT STATEMENT BEGIN
+    try {
+        _usHttpSocket.beginSequence(me);
+        _usHttpSocket.toA(CONSTANT_CHARACTER_b287641c_d1c8_44dc_966d_e8a666d9350e) ;
         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
         _usHttpSocket.endSequence();
     }
@@ -2783,8 +2818,10 @@ DCLTASK(_parcour, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitStrin
         pearlrt::Fixed<31>  _stop(0); 
         pearlrt::Fixed<31>  _fs_in(0); 
 
+        pearlrt::BitString<1>  _temp(pearlrt::BitString<1>(0x0)); 
 
-        me->setLocation(334, filename);
+
+        me->setLocation(335, filename);
         {
                 while ( 1 )
                 {
@@ -2793,38 +2830,26 @@ DCLTASK(_parcour, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitStrin
                         break;
 
                     me->setLocation(336, filename);
-                        pearlrt::Semaphore::request( me, 1, lm_buffer_in_semas);
-                    me->setLocation(337, filename);
-                        pearlrt::Semaphore::request( me, 1, rm_buffer_in_semas);
-                    me->setLocation(340, filename);
-                        pearlrt::Semaphore::release( me, 1, lr_buffer_in_semas);
-                    me->setLocation(341, filename);
-                        pearlrt::Semaphore::request( me, 1, lr_buffer_out_semas);
-                    me->setLocation(343, filename);
-                    pearlrt::Bolt::enter( me, 1, lr_bolt_bolts);
-                    me->setLocation(344, filename);
-                        _lr_in = CONSTANT_FIXED_NEG_2_31*_lr_signal;
-                    me->setLocation(345, filename);
-                    pearlrt::Bolt::leave( me, 1, lr_bolt_bolts);
-                    me->setLocation(347, filename);
-                        pearlrt::Semaphore::release( me, 1, fs_buffer_in_semas);
-                    me->setLocation(348, filename);
-                        pearlrt::Semaphore::request( me, 1, fs_buffer_out_semas);
-                    me->setLocation(350, filename);
                     pearlrt::Bolt::enter( me, 1, fs_bolt_bolts);
-                    me->setLocation(351, filename);
+                    me->setLocation(337, filename);
                         _fs_in = _fs_signal;
-                    me->setLocation(352, filename);
+                    me->setLocation(338, filename);
                     pearlrt::Bolt::leave( me, 1, fs_bolt_bolts);
-                    me->setLocation(354, filename);
+                    me->setLocation(340, filename);
                     if ((_fs_in == CONSTANT_FIXED_POS_1_31).getBoolean()) {
-                        me->setLocation(355, filename);
+                        me->setLocation(341, filename);
+                        pearlrt::Bolt::reserve( me, 1, fs_bolt_bolts);
+                        me->setLocation(342, filename);
+                            _fs_signal = CONSTANT_FIXED_POS_0_31;
+                        me->setLocation(343, filename);
+                        pearlrt::Bolt::free( me, 1, fs_bolt_bolts);
+                        me->setLocation(344, filename);
                             _stop = CONSTANT_FIXED_POS_1_31;
-                        me->setLocation(356, filename);
+                        me->setLocation(345, filename);
                         // PUT STATEMENT BEGIN
                         try {
                             _termout.beginSequence(me);
-                            _termout.toA(CONSTANT_CHARACTER_7ba3ea40_cbf2_4d6b_8515_160551c8552c) ;
+                            _termout.toA(CONSTANT_CHARACTER_668e1068_5536_4f46_92db_123ea27ade39) ;
                             _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
                             _termout.endSequence();
                         }
@@ -2839,13 +2864,13 @@ DCLTASK(_parcour, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitStrin
 
                     }
 
-                    me->setLocation(358, filename);
+                    me->setLocation(347, filename);
                     if ((_fs_in == CONSTANT_FIXED_POS_2_31).getBoolean()) {
-                        me->setLocation(359, filename);
+                        me->setLocation(348, filename);
                         // PUT STATEMENT BEGIN
                         try {
                             _termout.beginSequence(me);
-                            _termout.toA(CONSTANT_CHARACTER_7c30b486_e0e8_4241_a1d9_6c9d2cfca596) ;
+                            _termout.toA(CONSTANT_CHARACTER_ecc82241_dd61_4d9f_9f64_0023c9270bd0) ;
                             _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
                             _termout.endSequence();
                         }
@@ -2858,65 +2883,89 @@ DCLTASK(_parcour, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitStrin
                         }
                         // PUT STATEMENT END
 
-                        me->setLocation(360, filename);
+                        me->setLocation(349, filename);
+                        pearlrt::Bolt::reserve( me, 1, fs_bolt_bolts);
+                        me->setLocation(350, filename);
+                            _fs_signal = CONSTANT_FIXED_POS_0_31;
+                        me->setLocation(351, filename);
+                        pearlrt::Bolt::free( me, 1, fs_bolt_bolts);
+                        me->setLocation(352, filename);
                         _straight( me, CONSTANT_FIXED_POS_5_31);
                     }
 
+                    me->setLocation(356, filename);
+                        pearlrt::Semaphore::request( me, 1, lm_buffer_in_semas);
+                    me->setLocation(357, filename);
+                        pearlrt::Semaphore::request( me, 1, rm_buffer_in_semas);
+                    me->setLocation(359, filename);
+                        pearlrt::Semaphore::release( me, 1, lr_buffer_in_semas);
+                    me->setLocation(360, filename);
+                        pearlrt::Semaphore::request( me, 1, lr_buffer_out_semas);
+                    me->setLocation(362, filename);
+                    pearlrt::Bolt::enter( me, 1, lr_bolt_bolts);
+                    me->setLocation(363, filename);
+                        _lr_in = CONSTANT_FIXED_NEG_2_31*_lr_signal;
                     me->setLocation(364, filename);
+                    pearlrt::Bolt::leave( me, 1, lr_bolt_bolts);
+                    me->setLocation(367, filename);
                     if ((_lr_in < CONSTANT_FIXED_POS_0_31).getBoolean()) {
-                        me->setLocation(365, filename);
+                        me->setLocation(368, filename);
                             _lspeed = CONSTANT_FIXED_POS_1_31;
-                        me->setLocation(366, filename);
+                        me->setLocation(369, filename);
                             _rspeed = CONSTANT_FIXED_NEG_1_31*_lr_in;
                     }
 
-                    me->setLocation(369, filename);
+                    me->setLocation(372, filename);
                     if ((_lr_in > CONSTANT_FIXED_POS_0_31).getBoolean()) {
-                        me->setLocation(370, filename);
+                        me->setLocation(373, filename);
                             _lspeed = _lr_in;
-                        me->setLocation(371, filename);
+                        me->setLocation(374, filename);
                             _rspeed = CONSTANT_FIXED_POS_1_31;
                     }
 
-                    me->setLocation(374, filename);
+                    me->setLocation(377, filename);
                     if ((_lr_in == CONSTANT_FIXED_POS_0_31).getBoolean()) {
-                        me->setLocation(375, filename);
+                        me->setLocation(378, filename);
                             _lspeed = CONSTANT_FIXED_POS_1_31;
-                        me->setLocation(376, filename);
+                        me->setLocation(379, filename);
                             _rspeed = CONSTANT_FIXED_POS_1_31;
                     }
 
-                    me->setLocation(379, filename);
+                    me->setLocation(382, filename);
                     pearlrt::Bolt::reserve( me, 1, lm_bolt_bolts);
-                    me->setLocation(380, filename);
-                        _lm_speed = _lspeed;
-                    me->setLocation(381, filename);
-                    pearlrt::Bolt::free( me, 1, lm_bolt_bolts);
                     me->setLocation(383, filename);
-                    pearlrt::Bolt::reserve( me, 1, rm_bolt_bolts);
+                        _lm_speed = _lspeed;
                     me->setLocation(384, filename);
+                    pearlrt::Bolt::free( me, 1, lm_bolt_bolts);
+                    me->setLocation(386, filename);
+                    pearlrt::Bolt::reserve( me, 1, rm_bolt_bolts);
+                    me->setLocation(387, filename);
                         _rm_speed = _rspeed;
-                    me->setLocation(385, filename);
-                    pearlrt::Bolt::free( me, 1, rm_bolt_bolts);
                     me->setLocation(388, filename);
+                    pearlrt::Bolt::free( me, 1, rm_bolt_bolts);
+                    me->setLocation(391, filename);
                         pearlrt::Semaphore::release( me, 1, lm_buffer_out_semas);
-                    me->setLocation(389, filename);
-                        pearlrt::Semaphore::release( me, 1, rm_buffer_out_semas);
                     me->setLocation(392, filename);
-                    pearlrt::Bolt::enter( me, 1, stop_bolt_bolts);
-                    me->setLocation(393, filename);
-                        _stop = _global_stop;
-                    me->setLocation(394, filename);
-                    pearlrt::Bolt::leave( me, 1, stop_bolt_bolts);
+                        pearlrt::Semaphore::release( me, 1, rm_buffer_out_semas);
+                    me->setLocation(395, filename);
+                    if ((_stop == CONSTANT_FIXED_POS_0_31).getBoolean()) {
+                        me->setLocation(396, filename);
+                        pearlrt::Bolt::enter( me, 1, stop_bolt_bolts);
+                        me->setLocation(397, filename);
+                            _stop = _global_stop;
+                        me->setLocation(398, filename);
+                        pearlrt::Bolt::leave( me, 1, stop_bolt_bolts);
+                    }
+
 
                 }
 
         }
-        me->setLocation(397, filename);
+        me->setLocation(402, filename);
         _stop_motors( me);
-        me->setLocation(399, filename);
+        me->setLocation(404, filename);
             pearlrt::Semaphore::release( me, 1, p_semas);
-        me->setLocation(400, filename);
+        me->setLocation(405, filename);
         me->suspend(me);
 
 
@@ -2931,35 +2980,35 @@ DCLTASK(_light, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitString<
         pearlrt::BitString<1>  _off(pearlrt::BitString<1>(0x0)); 
 
 
-        me->setLocation(427, filename);
+        me->setLocation(432, filename);
         {
                 while ( 1 )
                 {
 
-                    me->setLocation(427, filename);
-                        ;
-                    me->setLocation(428, filename);
-                    pearlrt::Bolt::enter( me, 1, lm_bolt_bolts);
-                    me->setLocation(429, filename);
-                        _lspeed = _lm_speed;
-                    me->setLocation(430, filename);
-                    pearlrt::Bolt::leave( me, 1, lm_bolt_bolts);
                     me->setLocation(432, filename);
-                    pearlrt::Bolt::enter( me, 1, rm_bolt_bolts);
+                        ;
                     me->setLocation(433, filename);
-                        _rspeed = _rm_speed;
+                    pearlrt::Bolt::enter( me, 1, lm_bolt_bolts);
                     me->setLocation(434, filename);
-                    pearlrt::Bolt::leave( me, 1, rm_bolt_bolts);
-                    me->setLocation(436, filename);
-                    pearlrt::Bolt::enter( me, 1, light_bolt_bolts);
+                        _lspeed = _lm_speed;
+                    me->setLocation(435, filename);
+                    pearlrt::Bolt::leave( me, 1, lm_bolt_bolts);
                     me->setLocation(437, filename);
-                        _light = _global_light;
+                    pearlrt::Bolt::enter( me, 1, rm_bolt_bolts);
                     me->setLocation(438, filename);
-                    pearlrt::Bolt::leave( me, 1, light_bolt_bolts);
+                        _rspeed = _rm_speed;
+                    me->setLocation(439, filename);
+                    pearlrt::Bolt::leave( me, 1, rm_bolt_bolts);
                     me->setLocation(441, filename);
+                    pearlrt::Bolt::enter( me, 1, light_bolt_bolts);
+                    me->setLocation(442, filename);
+                        _light = _global_light;
+                    me->setLocation(443, filename);
+                    pearlrt::Bolt::leave( me, 1, light_bolt_bolts);
+                    me->setLocation(446, filename);
                     if ((_lspeed == CONSTANT_FIXED_POS_0_31).bitAnd((_rspeed == 
                     CONSTANT_FIXED_POS_0_31)).getBoolean()) {
-                        me->setLocation(442, filename);
+                        me->setLocation(447, filename);
                         // SEND STATEMENT BEGIN
                         try {
                             _stop_light.beginSequence(me);
@@ -2977,7 +3026,7 @@ DCLTASK(_light, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitString<
 
                     }
                     else {
-                        me->setLocation(444, filename);
+                        me->setLocation(449, filename);
                         // SEND STATEMENT BEGIN
                         try {
                             _stop_light.beginSequence(me);
@@ -2994,39 +3043,39 @@ DCLTASK(_light, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitString<
                         // SEND STATEMENT END
 
                     }
-                    me->setLocation(447, filename);
+                    me->setLocation(452, filename);
                     if ((_lspeed > _rspeed).getBoolean()) {
-                        me->setLocation(448, filename);
+                        me->setLocation(453, filename);
                         pearlrt::Bolt::reserve( me, 1, blinker_bolt_bolts);
-                        me->setLocation(449, filename);
-                            _global_blinker = CONSTANT_FIXED_POS_1_31;
-                        me->setLocation(450, filename);
-                        pearlrt::Bolt::free( me, 1, blinker_bolt_bolts);
-                    }
-
-                    me->setLocation(453, filename);
-                    if ((_rspeed > _lspeed).getBoolean()) {
                         me->setLocation(454, filename);
-                        pearlrt::Bolt::reserve( me, 1, blinker_bolt_bolts);
+                            _global_blinker = CONSTANT_FIXED_POS_1_31;
                         me->setLocation(455, filename);
-                            _global_blinker = CONSTANT_FIXED_NEG_1_31;
-                        me->setLocation(456, filename);
                         pearlrt::Bolt::free( me, 1, blinker_bolt_bolts);
                     }
 
-                    me->setLocation(459, filename);
-                    if ((_rspeed == _lspeed).getBoolean()) {
-                        me->setLocation(460, filename);
+                    me->setLocation(458, filename);
+                    if ((_rspeed > _lspeed).getBoolean()) {
+                        me->setLocation(459, filename);
                         pearlrt::Bolt::reserve( me, 1, blinker_bolt_bolts);
+                        me->setLocation(460, filename);
+                            _global_blinker = CONSTANT_FIXED_NEG_1_31;
                         me->setLocation(461, filename);
-                            _global_blinker = CONSTANT_FIXED_POS_0_31;
-                        me->setLocation(462, filename);
                         pearlrt::Bolt::free( me, 1, blinker_bolt_bolts);
                     }
 
-                    me->setLocation(465, filename);
-                    if ((_light == CONSTANT_FIXED_POS_1_31).getBoolean()) {
+                    me->setLocation(464, filename);
+                    if ((_rspeed == _lspeed).getBoolean()) {
+                        me->setLocation(465, filename);
+                        pearlrt::Bolt::reserve( me, 1, blinker_bolt_bolts);
                         me->setLocation(466, filename);
+                            _global_blinker = CONSTANT_FIXED_POS_0_31;
+                        me->setLocation(467, filename);
+                        pearlrt::Bolt::free( me, 1, blinker_bolt_bolts);
+                    }
+
+                    me->setLocation(470, filename);
+                    if ((_light == CONSTANT_FIXED_POS_1_31).getBoolean()) {
+                        me->setLocation(471, filename);
                         // SEND STATEMENT BEGIN
                         try {
                             _lights.beginSequence(me);
@@ -3044,7 +3093,7 @@ DCLTASK(_light, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitString<
 
                     }
                     else {
-                        me->setLocation(468, filename);
+                        me->setLocation(473, filename);
                         // SEND STATEMENT BEGIN
                         try {
                             _lights.beginSequence(me);
@@ -3061,7 +3110,7 @@ DCLTASK(_light, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitString<
                         // SEND STATEMENT END
 
                     }
-                    me->setLocation(470, filename);
+                    me->setLocation(475, filename);
                         me->resume( pearlrt::Task::AFTER,
                                     /* at     */  pearlrt::Clock(),
                                     /* after  */  pearlrt::Duration(pearlrt::Duration(0.01))
@@ -3079,22 +3128,22 @@ DCLTASK(_blinker, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitStrin
         pearlrt::BitString<1>  _off(pearlrt::BitString<1>(0x0)); 
 
 
-        me->setLocation(478, filename);
+        me->setLocation(483, filename);
         {
                 while ( 1 )
                 {
 
-                    me->setLocation(478, filename);
-                        ;
-                    me->setLocation(479, filename);
-                    pearlrt::Bolt::enter( me, 1, blinker_bolt_bolts);
-                    me->setLocation(480, filename);
-                        _var = _global_blinker;
-                    me->setLocation(481, filename);
-                    pearlrt::Bolt::leave( me, 1, blinker_bolt_bolts);
                     me->setLocation(483, filename);
+                        ;
+                    me->setLocation(484, filename);
+                    pearlrt::Bolt::enter( me, 1, blinker_bolt_bolts);
+                    me->setLocation(485, filename);
+                        _var = _global_blinker;
+                    me->setLocation(486, filename);
+                    pearlrt::Bolt::leave( me, 1, blinker_bolt_bolts);
+                    me->setLocation(488, filename);
                     if ((_var == CONSTANT_FIXED_POS_1_31).getBoolean()) {
-                        me->setLocation(484, filename);
+                        me->setLocation(489, filename);
                         // SEND STATEMENT BEGIN
                         try {
                             _blinker_r.beginSequence(me);
@@ -3110,13 +3159,13 @@ DCLTASK(_blinker, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitStrin
                         }
                         // SEND STATEMENT END
 
-                        me->setLocation(485, filename);
+                        me->setLocation(490, filename);
                             me->resume( pearlrt::Task::AFTER,
                                         /* at     */  pearlrt::Clock(),
                                         /* after  */  pearlrt::Duration(pearlrt::Duration(0.5))
                                       );
 
-                        me->setLocation(486, filename);
+                        me->setLocation(491, filename);
                         // SEND STATEMENT BEGIN
                         try {
                             _blinker_r.beginSequence(me);
@@ -3132,7 +3181,7 @@ DCLTASK(_blinker, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitStrin
                         }
                         // SEND STATEMENT END
 
-                        me->setLocation(487, filename);
+                        me->setLocation(492, filename);
                             me->resume( pearlrt::Task::AFTER,
                                         /* at     */  pearlrt::Clock(),
                                         /* after  */  pearlrt::Duration(pearlrt::Duration(0.5))
@@ -3140,9 +3189,9 @@ DCLTASK(_blinker, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitStrin
 
                     }
 
-                    me->setLocation(490, filename);
+                    me->setLocation(495, filename);
                     if ((_var == CONSTANT_FIXED_NEG_1_31).getBoolean()) {
-                        me->setLocation(491, filename);
+                        me->setLocation(496, filename);
                         // SEND STATEMENT BEGIN
                         try {
                             _blinker_l.beginSequence(me);
@@ -3158,13 +3207,13 @@ DCLTASK(_blinker, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitStrin
                         }
                         // SEND STATEMENT END
 
-                        me->setLocation(492, filename);
+                        me->setLocation(497, filename);
                             me->resume( pearlrt::Task::AFTER,
                                         /* at     */  pearlrt::Clock(),
                                         /* after  */  pearlrt::Duration(pearlrt::Duration(0.5))
                                       );
 
-                        me->setLocation(493, filename);
+                        me->setLocation(498, filename);
                         // SEND STATEMENT BEGIN
                         try {
                             _blinker_l.beginSequence(me);
@@ -3180,7 +3229,7 @@ DCLTASK(_blinker, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitStrin
                         }
                         // SEND STATEMENT END
 
-                        me->setLocation(494, filename);
+                        me->setLocation(499, filename);
                             me->resume( pearlrt::Task::AFTER,
                                         /* at     */  pearlrt::Clock(),
                                         /* after  */  pearlrt::Duration(pearlrt::Duration(0.5))
@@ -3203,43 +3252,43 @@ DCLTASK(_driveleft, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitStr
         pearlrt::Fixed<31>  _direction(1); 
 
 
-        me->setLocation(515, filename);
+        me->setLocation(520, filename);
         {
                 while ( 1 )
                 {
 
-                    me->setLocation(516, filename);
+                    me->setLocation(521, filename);
                         pearlrt::Semaphore::request( me, 1, lm_buffer_out_semas);
-                    me->setLocation(518, filename);
+                    me->setLocation(523, filename);
                     pearlrt::Bolt::enter( me, 1, lm_bolt_bolts);
-                    me->setLocation(519, filename);
+                    me->setLocation(524, filename);
                         _speed = _lm_speed;
-                    me->setLocation(520, filename);
+                    me->setLocation(525, filename);
                     pearlrt::Bolt::leave( me, 1, lm_bolt_bolts);
-                    me->setLocation(522, filename);
+                    me->setLocation(527, filename);
                     if ((_speed == CONSTANT_FIXED_POS_0_31).getBoolean()) {
-                        me->setLocation(524, filename);
+                        me->setLocation(529, filename);
                             _time = pearlrt::Duration(0.0);
-                        me->setLocation(525, filename);
+                        me->setLocation(530, filename);
                             _steps = CONSTANT_FIXED_POS_0_31;
                     }
                     else {
-                        me->setLocation(528, filename);
+                        me->setLocation(533, filename);
                         if ((_speed < CONSTANT_FIXED_POS_0_31).getBoolean()) {
-                            me->setLocation(529, filename);
+                            me->setLocation(534, filename);
                                 _direction = CONSTANT_FIXED_POS_0_31;
-                            me->setLocation(530, filename);
+                            me->setLocation(535, filename);
                                 _speed = CONSTANT_FIXED_NEG_1_31*_speed;
                         }
 
-                        me->setLocation(533, filename);
+                        me->setLocation(538, filename);
                             _time = (CONSTANT_FIXED_POS_1_31/_speed)*_default_motor_time;
-                        me->setLocation(534, filename);
+                        me->setLocation(539, filename);
                             _steps = ((_speed*_default_motor_steps)).round();
                     }
-                    me->setLocation(538, filename);
+                    me->setLocation(543, filename);
                     _step( me, CONSTANT_FIXED_POS_0_31, _steps, _direction, _time);
-                    me->setLocation(540, filename);
+                    me->setLocation(545, filename);
                         pearlrt::Semaphore::release( me, 1, lm_buffer_in_semas);
 
                 }
@@ -3256,46 +3305,46 @@ DCLTASK(_driveright, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitSt
         pearlrt::Fixed<31>  _direction(1); 
 
 
-        me->setLocation(552, filename);
+        me->setLocation(557, filename);
         {
                 while ( 1 )
                 {
 
-                    me->setLocation(553, filename);
+                    me->setLocation(558, filename);
                         pearlrt::Semaphore::request( me, 1, rm_buffer_out_semas);
-                    me->setLocation(555, filename);
+                    me->setLocation(560, filename);
                     pearlrt::Bolt::enter( me, 1, rm_bolt_bolts);
-                    me->setLocation(556, filename);
+                    me->setLocation(561, filename);
                         _speed = _rm_speed;
-                    me->setLocation(557, filename);
+                    me->setLocation(562, filename);
                     pearlrt::Bolt::leave( me, 1, rm_bolt_bolts);
-                    me->setLocation(559, filename);
+                    me->setLocation(564, filename);
                     if (((_speed == CONSTANT_FIXED_POS_0_31)).getBoolean()) {
-                        me->setLocation(560, filename);
+                        me->setLocation(565, filename);
                             _time = pearlrt::Duration(0.0);
-                        me->setLocation(561, filename);
+                        me->setLocation(566, filename);
                             _steps = CONSTANT_FIXED_POS_0_31;
                     }
                     else {
-                        me->setLocation(564, filename);
+                        me->setLocation(569, filename);
                         if ((_speed < CONSTANT_FIXED_POS_0_31).getBoolean()) {
-                            me->setLocation(565, filename);
+                            me->setLocation(570, filename);
                                 _direction = CONSTANT_FIXED_POS_0_31;
-                            me->setLocation(566, filename);
+                            me->setLocation(571, filename);
                                 _speed = CONSTANT_FIXED_NEG_1_31*_speed;
                         }
                         else {
-                            me->setLocation(568, filename);
+                            me->setLocation(573, filename);
                                 _direction = CONSTANT_FIXED_POS_1_31;
                         }
-                        me->setLocation(571, filename);
+                        me->setLocation(576, filename);
                             _time = (CONSTANT_FIXED_POS_1_31/_speed)*_default_motor_time;
-                        me->setLocation(572, filename);
+                        me->setLocation(577, filename);
                             _steps = ((_speed*_default_motor_steps)).round();
                     }
-                    me->setLocation(576, filename);
+                    me->setLocation(581, filename);
                     _step( me, CONSTANT_FIXED_POS_1_31, _steps, _direction, _time);
-                    me->setLocation(578, filename);
+                    me->setLocation(583, filename);
                         pearlrt::Semaphore::release( me, 1, rm_buffer_in_semas);
 
                 }
@@ -3310,18 +3359,18 @@ DCLTASK(_readlr, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitString
         pearlrt::Fixed<31>  _count; 
 
 
-        me->setLocation(590, filename);
+        me->setLocation(595, filename);
         {
                 while ( 1 )
                 {
 
-                    me->setLocation(591, filename);
+                    me->setLocation(596, filename);
                         _out = CONSTANT_FIXED_POS_0_31;
-                    me->setLocation(592, filename);
+                    me->setLocation(597, filename);
                         _count = CONSTANT_FIXED_POS_0_31;
-                    me->setLocation(594, filename);
+                    me->setLocation(599, filename);
                         pearlrt::Semaphore::request( me, 1, lr_buffer_in_semas);
-                    me->setLocation(595, filename);
+                    me->setLocation(600, filename);
                     // TAKE STATEMENT BEGIN
                     try {
                         _lr.beginSequence(me);
@@ -3337,89 +3386,89 @@ DCLTASK(_readlr, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitString
                     }
                     // TAKE STATEMENT END
 
-                    me->setLocation(599, filename);
-                    if ((_bits.getSlice(1,(pearlrt::BitString<1>*) 0) == pearlrt::BitString<1>(1)).getBoolean()) {
-                        me->setLocation(600, filename);
-                            _out = _out+CONSTANT_FIXED_POS_4_31;
-                        me->setLocation(601, filename);
-                            _count = _count+CONSTANT_FIXED_POS_1_31;
-                    }
-
                     me->setLocation(604, filename);
-                    if ((_bits.getSlice(2,(pearlrt::BitString<1>*) 0) == pearlrt::BitString<1>(1)).getBoolean()) {
+                    if ((_bits.getSlice(1,(pearlrt::BitString<1>*) 0) == pearlrt::BitString<1>(1)).getBoolean()) {
                         me->setLocation(605, filename);
-                            _out = _out+CONSTANT_FIXED_POS_3_31;
+                            _out = _out+CONSTANT_FIXED_POS_4_31;
                         me->setLocation(606, filename);
                             _count = _count+CONSTANT_FIXED_POS_1_31;
                     }
 
                     me->setLocation(609, filename);
-                    if ((_bits.getSlice(3,(pearlrt::BitString<1>*) 0) == pearlrt::BitString<1>(1)).getBoolean()) {
+                    if ((_bits.getSlice(2,(pearlrt::BitString<1>*) 0) == pearlrt::BitString<1>(1)).getBoolean()) {
                         me->setLocation(610, filename);
-                            _out = _out+CONSTANT_FIXED_POS_2_31;
+                            _out = _out+CONSTANT_FIXED_POS_3_31;
                         me->setLocation(611, filename);
                             _count = _count+CONSTANT_FIXED_POS_1_31;
                     }
 
                     me->setLocation(614, filename);
-                    if ((_bits.getSlice(4,(pearlrt::BitString<1>*) 0) == pearlrt::BitString<1>(1)).getBoolean()) {
+                    if ((_bits.getSlice(3,(pearlrt::BitString<1>*) 0) == pearlrt::BitString<1>(1)).getBoolean()) {
                         me->setLocation(615, filename);
-                            _out = _out+CONSTANT_FIXED_POS_1_31;
+                            _out = _out+CONSTANT_FIXED_POS_2_31;
                         me->setLocation(616, filename);
                             _count = _count+CONSTANT_FIXED_POS_1_31;
                     }
 
                     me->setLocation(619, filename);
-                    if ((_bits.getSlice(5,(pearlrt::BitString<1>*) 0) == pearlrt::BitString<1>(1)).getBoolean()) {
+                    if ((_bits.getSlice(4,(pearlrt::BitString<1>*) 0) == pearlrt::BitString<1>(1)).getBoolean()) {
                         me->setLocation(620, filename);
-                            _out = _out-CONSTANT_FIXED_POS_1_31;
+                            _out = _out+CONSTANT_FIXED_POS_1_31;
                         me->setLocation(621, filename);
                             _count = _count+CONSTANT_FIXED_POS_1_31;
                     }
 
                     me->setLocation(624, filename);
-                    if ((_bits.getSlice(6,(pearlrt::BitString<1>*) 0) == pearlrt::BitString<1>(1)).getBoolean()) {
+                    if ((_bits.getSlice(5,(pearlrt::BitString<1>*) 0) == pearlrt::BitString<1>(1)).getBoolean()) {
                         me->setLocation(625, filename);
-                            _out = _out-CONSTANT_FIXED_POS_2_31;
+                            _out = _out-CONSTANT_FIXED_POS_1_31;
                         me->setLocation(626, filename);
                             _count = _count+CONSTANT_FIXED_POS_1_31;
                     }
 
                     me->setLocation(629, filename);
-                    if ((_bits.getSlice(7,(pearlrt::BitString<1>*) 0) == pearlrt::BitString<1>(1)).getBoolean()) {
+                    if ((_bits.getSlice(6,(pearlrt::BitString<1>*) 0) == pearlrt::BitString<1>(1)).getBoolean()) {
                         me->setLocation(630, filename);
-                            _out = _out-CONSTANT_FIXED_POS_3_31;
+                            _out = _out-CONSTANT_FIXED_POS_2_31;
                         me->setLocation(631, filename);
                             _count = _count+CONSTANT_FIXED_POS_1_31;
                     }
 
                     me->setLocation(634, filename);
-                    if ((_bits.getSlice(8,(pearlrt::BitString<1>*) 0) == pearlrt::BitString<1>(1)).getBoolean()) {
+                    if ((_bits.getSlice(7,(pearlrt::BitString<1>*) 0) == pearlrt::BitString<1>(1)).getBoolean()) {
                         me->setLocation(635, filename);
-                            _out = _out-CONSTANT_FIXED_POS_4_31;
+                            _out = _out-CONSTANT_FIXED_POS_3_31;
                         me->setLocation(636, filename);
                             _count = _count+CONSTANT_FIXED_POS_1_31;
                     }
 
                     me->setLocation(639, filename);
-                    if ((_count != CONSTANT_FIXED_POS_0_31).getBoolean()) {
+                    if ((_bits.getSlice(8,(pearlrt::BitString<1>*) 0) == pearlrt::BitString<1>(1)).getBoolean()) {
                         me->setLocation(640, filename);
-                            _out = _out/_count;
+                            _out = _out-CONSTANT_FIXED_POS_4_31;
+                        me->setLocation(641, filename);
+                            _count = _count+CONSTANT_FIXED_POS_1_31;
                     }
 
                     me->setLocation(644, filename);
+                    if ((_count != CONSTANT_FIXED_POS_0_31).getBoolean()) {
+                        me->setLocation(645, filename);
+                            _out = _out/_count;
+                    }
+
+                    me->setLocation(649, filename);
                     pearlrt::Bolt::reserve( me, 1, lr_bolt_bolts);
-                    me->setLocation(645, filename);
+                    me->setLocation(650, filename);
                         _lr_signal = _out;
-                    me->setLocation(646, filename);
+                    me->setLocation(651, filename);
                     pearlrt::Bolt::free( me, 1, lr_bolt_bolts);
-                    me->setLocation(647, filename);
+                    me->setLocation(652, filename);
                         pearlrt::Semaphore::release( me, 1, lr_buffer_out_semas);
 
                 }
 
         }
-        me->setLocation(652, filename);
+        me->setLocation(657, filename);
         _lr.dationClose(0, (pearlrt::Fixed<15>*) 0);
 
 }
@@ -3430,168 +3479,66 @@ DCLTASK(_readfs, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::BitString
         pearlrt::Duration  _read_sensor_interval(0.005); 
 
 
-        me->setLocation(748, filename);
+        me->setLocation(753, filename);
         {
                 while ( 1 )
                 {
 
-                    me->setLocation(749, filename);
-                        pearlrt::Semaphore::request( me, 1, fs_buffer_in_semas);
                     #warning __cpp__ inline inserted
                     _fs.dationRead(data_colors, sizeof(data_colors));
 
 
-                    me->setLocation(751, filename);
-                    me->setLocation(753, filename);
+                    me->setLocation(757, filename);
                         _fs_color = CONSTANT_FIXED_POS_0_31;
-                    me->setLocation(755, filename);
+                    me->setLocation(759, filename);
                     if ((((*(data_colors + ad_1_1_5->offset(pearlrt::Fixed<31>(CONSTANT_FIXED_POS_1_31)))) > 
                     CONSTANT_FIXED_POS_13000_31)).bitAnd((((*(data_colors + ad_1_1_5->offset(pearlrt::Fixed<31>(
                         CONSTANT_FIXED_POS_2_31)))) < CONSTANT_FIXED_POS_6000_31)
                     )).bitAnd((((*(data_colors + ad_1_1_5->offset(pearlrt::Fixed<31>(
                         CONSTANT_FIXED_POS_3_31)))) < CONSTANT_FIXED_POS_6000_31)
                     )).getBoolean()) {
-                        me->setLocation(756, filename);
+                        me->setLocation(760, filename);
                             _fs_color = CONSTANT_FIXED_POS_1_31;
-                        me->setLocation(757, filename);
-                        // PUT STATEMENT BEGIN
-                        try {
-                            _termout.beginSequence(me);
-                            _termout.toA(CONSTANT_CHARACTER_fb2c729a_1c65_4da6_8a1f_a91c90f67762) ;
-                            _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
-                            _termout.endSequence();
-                        }
-                        catch(pearlrt::Signal &s) {
-                            if ( ! _termout.updateRst(&s) ) {
-                                _termout.endSequence();
-                                throw;
-                            }
-                            _termout.endSequence();
-                        }
-                        // PUT STATEMENT END
-
                     }
 
-                    me->setLocation(759, filename);
+                    me->setLocation(763, filename);
                     if ((((*(data_colors + ad_1_1_5->offset(pearlrt::Fixed<31>(CONSTANT_FIXED_POS_1_31)))) < 
                     CONSTANT_FIXED_POS_6000_31)).bitAnd((((*(data_colors + ad_1_1_5->offset(pearlrt::Fixed<31>(
                         CONSTANT_FIXED_POS_2_31)))) > CONSTANT_FIXED_POS_12000_31)
                     )).bitAnd((((*(data_colors + ad_1_1_5->offset(pearlrt::Fixed<31>(
                         CONSTANT_FIXED_POS_3_31)))) < CONSTANT_FIXED_POS_11000_31)
                     )).getBoolean()) {
-                        me->setLocation(760, filename);
-                            _fs_color = CONSTANT_FIXED_POS_2_31;
-                        me->setLocation(761, filename);
-                        // PUT STATEMENT BEGIN
-                        try {
-                            _termout.beginSequence(me);
-                            _termout.toA(CONSTANT_CHARACTER_4a25aa47_6d89_4254_8d14_8658b649116d) ;
-                            _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
-                            _termout.endSequence();
-                        }
-                        catch(pearlrt::Signal &s) {
-                            if ( ! _termout.updateRst(&s) ) {
-                                _termout.endSequence();
-                                throw;
-                            }
-                            _termout.endSequence();
-                        }
-                        // PUT STATEMENT END
-
-                    }
-
-                    me->setLocation(763, filename);
-                    if ((((*(data_colors + ad_1_1_5->offset(pearlrt::Fixed<31>(CONSTANT_FIXED_POS_1_31)))) < 
-                    CONSTANT_FIXED_POS_2500_31)).bitAnd((((*(data_colors + ad_1_1_5->offset(pearlrt::Fixed<31>(
-                        CONSTANT_FIXED_POS_2_31)))) < CONSTANT_FIXED_POS_3500_31)
-                    )).bitAnd((((*(data_colors + ad_1_1_5->offset(pearlrt::Fixed<31>(
-                        CONSTANT_FIXED_POS_3_31)))) > CONSTANT_FIXED_POS_4000_31)
-                    )).getBoolean()) {
                         me->setLocation(764, filename);
-                            _fs_color = CONSTANT_FIXED_POS_3_31;
-                        me->setLocation(765, filename);
-                        // PUT STATEMENT BEGIN
-                        try {
-                            _termout.beginSequence(me);
-                            _termout.toA(CONSTANT_CHARACTER_7fa75fa7_d802_412e_b269_62b8c5099415) ;
-                            _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
-                            _termout.endSequence();
-                        }
-                        catch(pearlrt::Signal &s) {
-                            if ( ! _termout.updateRst(&s) ) {
-                                _termout.endSequence();
-                                throw;
-                            }
-                            _termout.endSequence();
-                        }
-                        // PUT STATEMENT END
-
+                            _fs_color = CONSTANT_FIXED_POS_2_31;
                     }
 
                     me->setLocation(767, filename);
                     if ((((*(data_colors + ad_1_1_5->offset(pearlrt::Fixed<31>(CONSTANT_FIXED_POS_1_31)))) < 
-                    CONSTANT_FIXED_POS_2200_31)).bitAnd((((*(data_colors + ad_1_1_5->offset(pearlrt::Fixed<31>(
-                        CONSTANT_FIXED_POS_2_31)))) < CONSTANT_FIXED_POS_2200_31)
+                    CONSTANT_FIXED_POS_2500_31)).bitAnd((((*(data_colors + ad_1_1_5->offset(pearlrt::Fixed<31>(
+                        CONSTANT_FIXED_POS_2_31)))) < CONSTANT_FIXED_POS_3500_31)
                     )).bitAnd((((*(data_colors + ad_1_1_5->offset(pearlrt::Fixed<31>(
-                        CONSTANT_FIXED_POS_3_31)))) < CONSTANT_FIXED_POS_2200_31)
+                        CONSTANT_FIXED_POS_3_31)))) > CONSTANT_FIXED_POS_3800_31)
                     )).getBoolean()) {
                         me->setLocation(768, filename);
-                            _fs_color = CONSTANT_FIXED_POS_5_31;
-                        me->setLocation(769, filename);
-                        // PUT STATEMENT BEGIN
-                        try {
-                            _termout.beginSequence(me);
-                            _termout.toA(CONSTANT_CHARACTER_401e611e_573a_4796_a200_cd17fc1f396e) ;
-                            _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
-                            _termout.endSequence();
-                        }
-                        catch(pearlrt::Signal &s) {
-                            if ( ! _termout.updateRst(&s) ) {
-                                _termout.endSequence();
-                                throw;
-                            }
-                            _termout.endSequence();
-                        }
-                        // PUT STATEMENT END
-
+                            _fs_color = CONSTANT_FIXED_POS_3_31;
                     }
 
-                    me->setLocation(771, filename);
-                    if ((((*(data_colors + ad_1_1_5->offset(pearlrt::Fixed<31>(CONSTANT_FIXED_POS_1_31)))) > 
-                    CONSTANT_FIXED_POS_25000_31)).bitAnd((((*(data_colors + ad_1_1_5->offset(pearlrt::Fixed<31>(
-                        CONSTANT_FIXED_POS_2_31)))) > CONSTANT_FIXED_POS_25000_31)
-                    )).bitAnd((((*(data_colors + ad_1_1_5->offset(pearlrt::Fixed<31>(
-                        CONSTANT_FIXED_POS_3_31)))) > CONSTANT_FIXED_POS_25000_31)
-                    )).getBoolean()) {
-                        me->setLocation(772, filename);
-                            _fs_color = CONSTANT_FIXED_POS_4_31;
+                    me->setLocation(772, filename);
+                    if (((_fs_color == CONSTANT_FIXED_POS_0_31)).bitNot().getBoolean()) {
                         me->setLocation(773, filename);
-                        // PUT STATEMENT BEGIN
-                        try {
-                            _termout.beginSequence(me);
-                            _termout.toA(CONSTANT_CHARACTER_1a74b659_bbbb_441d_bf1f_a012dee998d7) ;
-                            _termout.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
-                            _termout.endSequence();
-                        }
-                        catch(pearlrt::Signal &s) {
-                            if ( ! _termout.updateRst(&s) ) {
-                                _termout.endSequence();
-                                throw;
-                            }
-                            _termout.endSequence();
-                        }
-                        // PUT STATEMENT END
-
+                        pearlrt::Bolt::reserve( me, 1, fs_bolt_bolts);
+                        me->setLocation(774, filename);
+                            _fs_signal = _fs_color;
+                        me->setLocation(775, filename);
+                        pearlrt::Bolt::free( me, 1, fs_bolt_bolts);
                     }
 
-                    me->setLocation(776, filename);
-                    pearlrt::Bolt::reserve( me, 1, fs_bolt_bolts);
-                    me->setLocation(777, filename);
-                        _fs_signal = _fs_color;
                     me->setLocation(778, filename);
-                    pearlrt::Bolt::free( me, 1, fs_bolt_bolts);
-                    me->setLocation(779, filename);
-                        pearlrt::Semaphore::release( me, 1, fs_buffer_out_semas);
+                        me->resume( pearlrt::Task::AFTER,
+                                    /* at     */  pearlrt::Clock(),
+                                    /* after  */  pearlrt::Duration(_read_sensor_interval)
+                                  );
+
 
                 }
 
@@ -3601,12 +3548,12 @@ DCLTASK(_webinterface, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::Bit
         pearlrt::Character<70>  _request; 
 
 
-        me->setLocation(794, filename);
+        me->setLocation(791, filename);
         {
                 while ( 1 )
                 {
 
-                    me->setLocation(795, filename);
+                    me->setLocation(792, filename);
                     {
                         _usHttpSocket.dationOpen(
                             0
@@ -3615,7 +3562,7 @@ DCLTASK(_webinterface, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::Bit
                         );
                     }
 
-                    me->setLocation(797, filename);
+                    me->setLocation(794, filename);
                     // GET STATEMENT BEGIN
                     try {
                         _usHttpSocket.beginSequence(me);
@@ -3632,11 +3579,46 @@ DCLTASK(_webinterface, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::Bit
                     }
                     // GET STATEMENT END
 
-                    me->setLocation(799, filename);
+                    me->setLocation(796, filename);
                     // PUT STATEMENT BEGIN
                     try {
                         _usHttpSocket.beginSequence(me);
-                        _usHttpSocket.toA(CONSTANT_CHARACTER_60ddb92c_40f2_4016_a903_d16664622d66) ;
+                        _usHttpSocket.toA(CONSTANT_CHARACTER_bfdf5ba3_3228_4aeb_a745_d9e00c283545) ;
+                        _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
+                        _usHttpSocket.endSequence();
+                    }
+                    catch(pearlrt::Signal &s) {
+                        if ( ! _usHttpSocket.updateRst(&s) ) {
+                            _usHttpSocket.endSequence();
+                            throw;
+                        }
+                        _usHttpSocket.endSequence();
+                    }
+                    // PUT STATEMENT END
+
+                    me->setLocation(797, filename);
+                    // PUT STATEMENT BEGIN
+                    try {
+                        _usHttpSocket.beginSequence(me);
+                        _usHttpSocket.toA(CONSTANT_CHARACTER_e30ea687_4b02_454c_a270_17a9447bdc51) ;
+                        _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
+                        _usHttpSocket.endSequence();
+                    }
+                    catch(pearlrt::Signal &s) {
+                        if ( ! _usHttpSocket.updateRst(&s) ) {
+                            _usHttpSocket.endSequence();
+                            throw;
+                        }
+                        _usHttpSocket.endSequence();
+                    }
+                    // PUT STATEMENT END
+
+                    me->setLocation(798, filename);
+                    // PUT STATEMENT BEGIN
+                    try {
+                        _usHttpSocket.beginSequence(me);
+                        _usHttpSocket.toA(CONSTANT_CHARACTER_fa492f13_1f79_4b9a_92da_5b5d7b80b41f) ;
+                        _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
                         _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
                         _usHttpSocket.endSequence();
                     }
@@ -3650,64 +3632,29 @@ DCLTASK(_webinterface, (pearlrt::Prio( (pearlrt::Fixed<15>)255)), ((pearlrt::Bit
                     // PUT STATEMENT END
 
                     me->setLocation(800, filename);
-                    // PUT STATEMENT BEGIN
-                    try {
-                        _usHttpSocket.beginSequence(me);
-                        _usHttpSocket.toA(CONSTANT_CHARACTER_5c9ff354_6a48_453c_975d_09427ccc3f8e) ;
-                        _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
-                        _usHttpSocket.endSequence();
-                    }
-                    catch(pearlrt::Signal &s) {
-                        if ( ! _usHttpSocket.updateRst(&s) ) {
-                            _usHttpSocket.endSequence();
-                            throw;
-                        }
-                        _usHttpSocket.endSequence();
-                    }
-                    // PUT STATEMENT END
-
-                    me->setLocation(801, filename);
-                    // PUT STATEMENT BEGIN
-                    try {
-                        _usHttpSocket.beginSequence(me);
-                        _usHttpSocket.toA(CONSTANT_CHARACTER_c7670349_6d52_4485_9524_b627d885916b) ;
-                        _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
-                        _usHttpSocket.toSkip((pearlrt::Fixed<31>)(CONSTANT_FIXED_POS_1_31));
-                        _usHttpSocket.endSequence();
-                    }
-                    catch(pearlrt::Signal &s) {
-                        if ( ! _usHttpSocket.updateRst(&s) ) {
-                            _usHttpSocket.endSequence();
-                            throw;
-                        }
-                        _usHttpSocket.endSequence();
-                    }
-                    // PUT STATEMENT END
-
-                    me->setLocation(803, filename);
-                    if ((_request == CONSTANT_CHARACTER_77eadb32_c9aa_40d0_9e72_728b3561ab45).getBoolean()) {
-                        me->setLocation(804, filename);
+                    if ((_request == CONSTANT_CHARACTER_f506d159_4989_441d_b5a6_b70601bb8d4d).getBoolean()) {
+                        me->setLocation(801, filename);
                         _index( me);
                     }
                     else {
-                        me->setLocation(806, filename);
-                        if ((_request == CONSTANT_CHARACTER_69166795_aa7d_43b3_a162_2bc9bc63f301).getBoolean()) {
-                            me->setLocation(807, filename);
+                        me->setLocation(803, filename);
+                        if ((_request == CONSTANT_CHARACTER_d3b77f4b_b5ec_45b2_9240_fafe8a45cce1).getBoolean()) {
+                            me->setLocation(804, filename);
                             _info( me);
                         }
                         else {
-                            me->setLocation(809, filename);
-                            if ((_request == CONSTANT_CHARACTER_9f78d07c_5b38_40ec_9c39_4c052a1d5b5c).getBoolean()) {
-                                me->setLocation(810, filename);
+                            me->setLocation(806, filename);
+                            if ((_request == CONSTANT_CHARACTER_eb36bcf0_e549_4e29_862b_eb68b88a9274).getBoolean()) {
+                                me->setLocation(807, filename);
                                 _doku( me);
                             }
                             else {
-                                me->setLocation(812, filename);
+                                me->setLocation(809, filename);
                                 _error( me);
                             }
                         }
                     }
-                    me->setLocation(817, filename);
+                    me->setLocation(814, filename);
                     _usHttpSocket.dationClose(0, (pearlrt::Fixed<15>*) 0);
 
 
