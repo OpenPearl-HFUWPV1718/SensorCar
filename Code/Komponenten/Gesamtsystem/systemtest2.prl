@@ -89,6 +89,7 @@ MODULE(system);
 		OPEN blinker_r;
 		OPEN stop_light;
 		OPEN fs;
+		OPEN lr;
 	
 		ACTIVATE webinterface;
 		ACTIVATE readlr;
@@ -123,7 +124,8 @@ MODULE(system);
 		CLOSE blinker_r;
 		CLOSE stop_light;
 		CLOSE fs;
-		TERMINATE;
+		CLOSE lr;
+		
 	END;
 
 	menu: PROC;
@@ -351,23 +353,25 @@ MODULE(system);
 			
 			IF fs_in == 1 THEN ! rot -> stop
 				stop = 1;
+				PUT 'rot erkannt, stop eingeleitet' TO termout BY A, SKIP;
 			FIN;
 			IF fs_in == 2 THEN ! grün -> geradeaus
+				PUT 'gruen erkannt, geradeausfahren..' TO termout BY A, SKIP;
 				CALL straight(5);
 			FIN;
 			
 			 
-			IF in < 0 THEN
+			IF lr_in < 0 THEN
 				lspeed := 1;
 				rspeed := -1 * lr_in;
 			FIN;
 			 
-			IF in > 0 THEN
+			IF lr_in > 0 THEN
 				lspeed = lr_in;
 				rspeed = 1;
 			FIN;
 			 
-			IF in == 0 THEN
+			IF lr_in == 0 THEN
 				lspeed = 1;
 				rspeed = 1;
 			FIN;
