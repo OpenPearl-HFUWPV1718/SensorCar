@@ -776,11 +776,11 @@ MODULE(system);
 			FIN;
 			IF (colors(1) < 2200) AND (colors(2) < 2200) AND (colors(3) < 2200) THEN
 				fs_color = 5; ! schwarz
-				PUT 'schwarz erkannt' TO termout BY A, SKIP;
+				!PUT 'schwarz erkannt' TO termout BY A, SKIP;
 			FIN;
 			IF (colors(1) > 25000) AND (colors(2) > 25000) AND (colors(3) > 25000) THEN
 				fs_color = 4; ! weiß
-				PUT 'weiss erkannt' TO termout BY A, SKIP;
+				!PUT 'weiss erkannt' TO termout BY A, SKIP;
 			FIN;
 			
 			IF fs_color == 1 OR fs_color == 2 OR fs_color == 3 THEN
