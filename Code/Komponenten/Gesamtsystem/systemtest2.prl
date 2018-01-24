@@ -48,7 +48,7 @@ MODULE(system);
 		DCL usHttpSocket DATION INOUT ALPHIC DIM(*,200) FORWARD STREAM CREATED(httpSocket);  
     
 		! global constants
-		DCL default_motor_time DUR INIT(0.05 SEC);
+		DCL default_motor_time DUR INIT(0.02 SEC);
 		DCL default_motor_steps FIXED INIT(1);
 		!DCL read_sensor_interval DUR INIT(0.005 SEC);
 		
@@ -93,7 +93,7 @@ MODULE(system);
 	
 		ACTIVATE webinterface;
 		ACTIVATE readlr;
-		!ACTIVATE readfs;
+		ACTIVATE readfs;
 		ACTIVATE driveleft;
 		ACTIVATE driveright;
 		ACTIVATE light;
@@ -333,28 +333,22 @@ MODULE(system);
 		DCL temp BIT(1) INIT('0'B1);
 		 
 		WHILE stop == 0 REPEAT
-		
-			__cpp__(
-					 "{int dummy = pearlrt::Semaphore::dotry( me, 1, fs_buffer_out_semas);"
-					 "if (dummy) { _temp.x = 0x80;} else {_temp.x = 0;}}"
-				);
-			IF temp THEN
-				PUT 'temp if' TO termout BY A, SKIP;
-				ENTER fs_bolt;
-				fs_in:= fs_signal;
-				LEAVE fs_bolt;
-				
-				RELEASE fs_buffer_in; ! "unlock" color sensor
-			ELSE
-				fs_in := 0;
-			FIN;
+			ENTER fs_bolt;
+			fs_in:= fs_signal;
+			LEAVE fs_bolt;
 			
 			IF fs_in == 1 THEN ! rot -> stop
+				RESERVE fs_bolt;
+				fs_signal:= 0;
+				FREE fs_bolt;
 				stop = 1;
 				PUT 'rot erkannt, stop eingeleitet' TO termout BY A, SKIP;
 			FIN;
 			IF fs_in == 2 THEN ! grün -> geradeaus
 				PUT 'gruen erkannt, geradeausfahren..' TO termout BY A, SKIP;
+				RESERVE fs_bolt;
+				fs_signal:= 0;
+				FREE fs_bolt;
 				CALL straight(5);
 			FIN;
 		
@@ -772,38 +766,16 @@ MODULE(system);
 			FIN;
 			IF (colors(1) < 2500) AND (colors(2) < 3500) AND (colors(3) > 3800) THEN
 				fs_color = 3; ! blau
-<<<<<<< HEAD
 				!PUT 'blau erkannt' TO termout BY A, SKIP;
-=======
-				PUT 'blau erkannt' TO termout BY A, SKIP;
-				
-			FIN;
-			IF (colors(1) < 2200) AND (colors(2) < 2200) AND (colors(3) < 2200) THEN
-				fs_color = 5; ! schwarz
-				!PUT 'schwarz erkannt' TO termout BY A, SKIP;
-			FIN;
-			IF (colors(1) > 25000) AND (colors(2) > 25000) AND (colors(3) > 25000) THEN
-				fs_color = 4; ! weiß
-				!PUT 'weiss erkannt' TO termout BY A, SKIP;
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> parent of e2d22d7... ..
-=======
->>>>>>> parent of e2d22d7... ..
-=======
->>>>>>> parent of e2d22d7... ..
 			FIN;
 			
-			IF fs_color == 1 OR fs_color == 2 OR fs_color == 3 THEN
-				PUT 'enter request..' TO termout BY A, SKIP;
-				REQUEST fs_buffer_in;
+			IF NOT(fs_color == 0) THEN
 				RESERVE fs_bolt;
 				fs_signal = fs_color;
 				FREE fs_bolt;
-				RELEASE fs_buffer_out; ! "lock" parcour
 			FIN;
 			
-			AFTER read_sensor_interval RESUME;
+			!AFTER read_sensor_interval RESUME;
 		END;
 	END;
 
@@ -840,7 +812,6 @@ MODULE(system);
 			FIN;
 			
 			CLOSE usHttpSocket;
-	
 	    END;
 	END;
 	
@@ -849,40 +820,25 @@ MODULE(system);
 
 		DCL speedl FLOAT;
 	  	DCL speedr FLOAT;
-		DCL color CHAR(7);
-		
-		color = 'black';
 
 		ENTER lm_bolt;
-	    	speedl := lm_speed;
-	    	LEAVE lm_bolt;
+    	speedl := lm_speed;
+    	LEAVE lm_bolt;
 			
 		ENTER rm_bolt;
-    		speedr := rm_speed;
+    	speedr := rm_speed;
 		LEAVE rm_bolt;
 
-		ENTER fs_bolt;
-		IF fs_signal == 1 THEN
-			color := 'red';
-		FIN;
-		IF fs_signal == 2 THEN
-			color := 'green';
-		FIN;
-		IF fs_signal == 3 THEN
-			color := 'blue';
-		FIN;
-		LEAVE fs_bolt;
 
 		PUT '<HTML><HEAD><style>' TO usHttpSocket BY A, SKIP;
 		CALL style;
-		PUT '</style><meta http-equiv = refresh content = 10; URL = /index.html >' TO usHttpSocket BY A, SKIP;
+		PUT '</style><meta http-equiv = refresh content = 1; URL = /index.html >' TO usHttpSocket BY A, SKIP;
 		PUT '<TITLE>OpenPEARL Projekt</TITLE></HEAD>'TO usHttpSocket BY A, SKIP;
 		
 		PUT '<BODY><div id = value_div><div class = head_div><h1>Auto</h1></div>' TO usHttpSocket BY A,SKIP;
 		PUT '<div id = value_list_div><ul id = value_list>' TO usHttpSocket BY A, SKIP;
 		PUT '<li>Geschwindigkeit Links:', speedl, '</li>'TO usHttpSocket BY A, F(6), A, SKIP;	
 		PUT '<li>Geschwindigkeit Rechts:', speedr, '</li>'TO usHttpSocket BY A, F(6), A, SKIP;	
-		PUT '<li>Farbsensor: <div id = color_div style = background-color:' , color, '></div></li>' TO usHttpSocket BY A, A, A,SKIP;
 		PUT '</ul></div></div>' TO usHttpSocket BY A, SKIP;
 		PUT '<div id = navigation ><div class = head_div ></div>' TO usHttpSocket BY A, SKIP;
 		PUT '<div class = nav_div ><p><a href = info.html>Info</a></p><p><a href = doku.html>Doku</a></p></div></div></BODY></HTML>' TO usHttpSocket BY A, SKIP;	
@@ -933,6 +889,5 @@ MODULE(system);
 		PUT 'a:hover{text-decoration: underline;}' TO usHttpSocket BY A, SKIP;
 		PUT '#value_list_div{overflow: auto; width: 60%; height: 80%; margin-left: 15%;}' TO usHttpSocket BY A, SKIP;
 		PUT '#value_list{text-decoration: none; list-style-type: none;}' TO usHttpSocket BY A,SKIP;
-		PUT '#color_div{width: 1.5em; height: 1.5em;}' TO usHttpSocket BY A, SKIP;
 	END;
 MODEND;
