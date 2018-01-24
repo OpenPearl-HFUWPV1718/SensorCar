@@ -48,7 +48,7 @@ MODULE(system);
 		DCL usHttpSocket DATION INOUT ALPHIC DIM(*,200) FORWARD STREAM CREATED(httpSocket);  
     
 		! global constants
-		DCL default_motor_time DUR INIT(0.08 SEC);
+		DCL default_motor_time DUR INIT(0.05 SEC);
 		DCL default_motor_steps FIXED INIT(1);
 		!DCL read_sensor_interval DUR INIT(0.005 SEC);
 		
@@ -824,7 +824,7 @@ MODULE(system);
 		DCL color CHAR(7);
 		
 		color = 'black';
-
+	
 		ENTER lm_bolt;
 	    	speedl := lm_speed;
 	    	LEAVE lm_bolt;
@@ -854,7 +854,7 @@ MODULE(system);
 		PUT '<div id = value_list_div><ul id = value_list>' TO usHttpSocket BY A, SKIP;
 		PUT '<li>Geschwindigkeit Links:', speedl, '</li>'TO usHttpSocket BY A, F(6), A, SKIP;	
 		PUT '<li>Geschwindigkeit Rechts:', speedr, '</li>'TO usHttpSocket BY A, F(6), A, SKIP;	
-		PUT '<li>Farbsensor: <div id = color_ div style = background-color: ' , color, '></div></li>' TO usHttpSocket BY A, A, A,SKIP;
+		PUT '<li>Farbsensor: <div id = color_div style = background-color:' , color, '></div></li>' TO usHttpSocket BY A, A, A,SKIP;
 		PUT '</ul></div></div>' TO usHttpSocket BY A, SKIP;
 		PUT '<div id = navigation ><div class = head_div ></div>' TO usHttpSocket BY A, SKIP;
 		PUT '<div class = nav_div ><p><a href = info.html>Info</a></p><p><a href = doku.html>Doku</a></p></div></div></BODY></HTML>' TO usHttpSocket BY A, SKIP;	
