@@ -339,6 +339,7 @@ MODULE(system);
 					 "if (dummy) { _temp.x = 0x80;} else {_temp.x = 0;}}"
 				);
 			IF temp THEN
+				PUT 'temp if' TO termout BY A, SKIP;
 				ENTER fs_bolt;
 				fs_in:= fs_signal;
 				LEAVE fs_bolt;
@@ -784,6 +785,7 @@ MODULE(system);
 			FIN;
 			
 			IF fs_color == 1 OR fs_color == 2 OR fs_color == 3 THEN
+				PUT 'enter request..' TO termout BY A, SKIP;
 				REQUEST fs_buffer_in;
 				RESERVE fs_bolt;
 				fs_signal = fs_color;
