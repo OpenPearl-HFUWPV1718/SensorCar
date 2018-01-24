@@ -47,30 +47,82 @@
  </sysname>
  </username>
 
+ <username name="left_blinker"  line="12">
+ <sysname name="RPiDigitalOut">
+       <parameters>
+             <FIXED>25</FIXED> 
+             <FIXED>1</FIXED> 
+       </parameters>
+ </sysname>
+ </username>
+
+ <username name="right_blinker"  line="13">
+ <sysname name="RPiDigitalOut">
+       <parameters>
+             <FIXED>24</FIXED> 
+             <FIXED>1</FIXED> 
+       </parameters>
+ </sysname>
+ </username>
+
+ <username name="std_lights"  line="14">
+ <sysname name="RPiDigitalOut">
+       <parameters>
+             <FIXED>26</FIXED> 
+             <FIXED>1</FIXED> 
+       </parameters>
+ </sysname>
+ </username>
+
+ <username name="stop_lights"  line="15">
+ <sysname name="RPiDigitalOut">
+       <parameters>
+             <FIXED>27</FIXED> 
+             <FIXED>1</FIXED> 
+       </parameters>
+ </sysname>
+ </username>
+
 
 </system>
 <problem>
- <spc type="dation" name="stdout" line="15">
+ <spc type="dation" name="stdout" line="20">
  <attributes>SYSTEM,OUT</attributes>
  <data>ALPHIC</data>
  </spc>
- <spc type="dation" name="stdin" line="17">
+ <spc type="dation" name="stdin" line="22">
  <attributes>SYSTEM,IN</attributes>
  <data>ALPHIC</data>
  </spc>
- <spc type="dation" name="lichtrechen" line="21">
+ <spc type="dation" name="lichtrechen" line="26">
  <attributes>BASIC,SYSTEM,IN</attributes>
  <data>BIT(8)</data>
  </spc>
- <spc type="dation" name="leftstepmotor_out" line="24">
+ <spc type="dation" name="leftstepmotor_out" line="29">
  <attributes>BASIC,SYSTEM,OUT</attributes>
  <data>BIT(4)</data>
  </spc>
- <spc type="dation" name="rightstepmotor_out" line="26">
+ <spc type="dation" name="rightstepmotor_out" line="31">
  <attributes>BASIC,SYSTEM,OUT</attributes>
  <data>BIT(4)</data>
  </spc>
- <spc type="dation" name="httpSocket" line="29">
+ <spc type="dation" name="left_blinker" line="34">
+ <attributes>BASIC,SYSTEM,OUT</attributes>
+ <data>BIT(1)</data>
+ </spc>
+ <spc type="dation" name="right_blinker" line="36">
+ <attributes>BASIC,SYSTEM,OUT</attributes>
+ <data>BIT(1)</data>
+ </spc>
+ <spc type="dation" name="std_lights" line="38">
+ <attributes>BASIC,SYSTEM,OUT</attributes>
+ <data>BIT(1)</data>
+ </spc>
+ <spc type="dation" name="stop_lights" line="40">
+ <attributes>BASIC,SYSTEM,OUT</attributes>
+ <data>BIT(1)</data>
+ </spc>
+ <spc type="dation" name="httpSocket" line="43">
  <attributes>SYSTEM,INOUT</attributes>
  <data>ALL</data>
  </spc>
