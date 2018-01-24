@@ -341,14 +341,14 @@ MODULE(system);
 				PUT 'rot erkannt, stop eingeleitet' TO termout BY A, SKIP;
 				CALL stop_motors;
 				AFTER 5 SEC RESUME;
-				CALL straight(5, 5);
+				CALL straight(1, 5);
 				RESERVE fs_bolt;
 				fs_signal:= 0;
 				FREE fs_bolt;
 			FIN;
 			IF fs_in == 2 THEN ! grün -> geradeaus
 				PUT 'gruen erkannt, geradeausfahren..' TO termout BY A, SKIP;
-				CALL straight(5, 50);
+				CALL straight(5, 25);
 				RESERVE fs_bolt;
 				fs_signal:= 0;
 				FREE fs_bolt;
