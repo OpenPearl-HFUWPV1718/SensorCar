@@ -332,18 +332,7 @@ MODULE(system);
 		DCL (stop, fs_in) FIXED INIT(0,0);
 		 
 		WHILE stop == 0 REPEAT
-			! wait for driving tasks to finish
-			REQUEST lm_buffer_in; 
-			REQUEST rm_buffer_in;
-			
-			
-			RELEASE lr_buffer_in; ! "unlock" sensor array
-			REQUEST lr_buffer_out; ! "lock" sensor array
-			
-			ENTER lr_bolt;
-			lr_in:= -2 * lr_signal;
-			LEAVE lr_bolt;
-			
+		
 			RELEASE fs_buffer_in; ! "unlock" color sensor
 			REQUEST fs_buffer_out; ! "lock" color sensor
 			
@@ -359,6 +348,17 @@ MODULE(system);
 				PUT 'gruen erkannt, geradeausfahren..' TO termout BY A, SKIP;
 				CALL straight(5);
 			FIN;
+		
+			! wait for driving tasks to finish
+			REQUEST lm_buffer_in; 
+			REQUEST rm_buffer_in;
+			
+			RELEASE lr_buffer_in; ! "unlock" sensor array
+			REQUEST lr_buffer_out; ! "lock" sensor array
+			
+			ENTER lr_bolt;
+			lr_in:= -2 * lr_signal;
+			LEAVE lr_bolt;
 			
 			 
 			IF lr_in < 0 THEN
@@ -389,9 +389,11 @@ MODULE(system);
 			RELEASE rm_buffer_out;
 			
 			! check stop bit
-			ENTER stop_bolt;
-			stop := global_stop;
-			LEAVE stop_bolt;
+			IF stop == 0 THEN
+				ENTER stop_bolt;
+				stop := global_stop;
+				LEAVE stop_bolt;
+			FIN;
 		END;
 		
 		CALL stop_motors;
