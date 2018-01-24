@@ -243,16 +243,16 @@ MODULE(system);
 		LEAVE demo_var_bolt;
 	
 		IF state == 1 THEN
-			CALL straight(var);
+			CALL straight(var, 50);
 		FIN;
 		RELEASE dt;
 		SUSPEND;
 	END;
 	
-	straight: PROC(speed FIXED);
+	straight: PROC(speed FIXED, rep FIXED);
 		DCL stop FIXED INIT(0);
 		
-		TO 50 WHILE stop == 0 REPEAT
+		TO rep WHILE stop == 0 REPEAT
 			REQUEST lm_buffer_in; 
 			REQUEST rm_buffer_in;
 		
@@ -338,18 +338,20 @@ MODULE(system);
 			LEAVE fs_bolt;
 			
 			IF fs_in == 1 THEN ! rot -> stop
+				PUT 'rot erkannt, stop eingeleitet' TO termout BY A, SKIP;
+				CALL stop_motors;
+				AFTER 5 SEC RESUME;
+				CALL straight(5, 5);
 				RESERVE fs_bolt;
 				fs_signal:= 0;
 				FREE fs_bolt;
-				stop = 1;
-				PUT 'rot erkannt, stop eingeleitet' TO termout BY A, SKIP;
 			FIN;
 			IF fs_in == 2 THEN ! grün -> geradeaus
 				PUT 'gruen erkannt, geradeausfahren..' TO termout BY A, SKIP;
+				CALL straight(5, 50);
 				RESERVE fs_bolt;
 				fs_signal:= 0;
 				FREE fs_bolt;
-				CALL straight(5);
 			FIN;
 		
 			! wait for driving tasks to finish
@@ -392,11 +394,9 @@ MODULE(system);
 			RELEASE rm_buffer_out;
 			
 			! check stop bit
-			IF stop == 0 THEN
-				ENTER stop_bolt;
-				stop := global_stop;
-				LEAVE stop_bolt;
-			FIN;
+			ENTER stop_bolt;
+			stop := global_stop;
+			LEAVE stop_bolt;
 		END;
 		
 		CALL stop_motors;
@@ -771,7 +771,9 @@ MODULE(system);
 			
 			IF NOT(fs_color == 0) THEN
 				RESERVE fs_bolt;
-				fs_signal = fs_color;
+				IF fs_signal == 0 THEN
+					fs_signal = fs_color;
+				FIN;
 				FREE fs_bolt;
 			FIN;
 			
