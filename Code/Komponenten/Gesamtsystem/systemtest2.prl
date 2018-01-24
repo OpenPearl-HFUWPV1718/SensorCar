@@ -48,7 +48,7 @@ MODULE(system);
 		DCL usHttpSocket DATION INOUT ALPHIC DIM(*,200) FORWARD STREAM CREATED(httpSocket);  
     
 		! global constants
-		DCL default_motor_time DUR INIT(0.02 SEC);
+		DCL default_motor_time DUR INIT(0.1 SEC);
 		DCL default_motor_steps FIXED INIT(1);
 		!DCL read_sensor_interval DUR INIT(0.005 SEC);
 		
@@ -758,15 +758,15 @@ MODULE(system);
 			
 			IF (colors(1)>13000) AND (colors(2) < 6000) AND (colors(3) < 6000) THEN
 				fs_color = 1; ! rot
-				PUT 'rot erkannt' TO termout BY A, SKIP;
+				!PUT 'rot erkannt' TO termout BY A, SKIP;
 			FIN;
 			IF (colors(1) < 6000) AND (colors(2) > 12000) AND (colors(3) < 11000) THEN
 				fs_color = 2; ! grün
-				PUT 'gruen erkannt' TO termout BY A, SKIP;
+				!PUT 'gruen erkannt' TO termout BY A, SKIP;
 			FIN;
 			IF (colors(1) < 2500) AND (colors(2) < 3500) AND (colors(3) > 3800) THEN
 				fs_color = 3; ! blau
-				PUT 'blau erkannt' TO termout BY A, SKIP;
+				!PUT 'blau erkannt' TO termout BY A, SKIP;
 			FIN;
 			
 			IF NOT(fs_color == 0) THEN
