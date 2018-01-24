@@ -329,12 +329,16 @@ MODULE(system);
 	parcour: TASK;
 		! local variables
 		DCL (lspeed, rspeed, lr_in) FLOAT INIT(1,1,1);
-		DCL (stop, fs_in, temp) FIXED INIT(0,0,0);
+		DCL (stop, fs_in) FIXED INIT(0,0);
+		DCL temp BIT(1) INIT('0'B1);
 		 
 		WHILE stop == 0 REPEAT
 		
-			temp = TRY fs_buffer_out;
-			IF temp == 1 THEN
+			__cpp__(
+					 "{int dummy = pearlrt::Semaphore::dotry( me, 1, dt_semas);"
+					 "if (dummy) { _temp.x = 0x80;} else {_temp.x = 0;}}"
+				);
+			IF temp THEN
 				ENTER fs_bolt;
 				fs_in:= fs_signal;
 				LEAVE fs_bolt;
