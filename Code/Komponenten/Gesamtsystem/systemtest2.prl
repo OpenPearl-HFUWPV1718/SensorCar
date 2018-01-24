@@ -48,7 +48,7 @@ MODULE(system);
 		DCL usHttpSocket DATION INOUT ALPHIC DIM(*,200) FORWARD STREAM CREATED(httpSocket);  
     
 		! global constants
-		DCL default_motor_time DUR INIT(0.1 SEC);
+		DCL default_motor_time DUR INIT(0.08 SEC);
 		DCL default_motor_steps FIXED INIT(1);
 		!DCL read_sensor_interval DUR INIT(0.005 SEC);
 		
