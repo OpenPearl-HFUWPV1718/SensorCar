@@ -13,6 +13,8 @@ MODULE(system);
 		right_blinker: RPiDigitalOut(24, 1);
 		std_lights: RPiDigitalOut(26, 1);
 		stop_lights: RPiDigitalOut(27, 1);
+		i2cbus: I2CBus('/dev/i2c-1');
+		farbsensor: TCS34725('29'B4) --- i2cbus;
 		
 
 	PROBLEM;
@@ -25,6 +27,8 @@ MODULE(system);
 
 		SPC lichtrechen DATION IN SYSTEM BASIC BIT(8) GLOBAL;
 		DCL lr DATION IN BASIC BIT(8) CREATED(lichtrechen);
+		SPC farbsensor DATION IN SYSTEM BASIC ALL GLOBAL;
+		DCL fs DATION IN BASIC ALL CREATED(farbsensor);
 		
 		SPC leftstepmotor_out DATION OUT SYSTEM BASIC BIT(4) GLOBAL;
 		DCL lmotor DATION OUT BASIC BIT(4) CREATED (leftstepmotor_out);
@@ -55,13 +59,14 @@ MODULE(system);
 		DCL demo_var FIXED INIT(0);
 		DCL global_light FIXED INIT(1);
 		DCL global_blinker FIXED INIT(0);
+		DCL fs_signal FIXED INIT(0);
 		DCL (lr_signal) FLOAT; ! sensor array signal
 		DCL (lm_speed, rm_speed) FLOAT; ! speed(factor) for (left / right) step motors
 		
 		! semaphores and bolts 
-		DCL (lr_buffer_in, lr_buffer_out, lm_buffer_in, lm_buffer_out, rm_buffer_in, rm_buffer_out) SEMA PRESET(1,0,1,0,1,0);
+		DCL (lr_buffer_in, lr_buffer_out, lm_buffer_in, lm_buffer_out, rm_buffer_in, rm_buffer_out, fs_buffer_in, fs_buffer_out) SEMA PRESET(1,0,1,0,1,0,1,0);
 		DCL (p, dt) SEMA PRESET(0,0); ! control flow semaphores
-		DCL (lm_bolt, rm_bolt, lr_bolt, stop_bolt, demo_state_bolt, demo_var_bolt, blinker_bolt, light_bolt) BOLT;
+		DCL (lm_bolt, rm_bolt, lr_bolt, stop_bolt, demo_state_bolt, demo_var_bolt, blinker_bolt, light_bolt, fs_bolt) BOLT;
 		
 	! Overall coordination
 	main: TASK MAIN;
@@ -83,9 +88,11 @@ MODULE(system);
 		OPEN blinker_l;
 		OPEN blinker_r;
 		OPEN stop_light;
+		OPEN fs;
 	
 		ACTIVATE webinterface;
 		ACTIVATE readlr;
+		ACTIVATE readfs;
 		ACTIVATE driveleft;
 		ACTIVATE driveright;
 		ACTIVATE light;
@@ -100,6 +107,7 @@ MODULE(system);
 		
 		TERMINATE webinterface;
 		TERMINATE readlr;
+		TERMINATE readfs;
 		TERMINATE driveleft;
 		TERMINATE driveright;
 		TERMINATE light;
@@ -114,6 +122,8 @@ MODULE(system);
 		CLOSE blinker_l;
 		CLOSE blinker_r;
 		CLOSE stop_light;
+		CLOSE fs;
+		TERMINATE;
 	END;
 
 	menu: PROC;
@@ -316,8 +326,8 @@ MODULE(system);
 	! moves motors in order to follow a black line
 	parcour: TASK;
 		! local variables
-		DCL (lspeed, rspeed, in) FLOAT INIT(1,1,1);
-		DCL stop FIXED INIT(0);
+		DCL (lspeed, rspeed, lr_in) FLOAT INIT(1,1,1);
+		DCL (stop, fs_in) FIXED INIT(0,0);
 		 
 		WHILE stop == 0 REPEAT
 			! wait for driving tasks to finish
@@ -329,16 +339,31 @@ MODULE(system);
 			REQUEST lr_buffer_out; ! "lock" sensor array
 			
 			ENTER lr_bolt;
-			in:= -2 * lr_signal;
+			lr_in:= -2 * lr_signal;
 			LEAVE lr_bolt;
+			
+			RELEASE fs_buffer_in; ! "unlock" color sensor
+			REQUEST fs_buffer_out; ! "lock" color sensor
+			
+			ENTER fs_bolt;
+			fs_in:= fs_signal;
+			LEAVE fs_bolt;
+			
+			IF fs_in == 1 THEN ! rot -> stop
+				stop = 1;
+			FIN;
+			IF fs_in == 2 THEN ! grün -> geradeaus
+				CALL straight(5);
+			FIN;
+			
 			 
 			IF in < 0 THEN
 				lspeed := 1;
-				rspeed := -1 * in;
+				rspeed := -1 * lr_in;
 			FIN;
 			 
 			IF in > 0 THEN
-				lspeed = in;
+				lspeed = lr_in;
 				rspeed = 1;
 			FIN;
 			 
@@ -557,7 +582,6 @@ MODULE(system);
 		DCL out FLOAT;
 		DCL count FIXED;
 		
-		OPEN lr;
 		REPEAT
 			out := 0;
 			count := 0;
@@ -709,6 +733,48 @@ MODULE(system);
 				FIN;
 			FIN;
 		FIN;
+	END;
+	
+	readfs: TASK;
+		DCL colors(5) FIXED(31);
+		DCL fs_color FIXED INIT(0);
+		DCL read_sensor_interval DUR INIT(0.005 SEC);!TODO: delete
+		 
+		REPEAT
+			REQUEST fs_buffer_in; ! "lock" parcour
+			!TAKE colors FROM fs;
+			__cpp__("_fs.dationRead(data_colors, sizeof(data_colors));");
+			!'rot':colors(1), 'gruen':colors(2), 'blau':colors(3)
+			fs_color = 0;
+			
+			IF (colors(1)>13000) AND (colors(2) < 6000) AND (colors(3) < 6000) THEN
+				fs_color = 1; ! rot
+				PUT 'rot erkannt' TO termout BY A, SKIP;
+			FIN;
+			IF (colors(1) < 6000) AND (colors(2) > 12000) AND (colors(3) < 11000) THEN
+				fs_color = 2; ! grün
+				PUT 'gruen erkannt' TO termout BY A, SKIP;
+			FIN;
+			IF (colors(1) < 2500) AND (colors(2) < 3500) AND (colors(3) > 4000) THEN
+				fs_color = 3; ! blau
+				PUT 'blau erkannt' TO termout BY A, SKIP;
+			FIN;
+			IF (colors(1) < 2200) AND (colors(2) < 2200) AND (colors(3) < 2200) THEN
+				fs_color = 5; ! schwarz
+				PUT 'schwarz erkannt' TO termout BY A, SKIP;
+			FIN;
+			IF (colors(1) > 25000) AND (colors(2) > 25000) AND (colors(3) > 25000) THEN
+				fs_color = 4; ! weiß
+				PUT 'weiss erkannt' TO termout BY A, SKIP;
+			FIN;
+			
+			RESERVE fs_bolt;
+			fs_signal = fs_color;
+			FREE fs_bolt;
+			RELEASE fs_buffer_out; ! "lock" parcour
+			
+			!AFTER read_sensor_interval RESUME;
+		END;
 	END;
 
 
