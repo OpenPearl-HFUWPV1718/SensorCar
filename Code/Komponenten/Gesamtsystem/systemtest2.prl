@@ -333,22 +333,28 @@ MODULE(system);
 		DCL temp BIT(1) INIT('0'B1);
 		 
 		WHILE stop == 0 REPEAT
-			ENTER fs_bolt;
-			fs_in:= fs_signal;
-			LEAVE fs_bolt;
+		
+			__cpp__(
+					 "{int dummy = pearlrt::Semaphore::dotry( me, 1, fs_buffer_out_semas);"
+					 "if (dummy) { _temp.x = 0x80;} else {_temp.x = 0;}}"
+				);
+			IF temp THEN
+				PUT 'temp if' TO termout BY A, SKIP;
+				ENTER fs_bolt;
+				fs_in:= fs_signal;
+				LEAVE fs_bolt;
+				
+				RELEASE fs_buffer_in; ! "unlock" color sensor
+			ELSE
+				fs_in := 0;
+			FIN;
 			
 			IF fs_in == 1 THEN ! rot -> stop
-				RESERVE fs_bolt;
-				fs_signal:= 0;
-				FREE fs_bolt;
 				stop = 1;
 				PUT 'rot erkannt, stop eingeleitet' TO termout BY A, SKIP;
 			FIN;
 			IF fs_in == 2 THEN ! grün -> geradeaus
 				PUT 'gruen erkannt, geradeausfahren..' TO termout BY A, SKIP;
-				RESERVE fs_bolt;
-				fs_signal:= 0;
-				FREE fs_bolt;
 				CALL straight(5);
 			FIN;
 		
@@ -766,13 +772,29 @@ MODULE(system);
 			FIN;
 			IF (colors(1) < 2500) AND (colors(2) < 3500) AND (colors(3) > 3800) THEN
 				fs_color = 3; ! blau
+<<<<<<< HEAD
 				!PUT 'blau erkannt' TO termout BY A, SKIP;
+=======
+				PUT 'blau erkannt' TO termout BY A, SKIP;
+				
+			FIN;
+			IF (colors(1) < 2200) AND (colors(2) < 2200) AND (colors(3) < 2200) THEN
+				fs_color = 5; ! schwarz
+				!PUT 'schwarz erkannt' TO termout BY A, SKIP;
+			FIN;
+			IF (colors(1) > 25000) AND (colors(2) > 25000) AND (colors(3) > 25000) THEN
+				fs_color = 4; ! weiß
+				!PUT 'weiss erkannt' TO termout BY A, SKIP;
+>>>>>>> parent of e2d22d7... ..
 			FIN;
 			
-			IF NOT(fs_color == 0) THEN
+			IF fs_color == 1 OR fs_color == 2 OR fs_color == 3 THEN
+				PUT 'enter request..' TO termout BY A, SKIP;
+				REQUEST fs_buffer_in;
 				RESERVE fs_bolt;
 				fs_signal = fs_color;
 				FREE fs_bolt;
+				RELEASE fs_buffer_out; ! "lock" parcour
 			FIN;
 			
 			AFTER read_sensor_interval RESUME;
