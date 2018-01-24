@@ -329,16 +329,20 @@ MODULE(system);
 	parcour: TASK;
 		! local variables
 		DCL (lspeed, rspeed, lr_in) FLOAT INIT(1,1,1);
-		DCL (stop, fs_in) FIXED INIT(0,0);
+		DCL (stop, fs_in, temp) FIXED INIT(0,0,0);
 		 
 		WHILE stop == 0 REPEAT
 		
-			RELEASE fs_buffer_in; ! "unlock" color sensor
-			REQUEST fs_buffer_out; ! "lock" color sensor
-			
-			ENTER fs_bolt;
-			fs_in:= fs_signal;
-			LEAVE fs_bolt;
+			temp = TRY fs_buffer_out;
+			IF temp == 1 THEN
+				ENTER fs_bolt;
+				fs_in:= fs_signal;
+				LEAVE fs_bolt;
+				
+				RELEASE fs_buffer_in; ! "unlock" color sensor
+			ELSE
+				fs_in := 0;
+			FIN;
 			
 			IF fs_in == 1 THEN ! rot -> stop
 				stop = 1;
@@ -761,7 +765,7 @@ MODULE(system);
 				fs_color = 2; ! grün
 				PUT 'gruen erkannt' TO termout BY A, SKIP;
 			FIN;
-			IF (colors(1) < 2500) AND (colors(2) < 3500) AND (colors(3) > 4000) THEN
+			IF (colors(1) < 2500) AND (colors(2) < 3500) AND (colors(3) > 3800) THEN
 				fs_color = 3; ! blau
 				PUT 'blau erkannt' TO termout BY A, SKIP;
 				
