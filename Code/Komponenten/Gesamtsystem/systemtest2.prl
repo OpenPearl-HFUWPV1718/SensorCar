@@ -443,6 +443,7 @@ MODULE(system);
 	
 	blinker: TASK;
 		DCL var FIXED INIT(0);
+		DCL (on, off) BIT(1) INIT('1'B1, '0'B1);
 		
 		REPEAT;
 			ENTER blinker_bolt;
@@ -470,6 +471,7 @@ MODULE(system);
 			RESERVE light_bolt;
 			global_light = state;
 			FREE light_bolt;
+		FIN;
 	END;
   
 	! moves left step motor as specified by lm_speed
