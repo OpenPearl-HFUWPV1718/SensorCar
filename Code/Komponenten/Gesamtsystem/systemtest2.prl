@@ -48,7 +48,7 @@ MODULE(system);
 		DCL usHttpSocket DATION INOUT ALPHIC DIM(*,200) FORWARD STREAM CREATED(httpSocket);  
     
 		! global constants
-		DCL default_motor_time DUR INIT(0.08 SEC);
+		DCL default_motor_time DUR INIT(0.05 SEC);
 		DCL default_motor_steps FIXED INIT(1);
 		!DCL read_sensor_interval DUR INIT(0.005 SEC);
 		
@@ -812,6 +812,7 @@ MODULE(system);
 			FIN;
 			
 			CLOSE usHttpSocket;
+	
 	    END;
 	END;
 	
@@ -823,6 +824,7 @@ MODULE(system);
 		DCL color CHAR(7);
 		
 		color = 'black';
+
 		ENTER lm_bolt;
 	    	speedl := lm_speed;
 	    	LEAVE lm_bolt;
@@ -830,19 +832,6 @@ MODULE(system);
 		ENTER rm_bolt;
     		speedr := rm_speed;
 		LEAVE rm_bolt;
-
-		/*ENTER fs_bolt;
-		
-		IF fs_signal == 1 THEN
-			color := 'red';
-		FIN;
-		IF fs_signal == 2 THEN
-			color := 'green';
-		FIN;
-		IF fs_signal == 3 THEN
-			color := 'blue';
-		FIN;*/
-			
 
 		PUT '<HTML><HEAD><style>' TO usHttpSocket BY A, SKIP;
 		CALL style;
