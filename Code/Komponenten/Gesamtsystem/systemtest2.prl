@@ -785,6 +785,9 @@ MODULE(system);
 			IF (colors(1) > 25000) AND (colors(2) > 25000) AND (colors(3) > 25000) THEN
 				fs_color = 4; ! weiß
 				!PUT 'weiss erkannt' TO termout BY A, SKIP;
+<<<<<<< HEAD
+>>>>>>> parent of e2d22d7... ..
+=======
 >>>>>>> parent of e2d22d7... ..
 			FIN;
 			
