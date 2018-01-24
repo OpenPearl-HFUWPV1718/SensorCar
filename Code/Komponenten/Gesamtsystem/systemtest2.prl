@@ -812,6 +812,7 @@ MODULE(system);
 			FIN;
 			
 			CLOSE usHttpSocket;
+	
 	    END;
 	END;
 	
@@ -821,6 +822,8 @@ MODULE(system);
 		DCL speedl FLOAT;
 	  	DCL speedr FLOAT;
 		DCL color CHAR(7);
+		
+		color = 'black';
 
 		ENTER lm_bolt;
 	    	speedl := lm_speed;
@@ -830,16 +833,16 @@ MODULE(system);
     		speedr := rm_speed;
 		LEAVE rm_bolt;
 
-		ENTER fs_bolt;
+		/*ENTER fs_bolt;
 		IF fs_signal == 1 THEN
-			color := "red";
+			color := 'red';
 		FIN;
 		IF fs_signal == 2 THEN
-			color := "green";
+			color := 'green';
 		FIN;
 		IF fs_signal == 3 THEN
-			color := "blue";
-		FIN;
+			color := 'blue';
+		FIN;*/
 
 
 		PUT '<HTML><HEAD><style>' TO usHttpSocket BY A, SKIP;
@@ -851,7 +854,7 @@ MODULE(system);
 		PUT '<div id = value_list_div><ul id = value_list>' TO usHttpSocket BY A, SKIP;
 		PUT '<li>Geschwindigkeit Links:', speedl, '</li>'TO usHttpSocket BY A, F(6), A, SKIP;	
 		PUT '<li>Geschwindigkeit Rechts:', speedr, '</li>'TO usHttpSocket BY A, F(6), A, SKIP;	
-		PUT '<li>Farbsensor: <div id = color_ div style = "background-color: ' , color, '>/div></li>' TO usHttpSocket BY A, C(6), A,SKIP;
+		PUT '<li>Farbsensor: <div id = color_ div style = background-color: ' , color, '></div></li>' TO usHttpSocket BY A, A, A,SKIP;
 		PUT '</ul></div></div>' TO usHttpSocket BY A, SKIP;
 		PUT '<div id = navigation ><div class = head_div ></div>' TO usHttpSocket BY A, SKIP;
 		PUT '<div class = nav_div ><p><a href = info.html>Info</a></p><p><a href = doku.html>Doku</a></p></div></div></BODY></HTML>' TO usHttpSocket BY A, SKIP;	
