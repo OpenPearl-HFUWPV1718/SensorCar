@@ -834,20 +834,21 @@ MODULE(system);
     			speedr := rm_speed;
 		LEAVE rm_bolt;
 		
+		
 		ENTER blinker_bolt;
 			blinker = global_blinker;
 		LEAVE blinker_bolt;
 		
 		IF blinker == 1 THEN
-			blinker_l = 'On'
+			blink_l = 'On';
 		ELSE
-			blinker_l = 'Off'
+			blink_l = 'Off';
 		FIN;
 		
 		IF blinker == -1 THEN
-			blinker_r = 'On'
+			blink_r = 'On';
 		ELSE
-			blinker_r = 'Off'
+			blink_r = 'Off';
 		FIN;
 
 
@@ -859,7 +860,9 @@ MODULE(system);
 		PUT '<BODY><div id = value_div><div class = head_div><h1>Auto</h1></div>' TO usHttpSocket BY A,SKIP;
 		PUT '<div id = value_list_div><ul id = value_list>' TO usHttpSocket BY A, SKIP;
 		PUT '<li>Geschwindigkeit Links:', speedl, '</li>'TO usHttpSocket BY A, F(6), A, SKIP;	
-		PUT '<li>Geschwindigkeit Rechts:', speedr, '</li>'TO usHttpSocket BY A, F(6), A, SKIP;	
+		PUT '<li>Geschwindigkeit Rechts:', speedr, '</li>'TO usHttpSocket BY A, F(6), A, SKIP;
+		PUT '<li>Blinker Links:', blink_l, '</li>'TO usHttpSocket BY A, A, A, SKIP;
+		PUT '<li>Blinker Rechts:', blink_r, '</li>'TO usHttpSocket BY A, A, A, SKIP;
 		PUT '</ul></div></div>' TO usHttpSocket BY A, SKIP;
 		PUT '<div id = navigation ><div class = head_div ></div>' TO usHttpSocket BY A, SKIP;
 		PUT '<div class = nav_div ><p><a href = info.html>Info</a></p><p><a href = doku.html>Doku</a></p></div></div></BODY></HTML>' TO usHttpSocket BY A, SKIP;	
