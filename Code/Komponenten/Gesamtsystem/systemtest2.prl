@@ -822,14 +822,33 @@ MODULE(system);
 
 		DCL speedl FLOAT;
 	  	DCL speedr FLOAT;
+		DCL blinker FIXED;
+		DCL blink_l CHAR(3);
+		DCL blink_r CHAR(3);
 
 		ENTER lm_bolt;
-    	speedl := lm_speed;
-    	LEAVE lm_bolt;
+    			speedl := lm_speed;
+    		LEAVE lm_bolt;
 			
 		ENTER rm_bolt;
-    	speedr := rm_speed;
+    			speedr := rm_speed;
 		LEAVE rm_bolt;
+		
+		ENTER blinker_bolt;
+			blinker = global_blinker;
+		LEAVE blinker_bolt;
+		
+		IF blinker == 1 THEN
+			blinker_l = 'On'
+		ELSE
+			blinker_l = 'Off'
+		FIN;
+		
+		IF blinker == -1 THEN
+			blinker_r = 'On'
+		ELSE
+			blinker_r = 'Off'
+		FIN;
 
 
 		PUT '<HTML><HEAD><style>' TO usHttpSocket BY A, SKIP;
