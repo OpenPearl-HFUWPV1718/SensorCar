@@ -1,69 +1,61 @@
 \chapter{Komponenten}
+\label{komponenten}
 \section{Raspberry Pi 3}
-Als Grundlage für das SensorCar wird ein Raspberry Pi 3 genutzt, auf dem OpenPEARL installiert ist. Die Installation erfolgt nach der Anleitung im OpenPEARL Repository. Die Sensoren und Aktoren des SensorCars werden wie folgt am Raspberry Pi angeschlossen:
+Als Entwicklungs- und Zielplattform wird ein Raspberry Pi 3 genutzt, auf dem OpenPEARL installiert ist. Die Sensoren und Aktoren sollen wie in Tabelle \ref{tab:anschlussplan} am Raspberry Pi angeschlossen werden:
 
-\begin{center}
-\begin{tabular}{|l|l|l|}
-	\hline
-	\textbf{Gerät} & \textbf{BCM} & \textbf{Versorgung}\\
-	\hline
-	Lichtrechen & 6 -- 13 & 3,5 / 5V\\
-	\hline
-	Motortreiber& 16 -- 19, 20 -- 23 & extern\\
-	\hline
-	Farbsensor & 2, 3 (I$^2$C) & 3,3 / 5V\\
-	\hline
-	Gyroskop & 2, 3 (I$^2$C) & 5V\\
-	\hline
-	Kompass & 2, 3 (I$^2$C) & 5V\\
-	\hline
-	LEDs & 24 -- & 5V\\
-	\hline
-\end{tabular}\\
-\end{center}
+\begin{table} [H]
+	\begin{center}
+		 \renewcommand{\arraystretch}{1.5}
+		\begin{tabular}{|l|l|l|}
+			\hline
+			\textbf{Gerät} & \textbf{BCM} & \textbf{Versorgung}\\
+			\hline
+			Lichtrechen & 6 -- 13 & 3,5 / 5V\\
+			\hline
+			Motortreiber& 16 -- 19, 20 -- 23 & extern\\
+			\hline
+			Farbsensor & 2, 3 (I$^2$C) & 3,3 / 5V\\
+			\hline
+			Gyroskop & 2, 3 (I$^2$C) & 5V\\
+			\hline
+			Kompass & 2, 3 (I$^2$C) & 5V\\
+			\hline
+			LEDs & 24 -- & 5V\\
+			\hline
+		\end{tabular}
+	\end{center}
+\caption{Anschlussplan Raspberry Pi}\label{tab:anschlussplan}
+\end{table}
+
 Der zugrundeliegende Belegungsplan ist im Anhang \ref{Belegungsplan} zu finden.
 
 
 \section{Schrittmotor}
-Die Schrittmotoren werden jeweils über einen Motortreiber und vier GPIO-Pins des Raspberry Pi angesteuert. Energie erhält der Motor durch ein an den Treiber angeschlossenes Netzteil mit 12V Gleichstrom. Durch paarweise Alternieren der Bits an den vier GPIO-Pins wird der Schrittmotor um jeweils einen Schritt bewegt. 
+Die Schrittmotoren werden jeweils über einen Motortreiber und vier GPIO-Pins des Raspberry Pi angesteuert. Energie erhält der Motor durch ein an den Treiber angeschlossenes Netzteil mit 12V Gleichstrom. Durch paarweise Alternieren der Bits an den vier GPIO-Pins wird der Schrittmotor um jeweils einen Schritt bewegt. Es ergibt sich das Bitmuster in Tabelle \ref{wrap-tab:muster}.
+\begin{wraptable}{r}{5cm}
+	\begin{center}
+		\begin{tabular}{|c|}
+			\hline
+			1010\\
+			\hline
+			1001\\
+			\hline
+			0101\\
+			\hline
+			0110\\
+			\hline
+		\end{tabular}
+	\end{center}
+	\caption{Bitmuster}\label{wrap-tab:muster}
+\end{wraptable}
 
-Das nachstehende Codebeispiel zeigt die Ansteuerung eines Schrittmotors.\\
+Der Schrittmotor kann nun bewegt werden, indem die Bitmuster nacheinander, unterbrochen durch eine Wartezeit, an den Schrittmotor geschickt werden. 
+Die Geschwindigkeit des Schrittmotors kann durch die Wartezeit, die Richtung durch die Reihenfolge der Signale geändert werden.
 
-\begin{lstlisting}
-SYSTEM;
-	stepmotor_out: RPiDigitalOut(19, 4);
-
-PROBLEM;
-	SPC stepmotor_out DATION OUT SYSTEM BASIC BIT(4) GLOBAL;
-	DCL motor DATION OUT BASIC BIT(4) CREATED (stepmotor_out);
-
-main: TASK MAIN;
-	DCL time DUR INIT (0.01 SEC);
-	DCL steps FIXED INIT (100);
-	DCL (a, b, c, d) BIT(4) INIT('1010'B1, '1001'B1, '0101'B1, '0110'B1);
-	OPEN motor;
-	REPEAT
-		SEND a TO motor;
-		AFTER time RESUME;
-		
-		SEND b TO motor;
-		AFTER time RESUME;
-		
-		SEND c TO motor;
-		AFTER time RESUME;
-		
-		SEND d TO motor;
-		AFTER time RESUME;
-	END;
-	CLOSE motor;
-END;
-\end{lstlisting}
-
-Dabei ist zu beachten, dass die Belegung mehrerer Pins des Raspberry Pi abwärts erfolgt, d.h. \texttt{RPiDigitalOut(19, 4)} belegt die Pins \texttt{16, 17, 18, 19}. Die Geschwindigkeit des Schrittmotors kann durch die Wartezeit \texttt{time}, die Richtung durch die Reihenfolge der Signale \texttt{a, b, c, d} geändert werden.
-
+Zusätzlich ist zu beachten, dass die Belegung mehrerer Pins des Raspberry Pi abwärts erfolgt, d.h. \texttt{RPiDigitalOut(19, 4)} belegt die Pins \texttt{16, 17, 18, 19}. 
 Das Speichern von \texttt{BIT(4)} Variablen in einem Array funktioniert in OpenPEARL aktuell noch nicht; aufgrund der wenigen Zustände wurde auf einen Workaround verzichtet.
 
-Das komplette Schrittmotormodul kann im Ordner \emph{Code/Komponenten/Schrittmotor} des \href{https://github.com/OpenPearl-HFUWPV1718/SensorCar}{Repositories} eingesehen werden.\\
+In diesem Schritt wurde als Modul eine Prozedur entwickelt, die einen spezifizierten Motor um eine spezifizierte Schrittzahl in spezifizierte Richtung bewegt. Die Synchronisation zur gleichzeitigen Ansteuerung beider Motoren erfolgte erst im Gesamtsystem. Das komplette Schrittmotormodul kann im Ordner \emph{Code/Komponenten/Schrittmotor} des \href{https://github.com/OpenPearl-HFUWPV1718/SensorCar}{Repositories} eingesehen werden.\\
 
 
 \section{Lichtrechen}

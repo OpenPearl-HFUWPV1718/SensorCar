@@ -1,1 +1,53 @@
 \chapter{Gesamtsystem}
+Das SensorCar als Gesamtsystem setzt sich aus dem im Kapitel \ref{komponenten} beschriebenen Komponenten zusammen. Bisher wurde bei der Programmierung der Komponenten oft von Modulen gesprochen, es ist aber zu bemerken, dass die Nutzung des PEARL-Konstrukts \texttt{MODULE} aufgrund fehlender Implementierung in OpenPEARL nicht genutzt werden konnte. Im Folgenden wird zuerst die Architektur und dann die Bedienung des SensorCar erläutert. Der vollständige, dokumentierte Code kann auch hierzu im \href{https://github.com/OpenPearl-HFUWPV1718/SensorCar}{Git-Repository} abgerufen werden.
+
+\section{Programmübersicht und Modi}
+Nach dem Starten des Programms wird ein Hauptmenü angezeigt, dass die Auswahl zwischen zwei Modi erlaubt:
+Der \textbf{Demonstrationsmodus} erlaubt es, das Fahrzeug über ssh zu steuern, d.h. es mit einer bestimmten Geschwindigkeit vor- oder rückwärts fahren zu lassen.
+Im \textbf{Parcourmodus} fährt das Auto selbstständig einer Linie nach und reagiert auf farbige Punkte auf der Strecke.\\
+In beiden Modi kann der aktuelle Ablauf jederzeit unterbrochen werden. Im Parcourmodus erfolgt zudem die Ausgabe der Sensorwerte über ein Webinterface.  
+
+\section{Architektur}
+\subsection{Tasks}
+Wie bereits erwähnt besteht das System nur aus einem \texttt{MODULE}, die einzelnen Module sind als \texttt{TASK} realisiert. Die Tasks lassen sich in drei Kategorien unterteilen:
+\begin{itemize}
+	\item \textbf{Gesamtsteuerung / Menü}: Der Task zur Gesamtsteuerung enthält das Menü und startet und beendet alle anderen Tasks.\\
+	Dies ist: \texttt{main}.
+	\item \textbf{Steuerung}: Die steuernden Tasks lesen globale Variablen der Sensorik ein, berechnen das gewünschte Verhalten und schreiben in die globalen Variablen zur Steuerung der Aktorik. \\
+	Dies sind: \texttt{parcour, demo, light}.
+	\item \textbf{Ausführung}: Die ausführenden Tasks lesen Sensoren aus und schreiben die Ergebnisse in globale Variablen bzw. lesen steuernde globale Variablen aus und steuern die Aktoren.\\
+	Dies sind: \texttt{blinker, light, driveleft, driveright, readlr, readfs, webinterface}.
+\end{itemize}
+
+Die Task \texttt{light} ist dabei ein Spezialfall, da sie sowohl die \texttt{blinker} Task verwaltet als auch die Scheinwerfer direkt ansteuert.\\
+
+Im Folgenden ist die Funktionalität der einzelnen Tasks nochmals genauer erläutert:
+\begin{itemize}
+	\item \textbf{\texttt{main}}: Die Task \texttt{main} ist zuständig für den Gesamtablauf. Sie ruft die Prozeduren \texttt{init} und \texttt{term} bei Beginn und Ende des Programms auf und stellt während der Laufzeit das Menü dar und behandelt Nutzereingaben.
+	
+	\item \textbf{\texttt{demo}}: Die Task \texttt{demo} implementiert die Funktionalität im Demonstrationsmodus. Unter Nutzung der Prozeduren \texttt{straight} und \texttt{stop\_motors} ermöglicht sie das Fahren nach Eingabeparametern.
+	
+	\item \textbf{\texttt{parcour}}: Die Task \texttt{parcour} implementiert die Funktionalität des Parcourmodus. Unter Nutzung der Prozeduren \texttt{straight} und \texttt{stopmotors} ermöglicht sie das Fahren oder Halten nach erkannten Farben.
+	
+	\item \textbf{\texttt{light}}: Die Task \texttt{light} steuert die Scheinwerfer des Fahrzeugs und setzt Signale für die Blinker.
+	
+	\item \textbf{\texttt{blinker}}: Die Task \texttt{blinker} steuert die Blinker.
+	
+	\item \textbf{\texttt{driveleft}}: Die Task \texttt{driveleft} steuert mittels der Prozedur \texttt{step} den linken Schrittmotor an. Die Parameter für den Motor werden aus einer Geschwindigkeitsvariablen errechnet.
+	
+	\item \textbf{\texttt{driveright}}: Die Task \texttt{driveright} steuert mittels der Prozedur \texttt{step} den rechten Schrittmotor an. Die Parameter für den Motor werden aus einer Geschwindigkeitsvariablen errechnet.
+	
+	\item \textbf{\texttt{readlr}}: Die Task \texttt{readlr} liest das Signal des Lichtrechens aus und gibt es weiter.
+	
+	\item \textbf{\texttt{readlr}}: Die Task \texttt{readfs} liest das Signal des Farbsensors aus und gibt es weiter.
+	
+	\item \textbf{\texttt{webinterface}}: Die Task \texttt{webinterface} steuert das Webinterface.
+\end{itemize}
+
+\subsection{Kommunikation}
+Die Kommunikation der Tasks untereinander erfolgt über globale Variablen. Der Zugriff erfolgt mittels \texttt{BOLT}, einem Konstrukt, dass das Schreiber-Leser-Problem effizient löst. So können mehrere lesende Zugriffe oder ein schreibender Zugriff gleichzeitig erfolgen.
+
+\subsection{Synchronisation / Ablaufsteuerung}
+Die Synchronisation bzw. Ablaufsteuerung der Tasks wird mittels Semaphoren umgesetzt. Für die Synchronisation von steuernden und ausführenden Tasks wurde das Erzeuger-Verbraucher-Muster mit Semaphoren umgesetzt, sodass z.B. neue Sensorwerte erst nach der Verarbeitung der letzten eingelesen werden. Dieses Muster wird ebenfalls eingesetzt um die Motoren zu synchronisieren, also das Beenden des Fahrvorgangs beider Motoren abzuwarten.\\
+Bei der Umschaltung vom Demo- in den Parcourmodus wird die jeweilige steuernde Task terminiert. Dazu wird der Task über eine globale Variable mitgeteilt, dass sie sich beenden soll. Daraufhin wird der aktuelle Zyklus beendet, die Task gibt eine Semaphore frei und geht in den Zustand \texttt{SUSPEND}, sodass sie sicher terminiert werden kann. Dadurch ist sowohl die Konsistenz als auch der Zustand der Task gesichert, und sie kann problemlos neu gestartet werden.
+

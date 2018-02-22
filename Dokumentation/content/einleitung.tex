@@ -1,13 +1,18 @@
 \chapter{Einleitung}
 
-	Das Semesterprojekt OpenPEARL im Wintersemester 2017/18 beschäftigt sich mit der Anwendung von OpenPEARL in einem Beispielprojekt. 
+	Das Semesterprojekt OpenPEARL im Wintersemester 2017/18 beschäftigt sich mit der Anwendung von OpenPEARL insbesondere im Zusammenhang mit Sensorik. 
 	
 	\section{OpenPEARL}
-	PEARL steht für \emph{Process and Experiment Automation Realtime Language}, eine höhere Programmiersprache, die speziell dafür entworfen wurde, Multitasking-Aufgaben bei der Steuerung technischer Prozesse zu steuern. Die Sprache wurde um 1975 am IRT Institut der Leibniz Universität in Hannover entwickelt und 1998 vom Deutschen Institut für Normung in der DIN66253-2 standardisiert.\\
-	OpenPEARL ist eine quelloffene Implementierung eines Kompilers und einer Laufzeitumgebung für PEARL. OpenPEARL befindet sich aktuell noch in der Entwicklung, ist aber weit genug fortgeschritten, um erste Beispielprojekte damit umzusetzen. In dieser Dokumentation werden deshalb auch in OpenPEARL gefundene Fehler festgehalten.
+	PEARL steht für \emph{Process and Experiment Automation Realtime Language}, eine höhere Programmiersprache, die speziell dafür entworfen wurde, Multitaskingaufgaben bei der Steuerung technischer Prozesse zu steuern. Die Sprache wurde um 1975 am IRT Institut der Leibniz Universität in Hannover entwickelt und 1998 vom Deutschen Institut für Normung in der DIN66253-2 standardisiert.\\
+	OpenPEARL ist eine quelloffene Implementierung eines Compilers und einer Laufzeitumgebung für PEARL. OpenPEARL befindet sich aktuell noch in der Entwicklung, ist aber weit genug fortgeschritten, um erste Beispielprojekte damit umzusetzen. In dieser Dokumentation werden deshalb auch in OpenPEARL gefundene Fehler festgehalten.
 	
-	\section{SensorCar}
-	Ziel des Projektes ist es, ein autonomes Modellauto zu bauen, das, mit verschiedenen Sensoren ausgestattet, einer Linie folgen und auf Abruf weitere Manöver ausführen kann. Zur Umsetzung wird ein Raspberry Pi 3 mit mehreren Sensoren und Aktoren verbunden auf einem eigens konstruierten Fahrzeug aufgebracht und mit OpenPEARL programmiert. 
+	\section{Projektziel}
+	Ziel des Projektes ist es, das OpenPEARL-System bei der Ansteuerung verschiedenartiger Peripheriegeräte zu testen. Die verschiedenen Sensoren und Aktoren sollen auf ihre Nutzbarkeit mit OpenPEARL allgemein und in einem größeren OpenPEARL-Projekt im Speziellen überprüft werden. Als Plattform wird ein Raspberry Pi 3 genutzt. \\
+	Als Gesamtsystem soll ein autonomes Modellauto entstehen, das, mit ebenjenen Sensoren ausgestattet, nach Möglichkeit einer Linie folgen und auf Abruf weitere Manöver ausführen kann.
+	
+	\section{Über dieses Dokument}
+	Diese Dokumentation beschreibt die Planung, Struktur und die Ergebnisse des Projektes. Sie beschreibt nicht das vollständige Vorgehen oder alle genutzten Informationen, sondern beschreibt die Ergebnisse unter Erwähnung wichtiger Ereignisse und mit Verweisen auf genutzte Quellen. \\
+	Der Programmcode sowohl für einzelne Module als auch für das Gesamtsystem ist in einem öffentlichen \href{https://github.com/OpenPearl-HFUWPV1718/SensorCar}{Git-Repository} abgelegt, auf das hier und an geeigneter Stelle verwiesen wird. Der Programmcode ist dokumentiert und nicht Teil dieses Dokumentes, stattdessen werden in diesem Dokument die zugrundeliegenden Ideen erläutert, die notwendig sind, um den dokumentierten Code vollständig zu verstehen.
 	
 	
 	

@@ -1,36 +1,30 @@
 \chapter{Funktionsbeschreibung}
 \label{funktionsbeschreibung}
+
+In diesem Kapitel wird die Funktionalität des Gesamtsystems, an der sich dann auch das Vorgehen bei der Inbetriebnahme der einzelnen Komponenten orientiert, kurz beschrieben.
+
 \section{Grundfunktionalität}
-Das OpenPEARL SensorCar ist ein mit zwei Motoren und unterschiedlichen Sensoren ausgestattetes Modellauto, das einer schwarzen Linie auf hellem Untergrund folgen soll.\\
-Um dies zu erreichen, werden folgende Komponenten eingesetzt:\\
+Das OpenPEARL SensorCar ist ein mit zwei Motoren und unterschiedlichen Sensoren ausgestattetes Modellauto. Die Sensoren sollen verschiedene Signale aufnehmen, verarbeiten und anzeigen, die Schrittmotoren sollen das Fahren in verschiedenen Geschwindigkeiten und Richtungen ermöglichen.
+Es werden folgende Komponenten eingesetzt:\\
 
 \begin{itemize}
 	\item \textbf{Raspberry Pi mit OpenPEARL}: Kernkomponente des SensorCar ist ein Raspberry Pi, auf dem ein OpenPEARL Programm läuft, das alle angeschlossenen Sensoren und Aktoren verwaltet und steuert.
 	\item \textbf{Schrittmotor}: Zwei Schrittmotoren steuern jeweils zwei über ein Gummi verbundene Räder (ein Motor für eine Seite). Dadurch lässt sich das Auto mit unterschiedlichen Geschwindigkeiten sowohl vorwärts wie auch rückwärts bewegen und Kurven mit beliebigen Radius fahren.
-	\item \textbf{Lichtrechen}: Ein Lichtrechen, bestehend aus mehreren binären Helligkeitssensoren, erfasst den Untergrund in zwei Helligkeitsstufen. Die hier erfassten Informationen werden verwendet, um den Motor so anzusteueren, dass das SensorCar der schwarzen Linie folgt.
+	\item \textbf{Lichtrechen}: Ein Lichtrechen, bestehend aus mehreren binären Helligkeitssensoren, erfasst den Untergrund in zwei Helligkeitsstufen. 
 	\item \textbf{Modellauto}: Alle Komponenten werden auf einem selbstgedruckten Modellauto aufgebracht.
-	\item \textbf{Beschleunigungssensor}: Ein Beschleunigungssensor erfasst die auftretende Beschleunigung und kann daraus Bewegungen ableiten. Diese können eventuell als Eingabe für eine Regelung genutzt werden.
+	\item \textbf{Farbsensor}: Ein Farbsensor kann farbige Punkte auf dem Boden erfassen und verschiedene Aktionen einleiten.
+	\item \textbf{Beleuchtung}:
+		\subitem Weiße LEDs: Zwei weiße LEDs dienen als Frontscheinwerfer.
+		\subitem Rote LEDs: Zwei rote LEDs dienen als Rückleuchten.
+		\subitem Gelbe LEDs: Vier gelbe LEDs dienen als Blinker.
 \end{itemize}
 
 \section{Erweiterte Funktionalität}
-Zusätzlich zum einfachen Nachfahren einer schwarzen Linie soll das SensorCar verschiedene Aktionen auf Abruf -- durch Erkennung von Farbpunkten neben der Linie -- durchführen können. Dies sind:
-\begin{itemize}
-	\item \textbf{Umdrehen}: Das SensorCar dreht auf der Stelle und fährt in die entgegengesetzte Richtung weiter.
-	\item \textbf{Richtungsänderung}: Das SensorCar ändert die Fahrtrichtung ohne umzudrehen.
-	\item \textbf{Abbiegen}: Das SensorCar biegt an einer Kreuzung in eine bestimmte Richtung ab.
-\end{itemize}
+Zusätzlich zum eingabegesteuerten Fahren soll das SensorCar nach Möglichkeit selbstständig einer schwarzen Linie folgen und verschiedene Aktionen (Anhalten, Geradeausfahren) auf Abruf -- durch Erkennung von Farbpunkten auf der Linie -- durchführen können.
 
 \section{Kommunikation}
 Aktuelle Informationen über das SensorCar können über einen Browser mittel einer \emph{http} Anfrage abgefragt werden. Dazu läuft in OpenPEARL ein Webserver, der die Informationen abfragt und ausgibt.\\
 Eingehende Kommunikation erfolgt über ssh.
-
-\section{Sonstiges}
-Zur Beleuchtung des SensorCar werden LEDs eingesetzt:
-\begin{itemize}
-	\item \textbf{Weiße LEDs}: Zwei weiße LEDs dienen als Frontscheinwerfer.
-	\item \textbf{Rote LEDs}: Zwei rote LEDs dienen als Rückleuchten.
-	\item \textbf{Gelbe LEDs}: Vier gelbe LEDs dienen als Blinker.
-\end{itemize}
 
 
 

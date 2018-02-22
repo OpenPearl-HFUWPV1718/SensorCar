@@ -1,9 +1,10 @@
-\chapter{Philosophenproblem}
+\chapter{Einführung in OpenPEARL}
 
-Um mit der Sprache OpenPEARL und ihren Konstrukten insbesondere zur Nebenläufigkeit vertraut zu werden, wurde als einführendes Beispiel das Philosophenproblem gelöst.
+Um mit der Sprache OpenPEARL und ihren Konstrukten insbesondere zur Nebenläufigkeit vertraut zu werden, wurde als einführendes Beispiel das Philosophenproblem gelöst. Eine allgemeine Einführung in die Sprache PEARL ist nicht Teil dieser Dokumentation, stattdessen wird auf den
+\href{http://www.real-time.de/misc/PEARL90-Sprachreport-V2.0-GI-1995-de.pdf}{Sprachreport} verwiesen.
 
 \section{Das Philosophenproblem}
-	Das Philosophenproblem ist ein bekanntes Fallbeispiel für Nebenläufigkeit und Verklemmung. Fünf Philosophen sitzen um einen runden Tisch, jeder der Philosophen hat einen Teller mit Spaghetti vor sich. Um diese zu essen, benötigt jeder Philosoph zwei Gabeln, es sind jedoch nur fünf Gabeln, jeweils eine zwischen zwei Philosophen, vorhanden. Es können also nicht alle Philosophen gleichzeitig essen.\\
+	Das Philosophenproblem ist ein bekanntes Synchronisationsproblem. Fünf Philosophen sitzen um einen runden Tisch, jeder der Philosophen hat einen Teller mit Spaghetti vor sich. Um diese zu essen, benötigt jeder Philosoph zwei Gabeln, es sind jedoch nur fünf Gabeln, jeweils eine zwischen zwei Philosophen, vorhanden. Es können also nicht alle Philosophen gleichzeitig essen.\\
 	Die Philosophen werden als Prozesse oder Threads betrachtet, die gleichzeitig auf mehrere Ressourcen, die Gabeln, zugreifen möchten.
 	
 \section{Umsetzung}
@@ -38,6 +39,3 @@ END;
 	\end{lstlisting}
 	
 	Komplette Lösungen können im Ordner \emph{Code/Philosophenproblem} des \href{https://github.com/OpenPearl-HFUWPV1718/SensorCar}{Repositories} eingesehen werden.\\
-
-\subsection{Kompilerfehler}
-	Während der Implementierung des Philosophenproblems wurde ein Fehler im Kompiler entdeckt, der unter bestimmten Umständen das gleichezeitige Belegen zweier Semaphoren verhindert hat. Der Fehler wurde inzwischen behoben.

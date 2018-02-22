@@ -1,0 +1,24 @@
+\chapter{Compilerfehler}
+Hauptziel des Projekts ist das Testen von OpenPEARL in Anwendung. Tabelle  \ref{tab:fehler} gibt eine Übersicht über die gefundenen Fehler im OpenPEARL Compiler.
+
+	\begin{table}[H]
+	
+	\begin{center}
+		\renewcommand{\arraystretch}{1.2}
+		\begin{tabular}{|p{0.2\textwidth}|p{0.6\textwidth}|p{0.2\textwidth}|}
+			\hline
+			\textbf{Fehler} & \textbf{Beschreibung} & \textbf{Kontext}\\
+			\hline
+			Belegung Semaphoren & Die atomare Belegung mehrere Semaphoren ist nicht möglich & Philosophen-problem \\
+			\hline
+			INIT BIT(4) & Führende 0 wird bei init von BIT-Arrays nicht berücksichtigt & Schrittmotor \\
+			\hline
+			TRY & TRY Anweisung gibt falschen Datentyp zurück & Gesamtsystem / Synchronisation \\
+			\hline
+			RET & Return ohne Argumente ist nicht möglich & Gesamtsystem / Menü \\
+			\hline
+			
+		\end{tabular}
+	\end{center}
+	\caption{Gefundene Fehler im OpenPEARL Compiler}\label{tab:fehler}
+\end{table}
