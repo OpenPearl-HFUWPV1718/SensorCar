@@ -1,5 +1,5 @@
 ! SensorCar OpenPEARL
-! Authors: Daniel Schlageter, Kevin Hertfelder, Stefan Kienzler, Daniel Petrusic, Patrick Kroner
+! Authors: Daniel Schlageter, Kevin Hertfelder, Stefan Kienzler
 
 MODULE(system);
 	SYSTEM;

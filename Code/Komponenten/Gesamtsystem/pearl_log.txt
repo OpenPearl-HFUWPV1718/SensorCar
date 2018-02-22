@@ -1,4 +1,0 @@
-17:05:00.004624 WARN:  no .pearlrc found
-17:05:00.004984 WARN:  error setting SCHED_RR --> using normal scheduler
-17:05:08.212282 WARN:     Task _parcour terminates while 1 other tasks wait to terminate it
-17:05:23.014519 WARN:     Task _parcour terminates while 1 other tasks wait to terminate it
