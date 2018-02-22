@@ -74,7 +74,7 @@ Verbunden wir der Sensor im Gegensatz zum Lichtrechen erfolgt die Datenverbindun
 
 Die Datenpins 2 und 3 am Raspberry Pi sind standartmäßig für diesen Bus vorkonfiguriert. Die Unterstützung von I2C auf dem Raspberry Pi muss aber erst konfiguriert werden. Dazu muss der Befehl “raspi-config“ ausgeführt werden und dort unter “Advanced Options“ Die Unterstützung in Kernel eingeschaltet werden. Zusätzlich musste in der Datei “/boot/config.txt“ noch die Zeile “ dtparam=i2c1=on“ angefügt werden.
 
-Um den Farbsensor in Pearl benutzen zu können musste dafür noch ein Treiben in C++ geschrieben werden. Dieser umfasst die Dateien “TCS34725.cc“, “TCS34725.h“ und “TCS34725.xml“ dieser Treiber wird in eine Headerfile von open Pearl integriert werden und stellt alle Methoden für die Nutzung des Sensors als DATION in OpenPEARL zur Verfügung.
+Um den Farbsensor in Pearl benutzen zu können musste dafür noch ein Treiben in C++ geschrieben werden. Dieser umfasst die Dateien “TCS34725.cc“, “TCS34725.h“ und “TCS34725.xml“ dieser Treiber wird in eine Headerfile von OpenPEARL integriert werden und stellt alle Methoden für die Nutzung des Sensors als DATION in OpenPEARL zur Verfügung.
 
 Bei der Auswertung der Rohdaten vom Sensor konvertieren wir die Daten in Standard RGB Werte mit einer Spanne von 0 bis 255.
 
@@ -83,6 +83,6 @@ Bei der Auswertung der Rohdaten vom Sensor konvertieren wir die Daten in Standar
 
 Die Webseite kann im gleichen Netz über <ipadresse>/index.html aufgerufen werden. Damit die Daten immer aktuell sind, wird die Seite alle zwei Sekunden aktualisiert.
 
-OpenPEARL hat von sich aus keine Möglichkeit ein Socket aufzusetzen. Es musste daher zuerst implementiert werden. Hierzu wurde eine C++ Datei mit dazugehöriger XML Datei geschrieben und dem System hinzugefügt. Die Dateien wurden im Makefile und im "PearlIncludes.h" registriert. 
+OpenPEARL hat von sich aus keine Möglichkeit ein Socket aufzusetzen. Es musste daher zuerst implementiert werden. Hierzu wurde eine C++ Datei mit dazugehöriger XML Datei geschrieben und dem System hinzugefügt. Die Dateien wurden im Makefile und im \texttt{PearlIncludes.h} registriert. 
 
-Um ein Socket aufzusetzen muss man im Systemteil von OpenPEARL TcpIpServer + den Port über den man kommunizieren will angeben. Im Problemteil kann man dann über "DATION INOUT" deklarieren. Um nun eine Anfrage erhalten zu können muss man das Socket über "OPEN" öffnen. Die Anfrage kann man dann mit "GET" abfragen und bearbeiten. Mit "PUT" schickt man daten zurück. Zum Schluss muss man das Socket mit "CLOSE" wieder schließen. Wenn dies in einer Dauerschleife läuft kann jede Anfrage bearbeitet werden. 
+Um ein Socket aufzusetzen muss man im Systemteil von OpenPEARL TcpIpServer + den Port über den man kommunizieren will angeben. Im Problemteil kann man dann über \texttt{DATION INOUT} deklarieren. Um nun eine Anfrage erhalten zu können muss man das Socket über \texttt{OPEN} öffnen. Die Anfrage kann man dann mit \texttt{GET} abfragen und bearbeiten. Mit \texttt{PUT} schickt man Daten zurück. Zum Schluss muss man das Socket mit \texttt{CLOSE}  wieder schließen. Wenn dies in einer Dauerschleife läuft kann jede Anfrage bearbeitet werden. 
