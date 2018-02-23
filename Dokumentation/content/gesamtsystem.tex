@@ -1,10 +1,11 @@
 \chapter{Gesamtsystem}
-Das SensorCar als Gesamtsystem setzt sich aus dem im Kapitel \ref{komponenten} beschriebenen Komponenten zusammen. Bisher wurde bei der Programmierung der Komponenten oft von Modulen gesprochen, es ist aber zu bemerken, dass die Nutzung des PEARL-Konstrukts \texttt{MODULE} aufgrund fehlender Implementierung in OpenPEARL nicht genutzt werden konnte. Im Folgenden wird zuerst die Architektur und dann die Bedienung des SensorCar erläutert. Der vollständige, dokumentierte Code kann auch hierzu im \href{https://github.com/OpenPearl-HFUWPV1718/SensorCar}{Git-Repository} abgerufen werden.
+Das SensorCar als Gesamtsystem setzt sich aus dem im Kapitel \ref{komponenten} beschriebenen Komponenten zusammen. Bisher wurde bei der Programmierung der Komponenten oft von Modulen gesprochen, es ist aber zu bemerken, dass die Nutzung des PEARL-Konstrukts \texttt{MODULE} aufgrund fehlender Implementierung in OpenPEARL nicht genutzt werden konnte. Im Folgenden wird zuerst die Architektur und dann die Bedienung des SensorCar erläutert. Der vollständige, dokumentierte Code kann auch hierzu, im Ordner \emph{Code/Komponenten/Gesamtsystem} des \href{https://github.com/OpenPearl-HFUWPV1718/SensorCar}{Git-Repositories} abgerufen werden.
 
 \section{Programmübersicht und Modi}
 Nach dem Starten des Programms wird ein Hauptmenü angezeigt, dass die Auswahl zwischen zwei Modi erlaubt:
 Der \textbf{Demonstrationsmodus} erlaubt es, das Fahrzeug über ssh zu steuern, d.h. es mit einer bestimmten Geschwindigkeit vor- oder rückwärts fahren zu lassen.
-Im \textbf{Parcourmodus} fährt das Auto selbstständig einer Linie nach und reagiert auf farbige Punkte auf der Strecke.\\
+Im \textbf{Parcourmodus} fährt das Auto selbstständig einer Linie nach und reagiert auf farbige Punkte auf der Strecke.
+
 In beiden Modi kann der aktuelle Ablauf jederzeit unterbrochen werden. Im Parcourmodus erfolgt zudem die Ausgabe der Sensorwerte über ein Webinterface.  
 
 \section{Architektur}
@@ -23,23 +24,23 @@ Die Task \texttt{light} ist dabei ein Spezialfall, da sie sowohl die \texttt{bli
 
 Im Folgenden ist die Funktionalität der einzelnen Tasks nochmals genauer erläutert:
 \begin{itemize}
-	\item \textbf{\texttt{main}}: Die Task \texttt{main} ist zuständig für den Gesamtablauf. Sie ruft die Prozeduren \texttt{init} und \texttt{term} bei Beginn und Ende des Programms auf und stellt während der Laufzeit das Menü dar und behandelt Nutzereingaben.
+	\item \textbf{\texttt{main}}: Die Task \texttt{main} ist zuständig für den Gesamtablauf. Sie ruft die Prozeduren \texttt{init} und \texttt{term} bei Beginn und Ende des Programms auf und stellt während der Laufzeit das Menü dar und behandelt Nutzereingaben. Sie startet und beendet dafür, je nach Modus, die Tasks \texttt{demo} und \texttt{parcour}.
 	
 	\item \textbf{\texttt{demo}}: Die Task \texttt{demo} implementiert die Funktionalität im Demonstrationsmodus. Unter Nutzung der Prozeduren \texttt{straight} und \texttt{stop\_motors} ermöglicht sie das Fahren nach Eingabeparametern.
 	
-	\item \textbf{\texttt{parcour}}: Die Task \texttt{parcour} implementiert die Funktionalität des Parcourmodus. Unter Nutzung der Prozeduren \texttt{straight} und \texttt{stopmotors} ermöglicht sie das Fahren oder Halten nach erkannten Farben.
+	\item \textbf{\texttt{parcour}}: Die Task \texttt{parcour} implementiert die Funktionalität des Parcourmodus. Unter Nutzung der Prozeduren \texttt{straight} und \texttt{stopmotors} ermöglicht sie das Fahren oder Halten nach erkannten Farben, durch Nutzung des Lichtrechensignals steuert sie die Motoren entsprechend der erkannten Linienposition.
 	
 	\item \textbf{\texttt{light}}: Die Task \texttt{light} steuert die Scheinwerfer des Fahrzeugs und setzt Signale für die Blinker.
 	
 	\item \textbf{\texttt{blinker}}: Die Task \texttt{blinker} steuert die Blinker.
 	
-	\item \textbf{\texttt{driveleft}}: Die Task \texttt{driveleft} steuert mittels der Prozedur \texttt{step} den linken Schrittmotor an. Die Parameter für den Motor werden aus einer Geschwindigkeitsvariablen errechnet.
+	\item \textbf{\texttt{driveleft}}: Die Task \texttt{driveleft} steuert mittels der Prozedur \texttt{step} den linken Schrittmotor an. Die Parameter für den Motor werden aus einer Geschwindigkeitsvariablen, gesetzt durch die steuernde Task, errechnet.
 	
-	\item \textbf{\texttt{driveright}}: Die Task \texttt{driveright} steuert mittels der Prozedur \texttt{step} den rechten Schrittmotor an. Die Parameter für den Motor werden aus einer Geschwindigkeitsvariablen errechnet.
+	\item \textbf{\texttt{driveright}}: Die Task \texttt{driveright} steuert mittels der Prozedur \texttt{step} den rechten Schrittmotor an. Die Parameter für den Motor werden aus einer Geschwindigkeitsvariablen, gesetzt durch die steuernde Task, errechnet.
 	
-	\item \textbf{\texttt{readlr}}: Die Task \texttt{readlr} liest das Signal des Lichtrechens aus und gibt es weiter.
+	\item \textbf{\texttt{readlr}}: Die Task \texttt{readlr} liest das Signal des Lichtrechens aus und errechnet daraus die Position der Linie relativ zur Fahrzeugposition.
 	
-	\item \textbf{\texttt{readlr}}: Die Task \texttt{readfs} liest das Signal des Farbsensors aus und gibt es weiter.
+	\item \textbf{\texttt{readlr}}: Die Task \texttt{readfs} liest das Signal des Farbsensors aus und errechnet daraus eine erkannte Farbe.
 	
 	\item \textbf{\texttt{webinterface}}: Die Task \texttt{webinterface} steuert das Webinterface.
 \end{itemize}
@@ -48,6 +49,7 @@ Im Folgenden ist die Funktionalität der einzelnen Tasks nochmals genauer erläu
 Die Kommunikation der Tasks untereinander erfolgt über globale Variablen. Der Zugriff erfolgt mittels \texttt{BOLT}, einem Konstrukt, dass das Schreiber-Leser-Problem effizient löst. So können mehrere lesende Zugriffe oder ein schreibender Zugriff gleichzeitig erfolgen.
 
 \subsection{Synchronisation / Ablaufsteuerung}
-Die Synchronisation bzw. Ablaufsteuerung der Tasks wird mittels Semaphoren umgesetzt. Für die Synchronisation von steuernden und ausführenden Tasks wurde das Erzeuger-Verbraucher-Muster mit Semaphoren umgesetzt, sodass z.B. neue Sensorwerte erst nach der Verarbeitung der letzten eingelesen werden. Dieses Muster wird ebenfalls eingesetzt um die Motoren zu synchronisieren, also das Beenden des Fahrvorgangs beider Motoren abzuwarten.\\
+Die Synchronisation bzw. Ablaufsteuerung der Tasks wird mittels Semaphoren umgesetzt. Für die Synchronisation von steuernden und ausführenden Tasks wurde das Erzeuger-Verbraucher-Muster mit Semaphoren umgesetzt, sodass z.B. neue Sensorwerte erst nach der Verarbeitung der letzten eingelesen werden. Dieses Muster wird ebenfalls eingesetzt um die Motoren zu synchronisieren, also das Beenden des Fahrvorgangs beider Motoren abzuwarten.
+
 Bei der Umschaltung vom Demo- in den Parcourmodus wird die jeweilige steuernde Task terminiert. Dazu wird der Task über eine globale Variable mitgeteilt, dass sie sich beenden soll. Daraufhin wird der aktuelle Zyklus beendet, die Task gibt eine Semaphore frei und geht in den Zustand \texttt{SUSPEND}, sodass sie sicher terminiert werden kann. Dadurch ist sowohl die Konsistenz als auch der Zustand der Task gesichert, und sie kann problemlos neu gestartet werden.
 

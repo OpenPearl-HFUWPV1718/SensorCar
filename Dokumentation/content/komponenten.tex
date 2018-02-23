@@ -1,5 +1,8 @@
 \chapter{Komponenten}
 \label{komponenten}
+
+Im Folgenden sind die Konzepte und Herangehensweisen für die Programmierung der einzelnen Komponentenmodule beschrieben. Komplette, dokumentierte Module können im Ordner \emph{Code/Komponenten} des \href{https://github.com/OpenPearl-HFUWPV1718/SensorCar}{Repositories} eingesehen werden.
+
 \section{Raspberry Pi 3}
 Als Entwicklungs- und Zielplattform wird ein Raspberry Pi 3 genutzt, auf dem OpenPEARL installiert ist. Die Sensoren und Aktoren sollen wie in Tabelle \ref{tab:anschlussplan} am Raspberry Pi angeschlossen werden:
 
@@ -16,10 +19,6 @@ Als Entwicklungs- und Zielplattform wird ein Raspberry Pi 3 genutzt, auf dem Ope
 			\hline
 			Farbsensor & 2, 3 (I$^2$C) & 3,3 / 5V\\
 			\hline
-			Gyroskop & 2, 3 (I$^2$C) & 5V\\
-			\hline
-			Kompass & 2, 3 (I$^2$C) & 5V\\
-			\hline
 			LEDs & 24 -- & 5V\\
 			\hline
 		\end{tabular}
@@ -29,6 +28,8 @@ Als Entwicklungs- und Zielplattform wird ein Raspberry Pi 3 genutzt, auf dem Ope
 
 Der zugrundeliegende Belegungsplan ist im Anhang \ref{Belegungsplan} zu finden.
 
+\section{LEDs}
+Die LEDs können über einen Vorwiderstand direkt über jeweils einen GPIO-Pin des Raspberry Pi angesteuert werden und erfordern keine weitere Konfiguration. Zur Nutzung im Gesamtsystem wurden LED-Module entwickelt, bei denen jede LED über eine Transistorschaltung angesteuert wird, programmtechnisch ergibt sich daraus jedoch keine Änderung.
 
 \section{Schrittmotor}
 Die Schrittmotoren werden jeweils über einen Motortreiber und vier GPIO-Pins des Raspberry Pi angesteuert. Energie erhält der Motor durch ein an den Treiber angeschlossenes Netzteil mit 12V Gleichstrom. Durch paarweise Alternieren der Bits an den vier GPIO-Pins wird der Schrittmotor um jeweils einen Schritt bewegt. Es ergibt sich das Bitmuster in Tabelle \ref{wrap-tab:muster}.
@@ -55,7 +56,9 @@ Die Geschwindigkeit des Schrittmotors kann durch die Wartezeit, die Richtung dur
 Zusätzlich ist zu beachten, dass die Belegung mehrerer Pins des Raspberry Pi abwärts erfolgt, d.h. \texttt{RPiDigitalOut(19, 4)} belegt die Pins \texttt{16, 17, 18, 19}. 
 Das Speichern von \texttt{BIT(4)} Variablen in einem Array funktioniert in OpenPEARL aktuell noch nicht; aufgrund der wenigen Zustände wurde auf einen Workaround verzichtet.
 
-In diesem Schritt wurde als Modul eine Prozedur entwickelt, die einen spezifizierten Motor um eine spezifizierte Schrittzahl in spezifizierte Richtung bewegt. Die Synchronisation zur gleichzeitigen Ansteuerung beider Motoren erfolgte erst im Gesamtsystem. Das komplette Schrittmotormodul kann im Ordner \emph{Code/Komponenten/Schrittmotor} des \href{https://github.com/OpenPearl-HFUWPV1718/SensorCar}{Repositories} eingesehen werden.\\
+In diesem Schritt wurde als Modul eine Prozedur entwickelt, die einen spezifizierten Motor um eine spezifizierte Schrittzahl in spezifizierte Richtung bewegt. Mittels zweier Tasks können so auch beide Motoren parallel angesteuert werden.
+
+Auf quantitave Dokumentation von Drehmoment und maximaler Geschwindigkeit wurde verzichtet, es wurde stattdessen lediglich die qualitative Eignung zur Nutzung im Gesamtsystem festgestellt.
 
 
 \section{Lichtrechen}
@@ -71,22 +74,22 @@ Im Versuchsaufbau ist der Lichtrechen am vordern Ende des Autos auf der Untersei
 
 
 \section{Farbsensor}
-Der Farbsensor TCS 34725 der Marke Adafruit besitzt einen Sensor, der sowohl einen RGB-Farbwert als auch die gesamt Helligkeit ermitteln lässt. Um die Farben Best möglichst zu erkennen, besitzt der Sensor eine sehr helle LED mit weißem Licht. In unserem Projekt soll der Farbsensor farbige Signal-Punkte auf der Strecke erkennen die denen das Auto beispielsweise das Ende der Strecke erkennen soll. 
+Der eingesetzte Farbsensor \emph{TCS 34725} der Marke Adafruit besitzt einen Sensor, der sowohl einen RGB-Farbwert als auch die gesamt Helligkeit ermitteln lässt. Um die Farben bestmöglichst zu erkennen, besitzt der Sensor eine sehr helle LED mit weißem Licht. In unserem Projekt soll der Farbsensor farbige Signalpunkte auf der Strecke erkennen, anhand derer das Auto beispielsweise das Ende der Strecke erkennen soll. 
 
-Die Datenverbindung zum Farbsensor stellt im Gegensatz zum Lichtrechen ein I2C-Bus her. Zu den üblichen zwei Datenverbindungen des I2C besitzt der Sensor ebenfalls einen Stromverbindung für 5 und 3.3V, eine Erdung und einen Pin zur Steuerung der LED.
+Die Datenverbindung zum Farbsensor stellt ein I2C-Bus her. Zu den üblichen zwei Datenverbindungen des I2C besitzt der Sensor ebenfalls einen Stromverbindung für 5 und 3.3V, eine Erdung und einen Pin zur Steuerung der LED.
 
-Die Datenpins 2 und 3 am Raspberry Pi sind standardmäßig für diesen Bus vorkonfiguriert. Die Unterstützung von I2C auf dem Raspberry Pi muss aber erst konfiguriert werden. Dazu muss der Befehl “raspi-config“ ausgeführt werden und dort unter “Advanced Options“ Die Unterstützung in Kernel eingeschaltet werden. Zusätzlich musste in der Datei “/boot/config.txt“ noch die Zeile “ dtparam=i2c1=on“ angefügt werden. (Eine detaillierter Anleitung auf: [\url{https://developer-blog.net/raspberry-pi-i2c-aktivieren/} ; Stand: 20.02.2018])
+Die Datenpins 2 und 3 am Raspberry Pi sind standardmäßig für diesen Bus vorkonfiguriert. Die Unterstützung von I2C auf dem Raspberry Pi muss aber erst konfiguriert werden. Dazu muss der Befehl \texttt{raspi-config} ausgeführt werden und dort unter “Advanced Options“ Die Unterstützung in Kernel eingeschaltet werden. Zusätzlich musste in der Datei \emph{/boot/config.txt} noch die Zeile \texttt{dtparam=i2c1=on} angefügt werden. (Dies erfolgte nach der detaillierten Anleitung in \footnote{https://developer-blog.net/raspberry-pi-i2c-aktivieren/, zuletzt abgerufen am: 20.02.2018}.)
 
-Um den Farbsensor in Pearl benutzen zu können, musste dafür noch ein Treiben in C++ geschrieben werden. Dieser umfasst die Dateien “TCS34725.cc“, “TCS34725.h“ und “TCS34725.xml“ dieser Treiber wird in eine Headerfile von OpenPEARL integriert werden und stellt alle Methoden für die Nutzung des Sensors als DATION in OpenPEARL zur Verfügung. Dabei definiert der Treiber die Schnittstellen dationOpen zum inizialisieren des Sesors und dationClose um den Sensor zu schließen. Wenn der Sensor mit dationOpen geöffnet wurde, kann mit dationRead ein Datensatz vom Sensor ausgelesen werden. 
+Um den Farbsensor in Pearl benutzen zu können, musste dafür noch ein Treiben in C++ geschrieben werden. Dieser umfasst die Dateien \emph{TCS34725.c}, \emph{TCS34725.h} und \emph{TCS34725.xml}. Dieser Treiber wird in eine Headerfile von OpenPEARL integriert und stellt alle Methoden für die Nutzung des Sensors als \texttt{DATION} in OpenPEARL zur Verfügung. Dabei definiert der Treiber die Schnittstellen dationOpen zum initialisieren des Sensors und dationClose, um den Sensor zu schließen. Wenn der Sensor mit dationOpen geöffnet wurde, kann mit dationRead ein Datensatz vom Sensor ausgelesen werden. 
 
 Bei der Auswertung der Rohdaten vom Sensor wollten wir die Daten in Standard RGB Werte mit einer Spanne von 0 bis 255 konvertieren, doch durch die Ungenauigkeit und große Differenz der Farbwerte war es einfacher und zuverlässiger mit den Rohdaten zu arbeiten. Rot und Grün wurden jeweils mit großem Ausschlag vom Sensor gemessen, wohingegen Blau eher schwierig zu bestimmen war.
 
 Im Versuchsaufbau ist der Farbsensor an der Spitze des Autos auf der Unterseite der Bodenplatte angebracht, wo er, wie der Lichtrechen, knapp über dem Boden befestigt ist, um die Fehlerrate zu minimieren.
 
 \section{TCP/IP Socket}
-Über das Socket werden die Daten des SensorCars auf einer Webseite angezeigt. Hierbei bekommt das Socket einen html request vom Browser, an den er dann den HTML-Code schickt. Es werden die Geschwindigkeit des rechten sowie des linken Motors, den Status der Blinker und der Farbsensors angezeigt. Es können außerdem Informationen zum Projekt und die Dokumentation aufgerufen werden. 
+Über das Socket werden die Daten des SensorCars auf einer Webseite angezeigt. Hierbei bekommt das Socket einen html request vom Browser, an den es dann den HTML-Code schickt. Es werden die Geschwindigkeit des rechten sowie des linken Motors, der Status der Blinker und des Farbsensors angezeigt. Es können außerdem Informationen zum Projekt und die Dokumentation aufgerufen werden. 
 
-Die Webseite kann im gleichen Netz über <ipadresse>/index.html aufgerufen werden. Damit die Daten immer aktuell sind, wird die Seite alle zwei Sekunden aktualisiert.
+Die Webseite kann im gleichen Netz über \emph{<ipadresse>/index.html} aufgerufen werden. Damit die Daten immer aktuell sind, wird die Seite alle zwei Sekunden aktualisiert.
 
 OpenPEARL hat von sich aus keine Möglichkeit ein Socket aufzusetzen. Es musste daher zuerst implementiert werden. Hierzu wurde eine C++ Datei mit dazugehöriger XML Datei geschrieben und dem System hinzugefügt. Die Dateien wurden im Makefile und im \texttt{PearlIncludes.h} registriert. 
 
